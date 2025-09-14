@@ -1,8 +1,6 @@
 # Adhyatma Crystal Store
 #live link :[https://adhyatma.vercel.app/]
 ##
-#live link :[https://adhyatma.vercel.app/]
-..
 A modern, responsive e-commerce website for a premium crystal store specializing in ethically sourced, energetically charged crystals for healing, mindfulness, and spiritual growth.
 
 ## 🌟 Features
