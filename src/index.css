@@ -1,0 +1,401 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Soft Lavender & Blush Palette - Matching Adhyatma Store */
+    --background: 0 0% 100%;
+    --foreground: 270 15% 20%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 270 15% 20%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 270 15% 20%;
+    
+    --primary: 270 30% 60%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 280 20% 95%;
+    --secondary-foreground: 270 15% 20%;
+    
+    --muted: 280 15% 96%;
+    --muted-foreground: 270 10% 45%;
+    
+    --accent: 330 30% 70%;
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 280 15% 90%;
+    --input: 280 15% 95%;
+    --ring: 270 30% 60%;
+    
+    --radius: 0.5rem;
+    
+    /* Lenis Smooth Scrolling */
+    --lenis-scrollbar-width: 0px;
+    --lenis-scrollbar-color: transparent;
+    
+    /* Custom Design Tokens - Soft & Ethereal */
+    --lavender-soft: 270 30% 85%;
+    --blush-soft: 330 30% 85%;
+    --mystic-purple: 270 30% 60%;
+    --mystic-light: 280 20% 95%;
+    --mystic-glow: 270 50% 70%;
+    --gold-accent: 45 60% 55%;
+    --gold-light: 45 40% 70%;
+    
+    /* Gradients - Soft & Ethereal */
+    --gradient-mystic: linear-gradient(135deg, hsl(270 30% 60%), hsl(280 40% 70%));
+    --gradient-ethereal: linear-gradient(180deg, hsl(280 20% 98%), hsl(270 15% 95%));
+    --gradient-glow: radial-gradient(circle at center, hsl(270 30% 60% / 0.1), transparent 70%);
+    --gradient-gold: linear-gradient(135deg, hsl(45 60% 55%), hsl(45 40% 70%));
+    --gradient-soft: linear-gradient(135deg, hsl(270 20% 95%), hsl(330 20% 95%));
+    
+    /* Shadows - Soft & Subtle */
+    --shadow-mystic: 0 2px 15px -2px hsl(270 30% 60% / 0.1);
+    --shadow-glow: 0 0 30px hsl(270 30% 60% / 0.15);
+    --shadow-soft: 0 1px 8px hsl(270 10% 40% / 0.08);
+    --shadow-gold: 0 2px 15px hsl(45 60% 55% / 0.15);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 270 15% 20%;
+    --sidebar-primary: 270 30% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 280 20% 95%;
+    --sidebar-accent-foreground: 270 15% 20%;
+    --sidebar-border: 280 15% 90%;
+    --sidebar-ring: 270 30% 60%;
+  }
+
+  .dark {
+    --background: 270 40% 8%;
+    --foreground: 280 20% 95%;
+    
+    --card: 270 35% 12%;
+    --card-foreground: 280 20% 95%;
+    
+    --popover: 270 35% 12%;
+    --popover-foreground: 280 20% 95%;
+    
+    --primary: 270 60% 60%;
+    --primary-foreground: 270 40% 8%;
+    
+    --secondary: 270 30% 20%;
+    --secondary-foreground: 280 20% 95%;
+    
+    --muted: 270 25% 18%;
+    --muted-foreground: 270 20% 65%;
+    
+    --accent: 45 80% 52%;
+    --accent-foreground: 270 40% 8%;
+    
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 280 20% 95%;
+    
+    --border: 270 25% 18%;
+    --input: 270 25% 18%;
+    --ring: 270 60% 60%;
+    
+    --sidebar-background: 270 35% 10%;
+    --sidebar-foreground: 280 20% 95%;
+    --sidebar-primary: 270 60% 60%;
+    --sidebar-primary-foreground: 270 40% 8%;
+    --sidebar-accent: 270 30% 20%;
+    --sidebar-accent-foreground: 280 20% 95%;
+    --sidebar-border: 270 25% 18%;
+    --sidebar-ring: 270 60% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply backdrop-blur-lg bg-white/10 border border-white/20;
+  }
+  
+  .text-gradient-mystic {
+    @apply bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hover-glow {
+    transition: var(--transition-glow);
+  }
+  
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .mystic-border {
+    @apply relative overflow-hidden;
+  }
+  
+  .mystic-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: inherit;
+    background: var(--gradient-mystic);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
+
+/* Lenis Smooth Scrolling Enhancements */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Smooth scroll indicators */
+.scroll-indicator {
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+  transform: translateX(-100%);
+  animation: scrollProgress 2s ease-in-out infinite;
+}
+
+@keyframes scrollProgress {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Enhanced scroll behavior */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  .animate-crystal-pulse {
+    animation: crystalPulse 6s ease-in-out infinite;
+  }
+  
+  @keyframes crystalPulse {
+    0%, 100% { 
+      transform: scale(1) rotate(0deg);
+      filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.3));
+    }
+    25% { 
+      transform: scale(1.05) rotate(1deg);
+      filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.5));
+    }
+    50% { 
+      transform: scale(1.1) rotate(0deg);
+      filter: drop-shadow(0 0 40px rgba(147, 51, 234, 0.7));
+    }
+    75% { 
+      transform: scale(0.95) rotate(-1deg);
+      filter: drop-shadow(0 0 25px rgba(147, 51, 234, 0.4));
+    }
+  }
+  
+  .animate-particle-float {
+    animation: particleFloat 4s ease-in-out infinite;
+  }
+  
+  @keyframes particleFloat {
+    0%, 100% { 
+      transform: translateY(0px) scale(1);
+      opacity: 0.6;
+    }
+    50% { 
+      transform: translateY(-10px) scale(1.2);
+      opacity: 1;
+    }
+  }
+  
+  .animate-spin-slow {
+    animation: spinSlow 20s linear infinite;
+  }
+  
+  @keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .animate-spin-reverse {
+    animation: spinReverse 15s linear infinite;
+  }
+  
+  @keyframes spinReverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+  }
+  
+  .animate-logo-glow {
+    animation: logoGlow 4s ease-in-out infinite;
+  }
+  
+  @keyframes logoGlow {
+    0%, 100% { 
+      filter: drop-shadow(0 0 20px rgba(147, 51, 234, 0.3)) brightness(1);
+    }
+    25% { 
+      filter: drop-shadow(0 0 30px rgba(147, 51, 234, 0.5)) brightness(1.1);
+    }
+    50% { 
+      filter: drop-shadow(0 0 40px rgba(147, 51, 234, 0.7)) brightness(1.2);
+    }
+    75% { 
+      filter: drop-shadow(0 0 25px rgba(147, 51, 234, 0.4)) brightness(1.05);
+    }
+  }
+  
+  .animate-orbital-float {
+    animation: orbitalFloat 8s ease-in-out infinite;
+  }
+  
+  @keyframes orbitalFloat {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg);
+    }
+    25% { 
+      transform: translateY(-5px) rotate(90deg);
+    }
+    50% { 
+      transform: translateY(-10px) rotate(180deg);
+    }
+    75% { 
+      transform: translateY(-5px) rotate(270deg);
+    }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  
+  @keyframes pulseGlow {
+    0%, 100% { 
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .scroll-animate.animate-fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

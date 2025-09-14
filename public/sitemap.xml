@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.adhyatma.store/</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.adhyatma.store/og-image.jpg</image:loc>
+      <image:title>Adhyatma Crystal Store - Sacred Stones for Modern Soul</image:title>
+      <image:caption>Premium crystal store offering ethically sourced, energetically charged crystals</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Shop Categories -->
+  <url>
+    <loc>https://www.adhyatma.store/#shop</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Natural Crystals -->
+  <url>
+    <loc>https://www.adhyatma.store/category/natural-crystals</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Healing Crystals -->
+  <url>
+    <loc>https://www.adhyatma.store/category/healing-crystals</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Crystal Bottles -->
+  <url>
+    <loc>https://www.adhyatma.store/category/crystal-bottles</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Crystal Kits -->
+  <url>
+    <loc>https://www.adhyatma.store/category/crystal-kits</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Crystal Bracelets -->
+  <url>
+    <loc>https://www.adhyatma.store/category/crystal-bracelets</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Tumbled Stones -->
+  <url>
+    <loc>https://www.adhyatma.store/category/tumbled-stones</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Crystal Trees -->
+  <url>
+    <loc>https://www.adhyatma.store/category/crystal-trees</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- About Us -->
+  <url>
+    <loc>https://www.adhyatma.store/#mission</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact -->
+  <url>
+    <loc>https://www.adhyatma.store/#contact</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Blog -->
+  <url>
+    <loc>https://www.adhyatma.store/blog</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Checkout -->
+  <url>
+    <loc>https://www.adhyatma.store/checkout</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>
