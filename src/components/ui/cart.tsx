@@ -13,7 +13,7 @@ export function Cart() {
   return (
     <div
       className={cn(
-        'fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-background shadow-xl transition-transform duration-300 ease-in-out',
+        'fixed inset-y-0 right-0 z-[60] w-full max-w-sm bg-background shadow-xl transition-transform duration-300 ease-in-out',
         isOpen ? 'translate-x-0' : 'translate-x-full'
       )}
     >
