@@ -66,22 +66,45 @@ export default {
           DEFAULT: "hsl(var(--gold-accent))",
           light: "hsl(var(--gold-light))",
         },
+        peach: {
+          DEFAULT: "hsl(var(--peach-soft))",
+        },
+        mint: {
+          DEFAULT: "hsl(var(--mint-soft))",
+        },
+        rose: {
+          DEFAULT: "hsl(var(--rose-soft))",
+        },
+        lilac: {
+          DEFAULT: "hsl(var(--lilac-soft))",
+        },
       },
       backgroundImage: {
         'gradient-mystic': 'var(--gradient-mystic)',
         'gradient-ethereal': 'var(--gradient-ethereal)',
         'gradient-glow': 'var(--gradient-glow)',
         'gradient-gold': 'var(--gradient-gold)',
+        'gradient-soft': 'var(--gradient-soft)',
+        'gradient-peach': 'var(--gradient-peach)',
+        'gradient-mint': 'var(--gradient-mint)',
+        'gradient-rose': 'var(--gradient-rose)',
+        'gradient-lilac': 'var(--gradient-lilac)',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       boxShadow: {
         'mystic': 'var(--shadow-mystic)',
         'glow': 'var(--shadow-glow)',
         'soft': 'var(--shadow-soft)',
         'gold': 'var(--shadow-gold)',
+        'peach': 'var(--shadow-peach)',
+        'mint': 'var(--shadow-mint)',
+        'rose': 'var(--shadow-rose)',
+        'lilac': 'var(--shadow-lilac)',
       },
       fontFamily: {
         'playfair': ['Playfair Display', 'serif'],
         'inter': ['Inter', 'sans-serif'],
+        'lobster': ['Lobster', 'Brush Script MT', 'Lucida Handwriting', 'Comic Sans MS', 'cursive', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

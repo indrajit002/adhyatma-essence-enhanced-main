@@ -102,7 +102,7 @@ export function PaymentForm({
       
       <Button 
         type="submit" 
-        className="w-full py-6 text-lg" 
+        className="w-full py-6 text-lg font-lobster" 
         disabled={!stripe || isSubmitting}
         onClick={handleSubmit}
       >

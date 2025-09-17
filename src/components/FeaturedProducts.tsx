@@ -60,10 +60,10 @@ const FeaturedProducts = () => {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-playfair font-bold mb-4 text-gray-800">
+          <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
             Featured Products
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 font-lobster">
             Discover our most loved crystals and healing stones
           </p>
         </div>
@@ -122,7 +122,7 @@ const FeaturedProducts = () => {
               </div>
               
               <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                <h3 className="text-lg font-lobster mb-2 text-gray-800">
                   {product.name}
                 </h3>
                 <p className="text-sm text-gray-600 mb-3">
@@ -147,7 +147,7 @@ const FeaturedProducts = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xl font-bold text-gray-800">
+                    <span className="text-xl font-lobster text-gray-800">
                       ₹{product.price}
                     </span>
                     {product.originalPrice && (
@@ -158,7 +158,7 @@ const FeaturedProducts = () => {
                   </div>
                   <Button 
                     size="sm" 
-                    className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-none font-medium"
+                    className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-none font-lobster"
                     onClick={() => addItem({
                       id: product.id,
                       name: product.name,
@@ -177,7 +177,7 @@ const FeaturedProducts = () => {
         <div className="text-center mt-12">
           <Button 
             variant="outline" 
-            className="border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-3 rounded-none font-medium tracking-wide"
+            className="border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-3 rounded-none font-lobster tracking-wide"
           >
             View All Products
           </Button>

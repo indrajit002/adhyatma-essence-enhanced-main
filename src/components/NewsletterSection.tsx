@@ -22,7 +22,7 @@ const NewsletterSection = () => {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-6">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-gray-800">
+          <h2 className="text-3xl md:text-4xl font-lobster font-normal mb-6 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
             Let's Stay in Touch
           </h2>
           
@@ -37,7 +37,7 @@ const NewsletterSection = () => {
             />
             <Button 
               type="submit" 
-              className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-none font-medium tracking-wide"
+              className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white rounded-none font-lobster tracking-wide"
             >
               Submit
             </Button>

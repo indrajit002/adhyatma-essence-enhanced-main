@@ -40,7 +40,7 @@ const CartTest = () => {
               <span className="text-lg font-medium">
                 Items: {totalItems} | Total: ₹{totalAmount.toFixed(2)}
               </span>
-              <Button onClick={toggleCart} className="flex items-center gap-2">
+              <Button onClick={toggleCart} className="flex items-center gap-2 font-lobster">
                 <ShoppingCart className="w-4 h-4" />
                 View Cart ({totalItems})
               </Button>
@@ -97,7 +97,7 @@ const CartTest = () => {
               <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
               <p className="text-2xl font-bold text-purple-600 mb-4">₹{product.price}</p>
               <Button
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-lobster"
                 onClick={() => addItem(product)}
               >
                 Add to Cart
@@ -112,24 +112,28 @@ const CartTest = () => {
           <div className="flex flex-wrap gap-4">
             <Button
               variant="outline"
+              className="font-lobster"
               onClick={() => addItem(testProducts[0], 3)}
             >
               Add 3x Test Crystal 1
             </Button>
             <Button
               variant="outline"
+              className="font-lobster"
               onClick={() => addItem(testProducts[1], 2)}
             >
               Add 2x Test Crystal 2
             </Button>
             <Button
               variant="outline"
+              className="font-lobster"
               onClick={() => addItem(testProducts[2], 5)}
             >
               Add 5x Test Crystal 3
             </Button>
             <Button
               variant="destructive"
+              className="font-lobster"
               onClick={clearCart}
             >
               Clear Cart

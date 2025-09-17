@@ -70,7 +70,7 @@ export function PaytmPayment({
       
       <Button 
         type="button" 
-        className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700" 
+        className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700 font-lobster" 
         disabled={isSubmitting}
         onClick={handleSubmit}
       >

@@ -56,11 +56,11 @@ const TestimonialsSection = () => {
     <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-purple-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-playfair font-bold mb-8 bg-gradient-to-r from-gray-800 via-purple-800 to-gray-800 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-lobster font-normal mb-8 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
             What Our Customers Say
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full mb-8"></div>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 font-lobster">
             Join thousands of satisfied customers who have transformed their lives with our crystals
           </p>
         </div>
@@ -76,7 +76,7 @@ const TestimonialsSection = () => {
                 ))}
               </div>
               
-              <p className="text-gray-700 mb-8 leading-relaxed text-lg">
+              <p className="text-gray-700 mb-8 leading-relaxed text-lg font-lobster">
                 "{testimonial.text}"
               </p>
               
@@ -90,8 +90,8 @@ const TestimonialsSection = () => {
                   <div className="absolute inset-0 w-14 h-14 rounded-full bg-gradient-to-r from-purple-200/30 to-pink-200/30 blur-sm"></div>
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-800 text-lg">{testimonial.name}</h4>
-                  <p className="text-gray-600">{testimonial.location}</p>
+                  <h4 className="font-lobster text-gray-800 text-lg">{testimonial.name}</h4>
+                  <p className="text-gray-600 font-lobster">{testimonial.location}</p>
                 </div>
               </div>
             </div>
@@ -101,16 +101,16 @@ const TestimonialsSection = () => {
         <div className="text-center mt-12">
           <div className="flex items-center justify-center space-x-8 text-gray-600">
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-800">10,000+</div>
-              <div className="text-sm">Happy Customers</div>
+              <div className="text-3xl font-lobster text-gray-800">10,000+</div>
+              <div className="text-sm font-lobster">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-800">4.9/5</div>
-              <div className="text-sm">Average Rating</div>
+              <div className="text-3xl font-lobster text-gray-800">4.9/5</div>
+              <div className="text-sm font-lobster">Average Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-gray-800">50+</div>
-              <div className="text-sm">Countries Served</div>
+              <div className="text-3xl font-lobster text-gray-800">50+</div>
+              <div className="text-sm font-lobster">Countries Served</div>
             </div>
           </div>
         </div>

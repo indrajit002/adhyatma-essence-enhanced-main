@@ -32,10 +32,10 @@ const ContactInfo = () => {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-playfair font-bold mb-4 text-gray-800">
+          <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
             Contact Us
           </h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 font-lobster">
             We're here to help you on your crystal journey
           </p>
         </div>
@@ -46,10 +46,10 @@ const ContactInfo = () => {
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <contact.icon className="w-8 h-8 text-gray-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <h3 className="text-lg font-lobster text-gray-800 mb-2">
                 {contact.title}
               </h3>
-              <p className="text-gray-700 font-medium mb-1">
+              <p className="text-gray-700 font-lobster mb-1">
                 {contact.details}
               </p>
               <p className="text-sm text-gray-600">
@@ -61,7 +61,7 @@ const ContactInfo = () => {
 
         <div className="mt-16 text-center">
           <div className="bg-white p-8 rounded-lg shadow-sm max-w-2xl mx-auto">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+            <h3 className="text-2xl font-lobster text-gray-800 mb-4">
               Have a Question?
             </h3>
             <p className="text-gray-600 mb-6">
@@ -71,14 +71,14 @@ const ContactInfo = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="tel:+919395913538" 
-                className="inline-flex items-center justify-center px-6 py-3 bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-300 rounded-none font-medium"
+                className="inline-flex items-center justify-center px-6 py-3 bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-300 rounded-none font-lobster"
               >
                 <Phone className="w-4 h-4 mr-2" />
                 Call Now
               </a>
               <a 
                 href="mailto:Info@mysite.com" 
-                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors duration-300 rounded-none font-medium"
+                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors duration-300 rounded-none font-lobster"
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Send Email

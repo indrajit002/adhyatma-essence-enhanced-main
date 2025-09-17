@@ -69,7 +69,7 @@ export function PhonePePayment({
       
       <Button 
         type="button" 
-        className="w-full py-6 text-lg bg-purple-600 hover:bg-purple-700" 
+        className="w-full py-6 text-lg bg-purple-600 hover:bg-purple-700 font-lobster" 
         disabled={isSubmitting}
         onClick={handleSubmit}
       >

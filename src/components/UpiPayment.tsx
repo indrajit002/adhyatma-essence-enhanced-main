@@ -69,7 +69,7 @@ export function UpiPayment({
       
       <Button 
         type="button" 
-        className="w-full py-6 text-lg bg-green-600 hover:bg-green-700" 
+        className="w-full py-6 text-lg bg-green-600 hover:bg-green-700 font-lobster" 
         disabled={isSubmitting}
         onClick={handleSubmit}
       >

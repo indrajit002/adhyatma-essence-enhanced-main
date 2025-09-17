@@ -9,7 +9,7 @@ const MissionSection = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto text-center">
           <div className="mb-16 scroll-animate" ref={missionRef}>
-            <h2 id="mission-heading" className="text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-gray-800 via-purple-800 to-gray-800 bg-clip-text text-transparent">
+            <h2 id="mission-heading" className="text-5xl md:text-6xl font-lobster font-normal mb-6 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
               Our Mission
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full"></div>
@@ -21,7 +21,7 @@ const MissionSection = () => {
                 <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20"></div>
                 <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full opacity-20"></div>
                 
-                <p className="text-xl md:text-2xl leading-relaxed text-gray-700 mb-10 font-light">
+                <p className="text-xl md:text-2xl leading-relaxed text-gray-700 mb-10 font-lobster">
                   At <span className="font-semibold text-purple-600">Adhyatma</span>, we are devoted to offering ethically sourced, energetically charged crystals 
                   that serve as tools for healing, mindfulness, and spiritual growth. Through education, 
                   intention, and authentic connection, we empower individuals to align with their highest 
@@ -29,7 +29,7 @@ const MissionSection = () => {
                 </p>
                 
                 <Button 
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 rounded-full font-medium tracking-wide text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 transform"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 rounded-full font-lobster tracking-wide text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 transform"
                 >
                   Discover Our Story
                 </Button>

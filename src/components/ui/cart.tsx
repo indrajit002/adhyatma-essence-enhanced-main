@@ -33,7 +33,7 @@ export function Cart() {
               <ShoppingBag className="h-16 w-16 text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium">Your cart is empty</h3>
               <p className="text-sm text-muted-foreground mt-1">Add items to your cart to see them here</p>
-              <Button onClick={toggleCart} className="mt-6">
+              <Button onClick={toggleCart} className="mt-6 font-lobster">
                 Continue Shopping
               </Button>
             </div>
@@ -102,7 +102,7 @@ export function Cart() {
             <p className="mt-0.5 text-sm text-muted-foreground">Shipping and taxes calculated at checkout.</p>
             <div className="mt-4 space-y-2">
               <Button 
-                className="w-full"
+                className="w-full font-lobster"
                 onClick={() => {
                   toggleCart();
                   navigate('/checkout');
@@ -112,14 +112,14 @@ export function Cart() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full"
+                className="w-full font-lobster"
                 onClick={toggleCart}
               >
                 Continue Shopping
               </Button>
               <Button
                 variant="ghost"
-                className="w-full text-sm"
+                className="w-full text-sm font-lobster"
                 onClick={clearCart}
               >
                 Clear Cart

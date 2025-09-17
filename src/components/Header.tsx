@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
-import CrystalLogo from './CrystalLogo';
+import logoImage from '@/assets/logo.png';
 import { useCart } from '@/contexts/cart-context';
 import { useAuth } from '@/contexts/auth-context';
 
@@ -31,7 +31,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-100'
+          ? 'bg-white/95 backdrop-blur-xl shadow-soft border-b border-purple-100'
           : 'bg-transparent'
       }`}
     >
@@ -39,10 +39,14 @@ const Header = () => {
         <nav className="flex items-center justify-between py-6">
           <div className="flex items-center gap-4 group cursor-pointer">
             <div className="relative">
-              <CrystalLogo className="w-10 h-10 group-hover:scale-110 transition-transform duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-200/30 to-pink-200/30 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <img 
+                src={logoImage} 
+                alt="Adhyatma Logo" 
+                className="w-10 h-10 group-hover:scale-110 transition-transform duration-300 object-contain" 
+              />
+              <div className="absolute inset-0 bg-gradient-lilac rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-2xl font-playfair font-bold bg-gradient-to-r from-gray-800 to-purple-800 bg-clip-text text-transparent">
+            <span className="text-2xl font-lobster font-normal bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
               Adhyatma
             </span>
           </div>
@@ -54,19 +58,19 @@ const Header = () => {
                   <a
                     key={link.label}
                     href={link.href}
-                    className="relative text-gray-700 hover:text-purple-600 transition-all duration-300 font-medium text-sm tracking-wide group"
+                    className="relative text-purple-600 hover:text-pink-500 transition-all duration-300 font-lobster text-sm tracking-wide group"
                   >
                     {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
                   </a>
                 ) : (
                   <Link
                     key={link.label}
                     to={link.href}
-                    className="relative text-gray-700 hover:text-purple-600 transition-all duration-300 font-medium text-sm tracking-wide group"
+                    className="relative text-purple-600 hover:text-pink-500 transition-all duration-300 font-lobster text-sm tracking-wide group"
                   >
                     {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-pink-600 group-hover:w-full transition-all duration-300" />
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
                   </Link>
                 )
               ))}
@@ -79,7 +83,7 @@ const Header = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-all duration-300 font-medium"
+                    className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 transition-all duration-300 font-lobster"
                   >
                     <User className="w-4 h-4 mr-2" />
                     {user.firstName}
@@ -89,7 +93,7 @@ const Header = () => {
                   variant="ghost" 
                   size="sm" 
                   onClick={signOut}
-                  className="text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all duration-300 font-medium"
+                  className="text-purple-600 hover:text-rose-500 hover:bg-rose-50 transition-all duration-300 font-lobster"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -100,7 +104,7 @@ const Header = () => {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 transition-all duration-300 font-medium"
+                  className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 transition-all duration-300 font-medium"
                 >
                   <User className="w-4 h-4 mr-2" />
                   Sign In
@@ -110,12 +114,12 @@ const Header = () => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 relative transition-all duration-300 group"
+              className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 relative transition-all duration-300 group"
               onClick={toggleCart}
             >
               <ShoppingCart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
               {state.totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-purple-600 to-pink-600 text-xs text-white rounded-full flex items-center justify-center animate-pulse">
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-rose text-xs text-white rounded-full flex items-center justify-center animate-pulse">
                   {state.totalItems}
                 </span>
               )}
@@ -126,7 +130,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden text-gray-700"
+            className="md:hidden text-purple-600"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -135,13 +139,13 @@ const Header = () => {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
+            <div className="md:hidden py-4 border-t border-purple-200">
               {navLinks.map((link) => (
                 link.isExternal ? (
                   <a
                     key={link.label}
                     href={link.href}
-                    className="block py-3 text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+                    className="block py-3 text-purple-600 hover:text-pink-500 transition-colors duration-200 font-lobster"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
@@ -150,7 +154,7 @@ const Header = () => {
                   <Link
                     key={link.label}
                     to={link.href}
-                    className="block py-3 text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+                    className="block py-3 text-purple-600 hover:text-pink-500 transition-colors duration-200 font-lobster"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
@@ -161,7 +165,7 @@ const Header = () => {
               {user ? (
                 <div className="flex gap-4 w-full">
                   <Link to="/profile" className="flex-1">
-                    <Button variant="ghost" size="sm" className="text-gray-700 w-full">
+                    <Button variant="ghost" size="sm" className="text-purple-600 w-full">
                       <User className="w-4 h-4 mr-2" />
                       {user.firstName}
                     </Button>
@@ -170,7 +174,7 @@ const Header = () => {
                     variant="ghost" 
                     size="sm" 
                     onClick={signOut}
-                    className="text-gray-700 hover:text-red-600 hover:bg-red-50 flex-1"
+                    className="text-purple-600 hover:text-rose-500 hover:bg-rose-50 flex-1"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -178,7 +182,7 @@ const Header = () => {
                 </div>
               ) : (
                 <Link to="/signin" className="flex-1">
-                  <Button variant="ghost" size="sm" className="text-gray-700 w-full">
+                    <Button variant="ghost" size="sm" className="text-purple-600 w-full">
                     <User className="w-4 h-4 mr-2" />
                     Sign In
                   </Button>

@@ -1,5 +1,5 @@
 import { Facebook, Instagram, Twitter, Heart } from 'lucide-react';
-import CrystalLogo from './CrystalLogo';
+import logoImage from '@/assets/logo.png';
 
 const Footer = () => {
   const footerLinks = {
@@ -21,8 +21,12 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <CrystalLogo className="w-8 h-8" />
-              <span className="text-xl font-playfair font-bold text-gray-800">
+              <img 
+                src={logoImage} 
+                alt="Adhyatma Logo" 
+                className="w-8 h-8 object-contain" 
+              />
+              <span className="text-xl font-lobster font-normal bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
                 Adhyatma
               </span>
             </div>

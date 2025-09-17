@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Lobster:wght@400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -10,34 +10,34 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Soft Lavender & Blush Palette - Matching Adhyatma Store */
+    /* Lavender & Rose Gold Pastel Palette - Crystal Store Theme */
     --background: 0 0% 100%;
-    --foreground: 270 15% 20%;
+    --foreground: 270 20% 25%;
     
     --card: 0 0% 100%;
-    --card-foreground: 270 15% 20%;
+    --card-foreground: 270 20% 25%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 270 15% 20%;
+    --popover-foreground: 270 20% 25%;
     
-    --primary: 270 30% 60%;
+    --primary: 270 40% 70%;
     --primary-foreground: 0 0% 100%;
     
-    --secondary: 280 20% 95%;
-    --secondary-foreground: 270 15% 20%;
+    --secondary: 280 25% 96%;
+    --secondary-foreground: 270 20% 25%;
     
-    --muted: 280 15% 96%;
-    --muted-foreground: 270 10% 45%;
+    --muted: 280 20% 97%;
+    --muted-foreground: 270 15% 50%;
     
-    --accent: 330 30% 70%;
+    --accent: 330 40% 75%;
     --accent-foreground: 0 0% 100%;
     
-    --destructive: 0 84% 60%;
+    --destructive: 0 70% 65%;
     --destructive-foreground: 0 0% 98%;
     
-    --border: 280 15% 90%;
-    --input: 280 15% 95%;
-    --ring: 270 30% 60%;
+    --border: 280 20% 92%;
+    --input: 280 20% 96%;
+    --ring: 270 40% 70%;
     
     --radius: 0.5rem;
     
@@ -45,79 +45,91 @@ All colors MUST be HSL.
     --lenis-scrollbar-width: 0px;
     --lenis-scrollbar-color: transparent;
     
-    /* Custom Design Tokens - Soft & Ethereal */
-    --lavender-soft: 270 30% 85%;
-    --blush-soft: 330 30% 85%;
-    --mystic-purple: 270 30% 60%;
-    --mystic-light: 280 20% 95%;
-    --mystic-glow: 270 50% 70%;
-    --gold-accent: 45 60% 55%;
-    --gold-light: 45 40% 70%;
+    /* Custom Design Tokens - Lavender & Rose Gold Pastel */
+    --lavender-soft: 270 40% 85%;
+    --blush-soft: 330 40% 85%;
+    --mystic-purple: 270 40% 70%;
+    --mystic-light: 280 25% 96%;
+    --mystic-glow: 270 50% 75%;
+    --gold-accent: 45 50% 65%;
+    --gold-light: 45 35% 75%;
+    --peach-soft: 20 60% 85%;
+    --mint-soft: 160 40% 80%;
+    --rose-soft: 330 50% 80%;
+    --lilac-soft: 270 50% 80%;
     
-    /* Gradients - Soft & Ethereal */
-    --gradient-mystic: linear-gradient(135deg, hsl(270 30% 60%), hsl(280 40% 70%));
-    --gradient-ethereal: linear-gradient(180deg, hsl(280 20% 98%), hsl(270 15% 95%));
-    --gradient-glow: radial-gradient(circle at center, hsl(270 30% 60% / 0.1), transparent 70%);
-    --gradient-gold: linear-gradient(135deg, hsl(45 60% 55%), hsl(45 40% 70%));
-    --gradient-soft: linear-gradient(135deg, hsl(270 20% 95%), hsl(330 20% 95%));
+    /* Gradients - Lavender & Rose Gold Pastel */
+    --gradient-mystic: linear-gradient(135deg, hsl(270 40% 70%), hsl(280 50% 75%));
+    --gradient-ethereal: linear-gradient(180deg, hsl(280 25% 98%), hsl(270 20% 96%));
+    --gradient-glow: radial-gradient(circle at center, hsl(270 40% 70% / 0.1), transparent 70%);
+    --gradient-gold: linear-gradient(135deg, hsl(45 50% 65%), hsl(45 35% 75%));
+    --gradient-soft: linear-gradient(135deg, hsl(270 25% 96%), hsl(330 25% 96%));
+    --gradient-peach: linear-gradient(135deg, hsl(20 60% 85%), hsl(30 50% 80%));
+    --gradient-mint: linear-gradient(135deg, hsl(160 40% 80%), hsl(170 35% 75%));
+    --gradient-rose: linear-gradient(135deg, hsl(330 50% 80%), hsl(340 45% 75%));
+    --gradient-lilac: linear-gradient(135deg, hsl(270 50% 80%), hsl(280 45% 75%));
     
-    /* Shadows - Soft & Subtle */
-    --shadow-mystic: 0 2px 15px -2px hsl(270 30% 60% / 0.1);
-    --shadow-glow: 0 0 30px hsl(270 30% 60% / 0.15);
-    --shadow-soft: 0 1px 8px hsl(270 10% 40% / 0.08);
-    --shadow-gold: 0 2px 15px hsl(45 60% 55% / 0.15);
+    /* Shadows - Lavender & Rose Gold Pastel */
+    --shadow-mystic: 0 2px 15px -2px hsl(270 40% 70% / 0.1);
+    --shadow-glow: 0 0 30px hsl(270 40% 70% / 0.15);
+    --shadow-soft: 0 1px 8px hsl(270 15% 50% / 0.08);
+    --shadow-gold: 0 2px 15px hsl(45 50% 65% / 0.15);
+    --shadow-peach: 0 2px 15px hsl(20 60% 85% / 0.1);
+    --shadow-mint: 0 2px 15px hsl(160 40% 80% / 0.1);
+    --shadow-rose: 0 2px 15px hsl(330 50% 80% / 0.1);
+    --shadow-lilac: 0 2px 15px hsl(270 50% 80% / 0.1);
     
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-glow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 270 15% 20%;
-    --sidebar-primary: 270 30% 60%;
+    --sidebar-foreground: 270 20% 25%;
+    --sidebar-primary: 270 40% 70%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 280 20% 95%;
-    --sidebar-accent-foreground: 270 15% 20%;
-    --sidebar-border: 280 15% 90%;
-    --sidebar-ring: 270 30% 60%;
+    --sidebar-accent: 280 25% 96%;
+    --sidebar-accent-foreground: 270 20% 25%;
+    --sidebar-border: 280 20% 92%;
+    --sidebar-ring: 270 40% 70%;
   }
 
   .dark {
-    --background: 270 40% 8%;
-    --foreground: 280 20% 95%;
+    --background: 270 30% 10%;
+    --foreground: 280 25% 95%;
     
-    --card: 270 35% 12%;
-    --card-foreground: 280 20% 95%;
+    --card: 270 25% 15%;
+    --card-foreground: 280 25% 95%;
     
-    --popover: 270 35% 12%;
-    --popover-foreground: 280 20% 95%;
+    --popover: 270 25% 15%;
+    --popover-foreground: 280 25% 95%;
     
-    --primary: 270 60% 60%;
-    --primary-foreground: 270 40% 8%;
+    --primary: 270 50% 75%;
+    --primary-foreground: 270 30% 10%;
     
-    --secondary: 270 30% 20%;
-    --secondary-foreground: 280 20% 95%;
+    --secondary: 270 20% 25%;
+    --secondary-foreground: 280 25% 95%;
     
-    --muted: 270 25% 18%;
-    --muted-foreground: 270 20% 65%;
+    --muted: 270 15% 22%;
+    --muted-foreground: 270 20% 70%;
     
-    --accent: 45 80% 52%;
-    --accent-foreground: 270 40% 8%;
+    --accent: 45 60% 65%;
+    --accent-foreground: 270 30% 10%;
     
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 280 20% 95%;
+    --destructive: 0 60% 55%;
+    --destructive-foreground: 280 25% 95%;
     
-    --border: 270 25% 18%;
-    --input: 270 25% 18%;
-    --ring: 270 60% 60%;
+    --border: 270 20% 22%;
+    --input: 270 20% 22%;
+    --ring: 270 50% 75%;
     
-    --sidebar-background: 270 35% 10%;
-    --sidebar-foreground: 280 20% 95%;
-    --sidebar-primary: 270 60% 60%;
-    --sidebar-primary-foreground: 270 40% 8%;
-    --sidebar-accent: 270 30% 20%;
-    --sidebar-accent-foreground: 280 20% 95%;
-    --sidebar-border: 270 25% 18%;
-    --sidebar-ring: 270 60% 60%;
+    --sidebar-background: 270 25% 12%;
+    --sidebar-foreground: 280 25% 95%;
+    --sidebar-primary: 270 50% 75%;
+    --sidebar-primary-foreground: 270 30% 10%;
+    --sidebar-accent: 270 20% 25%;
+    --sidebar-accent-foreground: 280 25% 95%;
+    --sidebar-border: 270 20% 22%;
+    --sidebar-ring: 270 50% 75%;
   }
 }
 
@@ -137,6 +149,12 @@ All colors MUST be HSL.
 }
 
 @layer components {
+  .lobster-regular {
+    font-family: "Lobster", "Brush Script MT", "Lucida Handwriting", "Comic Sans MS", cursive, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
   .glass-effect {
     @apply backdrop-blur-lg bg-white/10 border border-white/20;
   }
