@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Eye, EyeOff, Mail, Lock, ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AlertMessage from '@/components/AlertMessage';
 import { useAuth } from '@/contexts/auth-context';
 
 const SignIn = () => {
@@ -14,6 +15,10 @@ const SignIn = () => {
     email: '',
     password: ''
   });
+  const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
+  const [showSuccess, setShowSuccess] = useState(false);
+  const location = useLocation(); 
+  const from = location.state?.from?.pathname || '/profile';
   const [showPassword, setShowPassword] = useState(false);
   const { signIn, isLoading, error, clearError } = useAuth();
   const navigate = useNavigate();
@@ -24,19 +29,55 @@ const SignIn = () => {
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
-    if (error) {
-      clearError();
+    
+    // Only clear field-level errors when user starts typing
+    // Don't clear context-level errors (like "wrong password") automatically
+    if (fieldErrors[name]) {
+      setFieldErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
     }
+  };
+
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    }
+    
+    setFieldErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Clear any existing errors when submitting
+    clearError();
+    setFieldErrors({});
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     try {
       await signIn(formData.email, formData.password);
-      navigate('/profile');
+      setShowSuccess(true);
+      // Navigate after showing success message
+      setTimeout(() => {
+        const from = location.state?.from?.pathname || '/';
+        navigate(from, { replace: true });
+      }, 1500);
     } catch (error) {
-      // Error is handled by the context
+      // Error is handled by the context and will persist until next submission
     }
   };
 
@@ -59,14 +100,14 @@ const SignIn = () => {
                 Welcome Back
               </h1>
               <p className="text-gray-600">
-                Sign in to your account to continue shopping
+                Login to your account to continue shopping
               </p>
             </div>
 
             <Card className="shadow-xl border-0">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-2xl font-playfair text-gray-800">
-                  Sign In
+                  Login
                 </CardTitle>
                 <CardDescription>
                   Enter your credentials to access your account
@@ -74,10 +115,26 @@ const SignIn = () => {
               </CardHeader>
               
               <CardContent>
+                {showSuccess && (
+                  <AlertMessage
+                    type="success"
+                    title="Welcome Back!"
+                    message="You have successfully signed in. Redirecting you now..."
+                    onClose={() => setShowSuccess(false)}
+                  />
+                )}
                 {error && (
-                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-sm text-red-600">{error}</p>
-                  </div>
+                  <AlertMessage
+                    type="error"
+                    title="Login Failed"
+                    message={error}
+                    suggestions={[
+                      'Check your email and password',
+                      'Make sure your account is verified',
+                      'Try resetting your password'
+                    ]}
+                    onClose={clearError}
+                  />
                 )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
@@ -93,10 +150,20 @@ const SignIn = () => {
                         placeholder="Enter your email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500"
+                        className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                          fieldErrors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                        }`}
                         required
                       />
                     </div>
+                    {fieldErrors.email && (
+                      <p className="text-sm text-red-600 flex items-center">
+                        <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        {fieldErrors.email}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -112,7 +179,9 @@ const SignIn = () => {
                         placeholder="Enter your password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        className="pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500"
+                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                          fieldErrors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
+                        }`}
                         required
                       />
                       <button
@@ -123,6 +192,14 @@ const SignIn = () => {
                         {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                       </button>
                     </div>
+                    {fieldErrors.password && (
+                      <p className="text-sm text-red-600 flex items-center">
+                        <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        {fieldErrors.password}
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -149,7 +226,7 @@ const SignIn = () => {
                     className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium disabled:opacity-50"
                     disabled={isLoading}
                   >
-                    {isLoading ? 'Signing In...' : 'Sign In'}
+                    {isLoading ? 'Logging In...' : 'Login'}
                   </Button>
                 </form>
 

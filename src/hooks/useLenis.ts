@@ -39,7 +39,7 @@ export const useLenis = () => {
 
   return {
     lenis: lenisRef.current,
-    scrollTo: (target: string | number | HTMLElement, options?: any) => {
+    scrollTo: (target: string | number | HTMLElement, options?: Record<string, unknown>) => {
       lenisRef.current?.scrollTo(target, options);
     },
     stop: () => {

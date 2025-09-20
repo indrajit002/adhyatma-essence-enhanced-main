@@ -7,6 +7,7 @@ import { CartProvider } from "./contexts/cart-context";
 import { AuthProvider } from "./contexts/auth-context";
 import { StripeProvider } from "./contexts/stripe-context";
 import { Cart, CartOverlay } from "@/components/ui/cart";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Checkout from "./pages/Checkout";
@@ -23,40 +24,42 @@ import LenisProvider from "./components/LenisProvider";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <CartProvider>
-          <StripeProvider>
-            <LenisProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <div className="min-h-screen bg-background">
-                <CartOverlay />
-                <Cart />
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/our-story" element={<OurStory />} />
-                  <Route path="/shop" element={<Shop />} />
-                  <Route path="/signin" element={<SignIn />} />
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/collections" element={<Collections />} />
-                  <Route path="/collections/:id" element={<CollectionDetail />} />
-                  <Route path="/checkout" element={<Checkout />} />
-                  <Route path="/cart-test" element={<CartTest />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </div>
-            </BrowserRouter>
-            </LenisProvider>
-          </StripeProvider>
-        </CartProvider>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <CartProvider>
+            <StripeProvider>
+              <LenisProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <div className="min-h-screen bg-background">
+                  <CartOverlay />
+                  <Cart />
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/our-story" element={<OurStory />} />
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/collections" element={<Collections />} />
+                    <Route path="/collections/:id" element={<CollectionDetail />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/cart-test" element={<CartTest />} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </div>
+              </BrowserRouter>
+              </LenisProvider>
+            </StripeProvider>
+          </CartProvider>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;

@@ -1,6 +1,7 @@
 import React from 'react';
-import { X, Plus, Minus, ShoppingBag } from 'lucide-react';
+import { X, Plus, Minus, ShoppingBag, Lock } from 'lucide-react';
 import { useCart } from '@/contexts/cart-context';
+import { useAuth } from '@/contexts/auth-context';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -8,6 +9,7 @@ import { cn } from '@/lib/utils';
 export function Cart() {
   const { state, removeItem, updateQuantity, clearCart, toggleCart } = useCart();
   const { items, totalItems, totalAmount, isOpen } = state;
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -101,15 +103,33 @@ export function Cart() {
             </div>
             <p className="mt-0.5 text-sm text-muted-foreground">Shipping and taxes calculated at checkout.</p>
             <div className="mt-4 space-y-2">
-              <Button 
-                className="w-full font-lobster"
-                onClick={() => {
-                  toggleCart();
-                  navigate('/checkout');
-                }}
-              >
-                Checkout
-              </Button>
+              {isAuthenticated ? (
+                <Button 
+                  className="w-full font-lobster"
+                  onClick={() => {
+                    toggleCart();
+                    navigate('/checkout');
+                  }}
+                >
+                  Checkout
+                </Button>
+              ) : (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                    <Lock className="h-4 w-4 text-amber-600" />
+                    <span className="text-sm text-amber-800">Login required to checkout</span>
+                  </div>
+                  <Button 
+                    className="w-full font-lobster"
+                    onClick={() => {
+                      toggleCart();
+                      navigate('/signin', { state: { from: { pathname: '/checkout' } } });
+                    }}
+                  >
+                    Login to Checkout
+                  </Button>
+                </div>
+              )}
               <Button
                 variant="outline"
                 className="w-full font-lobster"

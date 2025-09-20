@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// 1. Import useLocation from react-router-dom
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
@@ -11,6 +12,8 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { state, toggleCart } = useCart();
   const { user, signOut } = useAuth();
+  // 2. Get the current location using the hook
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +40,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-6">
         <nav className="flex items-center justify-between py-6">
-          <div className="flex items-center gap-4 group cursor-pointer">
+          <Link to="/" className="flex items-center gap-4 group cursor-pointer">
             <div className="relative">
               <img 
                 src={logoImage} 
@@ -49,32 +52,20 @@ const Header = () => {
             <span className="text-2xl font-lobster font-normal bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
               Adhyatma
             </span>
-          </div>
+          </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                link.isExternal ? (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="relative text-purple-600 hover:text-pink-500 transition-all duration-300 font-lobster text-sm tracking-wide group"
-                  >
-                    {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
-                  </a>
-                ) : (
-                  <Link
-                    key={link.label}
-                    to={link.href}
-                    className="relative text-purple-600 hover:text-pink-500 transition-all duration-300 font-lobster text-sm tracking-wide group"
-                  >
-                    {link.label}
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
-                  </Link>
-                )
-              ))}
-            </div>
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="relative text-purple-600 hover:text-pink-500 transition-all duration-300 font-lobster text-sm tracking-wide group"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
+              </Link>
+            ))}
+          </div>
 
           <div className="hidden md:flex items-center gap-4">
             {user ? (
@@ -86,7 +77,7 @@ const Header = () => {
                     className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 transition-all duration-300 font-lobster"
                   >
                     <User className="w-4 h-4 mr-2" />
-                    {user.firstName}
+                    {user.first_name}
                   </Button>
                 </Link>
                 <Button 
@@ -100,14 +91,15 @@ const Header = () => {
                 </Button>
               </div>
             ) : (
-              <Link to="/signin">
+              // 3. Add the 'state' prop to the Login link to pass the current location
+              <Link to="/signin" state={{ from: location }}>
                 <Button 
                   variant="ghost" 
                   size="sm" 
                   className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 transition-all duration-300 font-medium"
                 >
                   <User className="w-4 h-4 mr-2" />
-                  Sign In
+                  Login
                 </Button>
               </Link>
             )}
@@ -126,7 +118,6 @@ const Header = () => {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
           <Button
             variant="ghost"
             size="icon"
@@ -137,37 +128,25 @@ const Header = () => {
           </Button>
         </nav>
 
-          {/* Mobile Navigation */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-purple-200">
-              {navLinks.map((link) => (
-                link.isExternal ? (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    className="block py-3 text-purple-600 hover:text-pink-500 transition-colors duration-200 font-lobster"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={link.label}
-                    to={link.href}
-                    className="block py-3 text-purple-600 hover:text-pink-500 transition-colors duration-200 font-lobster"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              ))}
+        {isMobileMenuOpen && (
+          <div className="md:hidden py-4 border-t border-purple-200">
+            {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="block py-3 text-purple-600 hover:text-pink-500 transition-colors duration-200 font-lobster"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+            ))}
             <div className="flex gap-4 mt-4">
               {user ? (
                 <div className="flex gap-4 w-full">
                   <Link to="/profile" className="flex-1">
                     <Button variant="ghost" size="sm" className="text-purple-600 w-full">
                       <User className="w-4 h-4 mr-2" />
-                      {user.firstName}
+                      {user.first_name}
                     </Button>
                   </Link>
                   <Button 
@@ -181,11 +160,12 @@ const Header = () => {
                   </Button>
                 </div>
               ) : (
-                <Link to="/signin" className="flex-1">
+                // Also add the 'state' prop to the mobile Login link
+                <Link to="/signin" state={{ from: location }} className="flex-1">
                     <Button variant="ghost" size="sm" className="text-purple-600 w-full">
-                    <User className="w-4 h-4 mr-2" />
-                    Sign In
-                  </Button>
+                      <User className="w-4 h-4 mr-2" />
+                      Login
+                    </Button>
                 </Link>
               )}
               <Button 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,12 +7,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Eye, EyeOff, Mail, Lock, User, ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AlertMessage from '@/components/AlertMessage';
 import { useAuth } from '@/contexts/auth-context';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -22,34 +23,34 @@ const SignUp = () => {
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const { signUp, isLoading, error, clearError } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const from = location.state?.from?.pathname || '/';
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
+    // Only clear field-level errors when user starts typing
+    // Don't clear context-level errors (like "email already exists") automatically
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
         [name]: ''
       }));
     }
-    if (error) {
-      clearError();
-    }
   };
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
 
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
+    if (!formData.first_name.trim()) {
+      newErrors.first_name = 'First name is required';
     }
 
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+    if (!formData.last_name.trim()) {
+      newErrors.last_name = 'Last name is required';
     }
 
     if (!formData.email.trim()) {
@@ -74,27 +75,62 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
     
-    if (!validateForm()) {
-      return;
-    }
+  //   // Clear any existing errors when submitting
+  //   clearError();
+  //   setErrors({});
+    
+  //   if (!validateForm()) {
+  //     return;
+  //   }
 
-    try {
-      await signUp({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: '',
-        address: '',
-        password: formData.password
-      });
-      navigate('/profile');
-    } catch (error) {
-      // Error is handled by the context
-    }
-  };
+  //   try {
+  //     await signUp({
+  //       first_name: formData.first_name,
+  //       last_name: formData.last_name,
+  //       email: formData.email,
+  //       phone: '',
+  //       address: '',
+  //       city: '',
+  //       state: '',
+  //       zip_code: '',
+  //       password: formData.password
+  //     });
+  //     // Navigate to the intended destination or profile
+  //     navigate(from, { replace: true });
+  //   } catch (error) {
+  //     // Error is handled by the context and will persist until next submission
+  //   }
+  // };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  clearError();
+  setErrors({});
+  
+  if (!validateForm()) {
+    return;
+  }
+
+  try {
+    // This call is now much cleaner and matches your new context function
+    await signUp({
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      email: formData.email,
+      password: formData.password
+    });
+
+    // You can add a success message here before navigating if you like
+    // For example: alert("Success! Please check your email to verify your account.");
+    
+    navigate(from, { replace: true });
+  } catch (error) {
+    // Error is still handled by the context, no change needed here
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
@@ -131,57 +167,66 @@ const SignUp = () => {
               
               <CardContent>
                 {error && (
-                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-sm text-red-600">{error}</p>
-                  </div>
+                  <AlertMessage
+                    type="error"
+                    title="Account Creation Failed"
+                    message={error}
+                    suggestions={[
+                      'Check if email is already registered',
+                      'Ensure password is at least 6 characters',
+                      'Verify email format is correct',
+                      'Try using a different email address'
+                    ]}
+                    onClose={clearError}
+                  />
                 )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">
+                      <Label htmlFor="first_name" className="text-sm font-medium text-gray-700">
                         First Name
                       </Label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <Input
-                          id="firstName"
-                          name="firstName"
+                          id="first_name"
+                          name="first_name"
                           type="text"
                           placeholder="First name"
-                          value={formData.firstName}
+                          value={formData.first_name}
                           onChange={handleInputChange}
                           className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
-                            errors.firstName ? 'border-red-500' : ''
+                            errors.first_name ? 'border-red-500' : ''
                           }`}
                           required
                         />
                       </div>
-                      {errors.firstName && (
-                        <p className="text-sm text-red-500">{errors.firstName}</p>
+                      {errors.first_name && (
+                        <p className="text-sm text-red-500">{errors.first_name}</p>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="lastName" className="text-sm font-medium text-gray-700">
+                      <Label htmlFor="last_name" className="text-sm font-medium text-gray-700">
                         Last Name
                       </Label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <Input
-                          id="lastName"
-                          name="lastName"
+                          id="last_name"
+                          name="last_name"
                           type="text"
                           placeholder="Last name"
-                          value={formData.lastName}
+                          value={formData.last_name}
                           onChange={handleInputChange}
                           className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
-                            errors.lastName ? 'border-red-500' : ''
+                            errors.last_name ? 'border-red-500' : ''
                           }`}
                           required
                         />
                       </div>
-                      {errors.lastName && (
-                        <p className="text-sm text-red-500">{errors.lastName}</p>
+                      {errors.last_name && (
+                        <p className="text-sm text-red-500">{errors.last_name}</p>
                       )}
                     </div>
                   </div>
@@ -307,7 +352,7 @@ const SignUp = () => {
                       to="/signin" 
                       className="text-purple-600 hover:text-purple-700 font-medium"
                     >
-                      Sign in here
+                      Login here
                     </Link>
                   </p>
                 </div>
