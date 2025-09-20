@@ -17,5 +17,15 @@ if (!supabaseAnonKey) {
 }
 
 // Supabase configuration loaded successfully
+console.log("🔧 Supabase URL:", supabaseUrl);
+console.log("🔑 Supabase Key:", supabaseAnonKey ? "Present" : "Missing");
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true
+  }
+});
+
+console.log("✅ Supabase client created successfully");

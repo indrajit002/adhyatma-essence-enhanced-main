@@ -8,7 +8,7 @@ import { Eye, EyeOff, Mail, Lock, ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AlertMessage from '@/components/AlertMessage';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/hooks/useAuth';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({

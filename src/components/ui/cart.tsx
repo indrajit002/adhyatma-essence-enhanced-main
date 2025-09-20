@@ -1,7 +1,7 @@
 import React from 'react';
 import { X, Plus, Minus, ShoppingBag, Lock } from 'lucide-react';
 import { useCart } from '@/contexts/cart-context';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { cn } from '@/lib/utils';

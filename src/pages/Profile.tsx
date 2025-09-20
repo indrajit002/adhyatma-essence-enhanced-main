@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/hooks/useAuth';
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);

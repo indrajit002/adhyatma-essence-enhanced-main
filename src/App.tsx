@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./contexts/cart-context";
 import { AuthProvider } from "./contexts/auth-context";
-import { StripeProvider } from "./contexts/stripe-context";
 import { Cart, CartOverlay } from "@/components/ui/cart";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Index from "./pages/Index";
@@ -18,6 +17,8 @@ import Shop from "./pages/Shop";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+// Import the new page
+import ConfirmEmail from "./pages/ConfirmEmail";
 import CartTest from "./components/CartTest";
 import LenisProvider from "./components/LenisProvider";
 
@@ -29,32 +30,31 @@ const App = () => (
       <TooltipProvider>
         <AuthProvider>
           <CartProvider>
-            <StripeProvider>
-              <LenisProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <div className="min-h-screen bg-background">
-                  <CartOverlay />
-                  <Cart />
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/our-story" element={<OurStory />} />
-                    <Route path="/shop" element={<Shop />} />
-                    <Route path="/signin" element={<SignIn />} />
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/collections" element={<Collections />} />
-                    <Route path="/collections/:id" element={<CollectionDetail />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/cart-test" element={<CartTest />} />
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </div>
-              </BrowserRouter>
+            <LenisProvider>
+                <Toaster />
+                <Sonner />
+                <BrowserRouter>
+                  <div className="min-h-screen bg-background">
+                    <CartOverlay />
+                    <Cart />
+                    <Routes>
+                      <Route path="/" element={<Index />} />
+                      <Route path="/our-story" element={<OurStory />} />
+                      <Route path="/shop" element={<Shop />} />
+                      <Route path="/signin" element={<SignIn />} />
+                      <Route path="/signup" element={<SignUp />} />
+                      <Route path="/profile" element={<Profile />} />
+                      <Route path="/collections" element={<Collections />} />
+                      <Route path="/collections/:id" element={<CollectionDetail />} />
+                      <Route path="/checkout" element={<Checkout />} />
+                      {/* Add the new route here */}
+                      <Route path="/confirm-email" element={<ConfirmEmail />} />
+                      <Route path="/cart-test" element={<CartTest />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </div>
+                </BrowserRouter>
               </LenisProvider>
-            </StripeProvider>
           </CartProvider>
         </AuthProvider>
       </TooltipProvider>

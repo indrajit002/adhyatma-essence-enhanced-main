@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
 import { useCart } from '@/contexts/cart-context';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/hooks/useAuth';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);

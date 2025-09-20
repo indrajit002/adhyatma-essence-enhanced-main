@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,7 +8,7 @@ import { Eye, EyeOff, Mail, Lock, User, ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AlertMessage from '@/components/AlertMessage';
-import { useAuth } from '@/contexts/auth-context';
+import { useAuth } from '@/hooks/useAuth';
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -20,20 +20,16 @@ const SignUp = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const { signUp, isLoading, error, clearError } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/';
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
-    // Only clear field-level errors when user starts typing
-    // Don't clear context-level errors (like "email already exists") automatically
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -43,7 +39,7 @@ const SignUp = () => {
   };
 
   const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
 
     if (!formData.first_name.trim()) {
       newErrors.first_name = 'First name is required';
@@ -75,62 +71,33 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-    
-  //   // Clear any existing errors when submitting
-  //   clearError();
-  //   setErrors({});
-    
-  //   if (!validateForm()) {
-  //     return;
-  //   }
-
-  //   try {
-  //     await signUp({
-  //       first_name: formData.first_name,
-  //       last_name: formData.last_name,
-  //       email: formData.email,
-  //       phone: '',
-  //       address: '',
-  //       city: '',
-  //       state: '',
-  //       zip_code: '',
-  //       password: formData.password
-  //     });
-  //     // Navigate to the intended destination or profile
-  //     navigate(from, { replace: true });
-  //   } catch (error) {
-  //     // Error is handled by the context and will persist until next submission
-  //   }
-  // };
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  
-  clearError();
-  setErrors({});
-  
-  if (!validateForm()) {
-    return;
-  }
-
-  try {
-    // This call is now much cleaner and matches your new context function
-    await signUp({
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      email: formData.email,
-      password: formData.password
-    });
-
-    // You can add a success message here before navigating if you like
-    // For example: alert("Success! Please check your email to verify your account.");
+    e.preventDefault();
+    clearError();
+    setErrors({});
     
-    navigate(from, { replace: true });
-  } catch (error) {
-    // Error is still handled by the context, no change needed here
-  }
-};
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      await signUp({
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        password: formData.password
+      });
+
+      // **THIS IS THE CORRECTED PART**
+      // Always navigate to the confirmation page after successful sign-up,
+      // and pass the email along so the page can display it.
+      navigate('/confirm-email', { state: { email: formData.email }, replace: true });
+
+    } catch (error) {
+      // Error is handled by the auth context and displayed in the UI
+      console.error("Sign up failed:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
