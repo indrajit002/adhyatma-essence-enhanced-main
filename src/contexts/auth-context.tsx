@@ -40,7 +40,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<Profile | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [status, setStatus] = useState<AuthStatus>('loading');
@@ -69,11 +69,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const getInitialSession = async () => {
       try {
         console.log("🔍 Checking for existing session...");
+        
+        // Check if Supabase is properly configured
+        if (!supabase || !supabase.auth) {
+          console.log("⚠️ Supabase not configured, skipping authentication");
+          setStatus('unauthenticated');
+          setInitialized(true);
+          return;
+        }
+        
         const { data: { session: initialSession }, error: sessionError } = await supabase.auth.getSession();
         
         if (sessionError) {
           console.error("❌ Session error:", sessionError);
-          throw sessionError;
+          setStatus('unauthenticated');
+          return;
         }
 
         console.log("📋 Session check result:", initialSession ? "Session found" : "No session");
@@ -96,7 +106,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const timeoutId = setTimeout(() => {
       console.log("⏰ Authentication timeout, setting unauthenticated");
       setStatus('unauthenticated');
-    }, 5000); // 5 second timeout
+      setInitialized(true);
+    }, 10000); // 10 second timeout
 
     getInitialSession().finally(() => {
       clearTimeout(timeoutId);
@@ -260,3 +271,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+// Export the AuthProvider as default
+export default AuthProvider;

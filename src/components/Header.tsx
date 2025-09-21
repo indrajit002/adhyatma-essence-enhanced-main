@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react';
 // 1. Import useLocation from react-router-dom
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, LogOut, Heart } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
 import { useCart } from '@/contexts/cart-context';
 import { useAuth } from '@/hooks/useAuth';
+import { useWishlist } from '@/hooks/useWishlist';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { state, toggleCart } = useCart();
   const { user, signOut } = useAuth();
+  const { wishlistCount } = useWishlist();
   // 2. Get the current location using the hook
   const location = useLocation();
 
@@ -103,6 +105,20 @@ const Header = () => {
                 </Button>
               </Link>
             )}
+            <Link to="/wishlist">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 relative transition-all duration-300 group"
+              >
+                <Heart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-rose text-xs text-white rounded-full flex items-center justify-center animate-pulse">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
             <Button 
               variant="ghost" 
               size="icon" 
@@ -168,6 +184,20 @@ const Header = () => {
                     </Button>
                 </Link>
               )}
+              <Link to="/wishlist">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="text-gray-700 relative"
+                >
+                  <Heart className="w-5 h-5" />
+                  {wishlistCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-gray-800 text-xs text-white rounded-full flex items-center justify-center">
+                      {wishlistCount}
+                    </span>
+                  )}
+                </Button>
+              </Link>
               <Button 
                 variant="ghost" 
                 size="icon" 

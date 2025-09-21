@@ -4,7 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./contexts/cart-context";
-import { AuthProvider } from "./contexts/auth-context";
+import AuthProvider from "./contexts/auth-context";
+import WishlistProvider from "./contexts/wishlist-context";
 import { Cart, CartOverlay } from "@/components/ui/cart";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Index from "./pages/Index";
@@ -17,6 +18,7 @@ import Shop from "./pages/Shop";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
+import Wishlist from "./pages/Wishlist";
 // Import the new page
 import ConfirmEmail from "./pages/ConfirmEmail";
 import CartTest from "./components/CartTest";
@@ -29,8 +31,9 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <AuthProvider>
-          <CartProvider>
-            <LenisProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <LenisProvider>
                 <Toaster />
                 <Sonner />
                 <BrowserRouter>
@@ -44,6 +47,7 @@ const App = () => (
                       <Route path="/signin" element={<SignIn />} />
                       <Route path="/signup" element={<SignUp />} />
                       <Route path="/profile" element={<Profile />} />
+                      <Route path="/wishlist" element={<Wishlist />} />
                       <Route path="/collections" element={<Collections />} />
                       <Route path="/collections/:id" element={<CollectionDetail />} />
                       <Route path="/checkout" element={<Checkout />} />
@@ -55,7 +59,8 @@ const App = () => (
                   </div>
                 </BrowserRouter>
               </LenisProvider>
-          </CartProvider>
+            </CartProvider>
+          </WishlistProvider>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>

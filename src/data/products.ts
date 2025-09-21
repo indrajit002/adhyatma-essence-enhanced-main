@@ -1,6 +1,3 @@
-// Product data for the crystal shop
-// Add new products here manually
-
 import healingCrystalsImg from '@/assets/healing-crystals.jpg';
 import naturalCrystalsImg from '@/assets/natural-crystals.jpg';
 import crystalBraceletsImg from '@/assets/crystal-bracelets.jpg';
@@ -13,7 +10,7 @@ export interface Product {
   id: string;
   name: string;
   price: number;
-  originalPrice?: number;
+  originalPrice: number | null;
   image: string;
   rating: number;
   reviewCount: number;
@@ -51,102 +48,102 @@ export const products: Product[] = [
     image: crystalBraceletsImg,
     rating: 4.9,
     reviewCount: 89,
-    category: 'healing',
+    category: 'jewelry',
     colors: ['Pink'],
     size: 'Medium',
     inStock: true,
-    featured: false,
-    description: 'Carved rose quartz heart for love and emotional healing',
+    featured: true,
+    description: 'Beautiful rose quartz heart for love and emotional healing',
     benefits: ['Love', 'Emotional Healing', 'Self-Care']
   },
   {
     id: '3',
     name: 'Clear Quartz Point',
-    price: 35.99,
+    price: 32.99,
     originalPrice: 45.99,
     image: naturalCrystalsImg,
     rating: 4.7,
     reviewCount: 156,
     category: 'natural',
     colors: ['Clear'],
-    size: 'Large',
+    size: 'Small',
     inStock: true,
-    featured: true,
-    description: 'Powerful clear quartz point for energy amplification',
-    benefits: ['Energy Amplification', 'Clarity', 'Healing']
+    featured: false,
+    description: 'High-quality clear quartz point for energy amplification',
+    benefits: ['Energy Amplification', 'Clarity', 'Focus']
   },
   {
     id: '4',
-    name: 'Green Aventurine Bracelet',
-    price: 25.99,
-    originalPrice: 35.99,
-    image: crystalBraceletsImg,
+    name: 'Green Aventurine Tumbled Stone',
+    price: 18.99,
+    originalPrice: null,
+    image: tumbledStonesImg,
     rating: 4.6,
-    reviewCount: 67,
-    category: 'jewelry',
+    reviewCount: 203,
+    category: 'natural',
     colors: ['Green'],
-    size: 'One Size',
+    size: 'Small',
     inStock: true,
     featured: false,
-    description: 'Lucky green aventurine bracelet for prosperity and growth',
-    benefits: ['Prosperity', 'Luck', 'Growth']
+    description: 'Smooth tumbled aventurine for luck and prosperity',
+    benefits: ['Luck', 'Prosperity', 'Opportunity']
   },
   {
     id: '5',
     name: 'Crystal Tree',
-    price: 129.99,
-    originalPrice: null,
+    price: 125.99,
+    originalPrice: 159.99,
     image: crystalTreesImg,
     rating: 4.9,
-    reviewCount: 43,
+    reviewCount: 67,
     category: 'decorative',
     colors: ['Mixed'],
     size: 'Large',
     inStock: true,
     featured: true,
-    description: 'Beautiful crystal tree for home decoration and energy',
-    benefits: ['Home Energy', 'Decoration', 'Positive Vibes']
+    description: 'Handcrafted crystal tree for home decoration and energy',
+    benefits: ['Home Energy', 'Decorative', 'Positive Vibes']
   },
   {
     id: '6',
-    name: 'Chakra Healing Kit',
+    name: 'Crystal Healing Kit',
     price: 89.99,
-    originalPrice: 119.99,
+    originalPrice: 120.99,
     image: crystalKitsImg,
     rating: 4.8,
-    reviewCount: 203,
+    reviewCount: 145,
     category: 'kits',
     colors: ['Mixed'],
-    size: 'Complete Set',
+    size: 'Medium',
     inStock: true,
     featured: true,
-    description: '7 crystals for complete chakra alignment and healing',
-    benefits: ['Chakra Healing', 'Complete Set', 'Energy Balance']
+    description: 'Complete crystal healing kit with guide and storage',
+    benefits: ['Complete Kit', 'Learning', 'Variety']
   },
   {
     id: '7',
     name: 'Crystal Water Bottle',
-    price: 67.99,
-    originalPrice: 89.99,
+    price: 55.99,
+    originalPrice: null,
     image: crystalBottlesImg,
-    rating: 4.7,
-    reviewCount: 156,
+    rating: 4.5,
+    reviewCount: 98,
     category: 'accessories',
     colors: ['Clear', 'Pink'],
-    size: '500ml',
+    size: 'Medium',
     inStock: true,
     featured: false,
-    description: 'Infused water bottle with amethyst and rose quartz',
-    benefits: ['Hydration', 'Energy Infusion', 'Portable']
+    description: 'Infuse your water with crystal energy for wellness',
+    benefits: ['Wellness', 'Hydration', 'Energy']
   },
   {
     id: '8',
     name: 'Black Tourmaline',
-    price: 55.99,
+    price: 42.99,
     originalPrice: null,
     image: naturalCrystalsImg,
-    rating: 4.5,
-    reviewCount: 78,
+    rating: 4.7,
+    reviewCount: 112,
     category: 'natural',
     colors: ['Black'],
     size: 'Medium',
@@ -168,107 +165,79 @@ export const products: Product[] = [
     size: 'Medium',
     inStock: true,
     featured: false,
-    description: 'Vibrant citrine cluster for abundance and manifestation',
-    benefits: ['Abundance', 'Manifestation', 'Success']
+    description: 'Vibrant citrine cluster for abundance and creativity',
+    benefits: ['Abundance', 'Creativity', 'Success']
   },
   {
     id: '10',
     name: 'Selenite Wand',
-    price: 32.99,
-    originalPrice: null,
+    price: 28.99,
+    originalPrice: 38.99,
     image: naturalCrystalsImg,
-    rating: 4.4,
-    reviewCount: 145,
+    rating: 4.8,
+    reviewCount: 134,
     category: 'natural',
-    colors: ['White', 'Clear'],
-    size: 'Small',
+    colors: ['White'],
+    size: 'Medium',
     inStock: true,
     featured: false,
     description: 'Pure selenite wand for cleansing and charging other crystals',
-    benefits: ['Cleansing', 'Charging', 'Purification']
+    benefits: ['Cleansing', 'Charging', 'Purity']
   },
   {
     id: '11',
     name: 'Lapis Lazuli Sphere',
     price: 95.99,
     originalPrice: 125.99,
-    image: crystalTreesImg,
-    rating: 4.7,
+    image: healingCrystalsImg,
+    rating: 4.9,
     reviewCount: 78,
-    category: 'decorative',
+    category: 'healing',
     colors: ['Blue', 'Gold'],
     size: 'Large',
     inStock: true,
     featured: true,
-    description: 'Deep blue lapis lazuli sphere for wisdom and truth',
-    benefits: ['Wisdom', 'Truth', 'Communication']
+    description: 'Beautiful lapis lazuli sphere for wisdom and communication',
+    benefits: ['Wisdom', 'Communication', 'Truth']
   },
   {
     id: '12',
-    name: 'Crystal Pendant Set',
-    price: 45.99,
-    originalPrice: 65.99,
-    image: crystalBraceletsImg,
-    rating: 4.5,
-    reviewCount: 203,
-    category: 'jewelry',
+    name: 'Tumbled Stone Set',
+    price: 35.99,
+    originalPrice: 49.99,
+    image: tumbledStonesImg,
+    rating: 4.7,
+    reviewCount: 167,
+    category: 'kits',
     colors: ['Mixed'],
-    size: 'One Size',
+    size: 'Small',
     inStock: true,
     featured: false,
-    description: 'Set of 3 crystal pendants for daily wear and protection',
-    benefits: ['Protection', 'Style', 'Portable']
-  },
-  
-  // Example of how to add more products:
-  // {
-  //   id: '13',
-  //   name: 'Your New Product Name',
-  //   price: 99.99,
-  //   originalPrice: 129.99, // Optional - set to null if no discount
-  //   image: yourImageImport, // Import the image at the top
-  //   rating: 4.8,
-  //   reviewCount: 150,
-  //   category: 'healing', // Must be one of: 'healing' | 'natural' | 'jewelry' | 'decorative' | 'kits' | 'accessories'
-  //   colors: ['Purple', 'Blue'], // Array of color strings
-  //   size: 'Large',
-  //   inStock: true,
-  //   featured: true, // Set to true to show in featured products
-  //   description: 'Your product description here',
-  //   benefits: ['Benefit 1', 'Benefit 2', 'Benefit 3']
-  // }
+    description: 'Collection of 7 different tumbled stones for daily use',
+    benefits: ['Variety', 'Daily Use', 'Collection']
+  }
 ];
 
-// Helper functions for product data
-export const getProductsByCategory = (category: string) => {
+export const categories = [
+  { id: 'all', name: 'All Products', count: 12 },
+  { id: 'healing', name: 'Healing Crystals', count: 3 },
+  { id: 'natural', name: 'Natural Crystals', count: 4 },
+  { id: 'jewelry', name: 'Crystal Jewelry', count: 1 },
+  { id: 'decorative', name: 'Decorative', count: 1 },
+  { id: 'kits', name: 'Crystal Kits', count: 2 },
+  { id: 'accessories', name: 'Accessories', count: 1 }
+];
+
+export const colors = [
+  'Purple', 'Pink', 'Clear', 'Green', 'Blue', 'White', 'Black', 'Yellow', 'Orange', 'Gold', 'Mixed'
+];
+
+export const getFeaturedProducts = (): Product[] => {
+  return products.filter(product => product.featured);
+};
+
+export const getProductsByCategory = (category: string): Product[] => {
   if (category === 'all') return products;
   return products.filter(product => product.category === category);
 };
 
-export const getFeaturedProducts = () => {
-  return products.filter(product => product.featured);
-};
-
-export const getProductsInStock = () => {
-  return products.filter(product => product.inStock);
-};
-
-export const getProductById = (id: string) => {
-  return products.find(product => product.id === id);
-};
-
-// Categories data
-export const categories = [
-  { id: 'all', name: 'All Products', count: products.length },
-  { id: 'healing', name: 'Healing Crystals', count: products.filter(p => p.category === 'healing').length },
-  { id: 'natural', name: 'Natural Crystals', count: products.filter(p => p.category === 'natural').length },
-  { id: 'jewelry', name: 'Crystal Jewelry', count: products.filter(p => p.category === 'jewelry').length },
-  { id: 'decorative', name: 'Decorative', count: products.filter(p => p.category === 'decorative').length },
-  { id: 'kits', name: 'Crystal Kits', count: products.filter(p => p.category === 'kits').length },
-  { id: 'accessories', name: 'Accessories', count: products.filter(p => p.category === 'accessories').length }
-];
-
-// Available colors
-export const colors = [
-  'Purple', 'Pink', 'Clear', 'Green', 'Blue', 'White', 'Black', 'Yellow', 'Orange', 'Gold', 'Mixed'
-];
