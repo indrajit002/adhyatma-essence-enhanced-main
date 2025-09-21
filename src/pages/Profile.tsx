@@ -87,7 +87,7 @@ const Profile = () => {
 
   const [wishlist] = useState([
     {
-      id: '1',
+      id: '1',  
       name: 'Amethyst Cluster',
       price: 89.99,
       image: '/src/assets/healing-crystals.jpg'
