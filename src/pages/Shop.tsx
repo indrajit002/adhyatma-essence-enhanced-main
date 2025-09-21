@@ -324,7 +324,8 @@ const Shop = () => {
                           <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
                           {product.rating} ({product.reviewCount})
                         </div>
-                      </div>
+                      </div>  
+                      
                       
                       {/* Description - Flexible Height */}
                       <p className="text-gray-600 mb-4 text-sm flex-grow">
