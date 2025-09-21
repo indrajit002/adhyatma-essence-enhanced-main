@@ -1,60 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Star, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/contexts/cart-context';
-import naturalCrystals from '@/assets/natural-crystals.jpg';
-import healingCrystals from '@/assets/healing-crystals.jpg';
-import crystalBottles from '@/assets/crystal-bottles.jpg';
-import crystalKits from '@/assets/crystal-kits.jpg';
+import { getFeaturedProducts } from '@/data/products';
 
 const FeaturedProducts = () => {
   const { addItem } = useCart();
   
-  const featuredProducts = [
-    {
-      id: 'featured-1',
-      name: 'Amethyst Cluster',
-      image: naturalCrystals,
-      price: 89.99,
-      originalPrice: 119.99,
-      rating: 4.8,
-      reviews: 124,
-      badge: 'Bestseller',
-      description: 'Large amethyst cluster for meditation and energy cleansing'
-    },
-    {
-      id: 'featured-2',
-      name: 'Rose Quartz Heart',
-      image: healingCrystals,
-      price: 45.99,
-      originalPrice: null,
-      rating: 4.9,
-      reviews: 89,
-      badge: 'New',
-      description: 'Carved rose quartz heart for love and emotional healing'
-    },
-    {
-      id: 'featured-3',
-      name: 'Crystal Water Bottle Set',
-      image: crystalBottles,
-      price: 67.99,
-      originalPrice: 89.99,
-      rating: 4.7,
-      reviews: 156,
-      badge: 'Sale',
-      description: 'Complete set with amethyst, rose quartz, and clear quartz'
-    },
-    {
-      id: 'featured-4',
-      name: 'Chakra Healing Kit',
-      image: crystalKits,
-      price: 129.99,
-      originalPrice: null,
-      rating: 4.9,
-      reviews: 203,
-      badge: 'Popular',
-      description: '7 crystals for complete chakra alignment and healing'
-    }
-  ];
+  const featuredProducts = getFeaturedProducts();
 
   return (
     <section className="py-20 bg-gray-50">
@@ -83,13 +35,8 @@ const FeaturedProducts = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute top-4 left-4">
-                  <span className={`px-3 py-1 text-xs font-bold rounded-full backdrop-blur-sm ${
-                    product.badge === 'Bestseller' ? 'bg-green-500/90 text-white' :
-                    product.badge === 'New' ? 'bg-blue-500/90 text-white' :
-                    product.badge === 'Sale' ? 'bg-red-500/90 text-white' :
-                    'bg-purple-500/90 text-white'
-                  }`}>
-                    {product.badge}
+                  <span className="px-3 py-1 text-xs font-bold rounded-full backdrop-blur-sm bg-purple-500/90 text-white">
+                    Featured
                   </span>
                 </div>
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
@@ -141,7 +88,7 @@ const FeaturedProducts = () => {
                     ))}
                   </div>
                   <span className="text-sm text-gray-600 ml-2">
-                    {product.rating} ({product.reviews} reviews)
+                    {product.rating} ({product.reviewCount} reviews)
                   </span>
                 </div>
                 
