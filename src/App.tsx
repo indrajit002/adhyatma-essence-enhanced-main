@@ -21,7 +21,6 @@ import Profile from "./pages/Profile";
 import Wishlist from "./pages/Wishlist";
 // Import the new page
 import ConfirmEmail from "./pages/ConfirmEmail";
-import CartTest from "./components/CartTest";
 import LenisProvider from "./components/LenisProvider";
 
 const queryClient = new QueryClient();
@@ -53,7 +52,6 @@ const App = () => (
                       <Route path="/checkout" element={<Checkout />} />
                       {/* Add the new route here */}
                       <Route path="/confirm-email" element={<ConfirmEmail />} />
-                      <Route path="/cart-test" element={<CartTest />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>

@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Star, ShoppingCart } from 'lucide-react';
-import { useCart } from '@/contexts/cart-context';
+import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
 import { getFeaturedProducts } from '@/data/products';
 import WishlistIcon from '@/components/WishlistIcon';

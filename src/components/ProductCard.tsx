@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, CreditCard } from 'lucide-react';
-import { useCart } from '@/contexts/cart-context';
+import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';

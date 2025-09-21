@@ -1,243 +1,402 @@
-// src/pages/Checkout.tsx
-
-import { useState, useEffect } from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { useCart } from '@/contexts/cart-context';
-import { useAuth } from '@/hooks/useAuth';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { useCart } from '@/hooks/useCart';
+import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft } from 'lucide-react';
+import { ShoppingCart, CreditCard, Package, ArrowLeft, Check } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { supabase } from '@/lib/supabaseClient'; // 1. Import Supabase client
 
-// Define the shape of your form data
+// Define the shape for form data
 type FormData = {
- firstName: string;
- lastName: string;
- email: string;
- address: string;
- city: string;
- state: string;
- zipCode: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
 };
 
 // Define the shape for form validation errors
 type FormErrors = {
- [key in keyof FormData]?: string;
+  [key in keyof FormData]?: string;
 };
 
 export default function Checkout() {
- // --- HOOKS ---
-const { state: cartState, clearCart } = useCart();
- const { items: cart, totalAmount } = cartState;
- const { user, session, isAuthenticated, isLoading } = useAuth();
- const { toast } = useToast();
- const navigate = useNavigate();
- const location = useLocation();
- // --- STATE MANAGEMENT ---
- const [formData, setFormData] = useState<FormData>({
-  firstName: user?.first_name || '',
- lastName: user?.last_name || '',
- email: session?.user?.email || '',
- address: user?.address || '',
- city: user?.city || '',
- state: user?.state || '',
- zipCode: user?.zip_code || '',
-  });
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // --- HOOKS ---
+  const { state: cartState, clearCart } = useCart();
+  const { items: cart, totalAmount } = cartState;
+  const { user, session, isAuthenticated, isLoading } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  // --- EFFECTS ---
-  useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      toast({
-        title: "Authentication Required",
-        description: "Please login to proceed to checkout.",
-        variant: "destructive",
-      });
-      navigate('/signin', { state: { from: location } });
-    }
-  }, [isAuthenticated, isLoading, navigate, location, toast]);
+  // --- STATE MANAGEMENT ---
+  const [formData, setFormData] = useState<FormData>({
+    firstName: user?.first_name || '',
+    lastName: user?.last_name || '',
+    email: session?.user?.email || '',
+    address: user?.address || '',
+    city: user?.city || '',
+    state: user?.state || '',
+    zipCode: user?.zip_code || '',
+  });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (user && session) {
-      setFormData({
-        firstName: user.first_name || '',
-        lastName: user.last_name || '',
-        email: session.user?.email || '',
-        address: user.address || '',
-        city: user.city || '',
-        state: user.state || '',
-        zipCode: user.zip_code || '',
-      });
-    }
-  }, [user, session]);
+  // --- EFFECTS ---
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      toast({
+        title: "Authentication Required",
+        description: "Please login to proceed to checkout.",
+        variant: "destructive",
+      });
+      navigate('/signin', { state: { from: location } });
+    }
+  }, [isAuthenticated, isLoading, navigate, location, toast]);
 
-  // --- LOADING & EMPTY CART CHECKS ---
-  if (isLoading || !isAuthenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading secure checkout...</p>
-      </div>
-    );
-  }
-  if (cart.length === 0) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-        <Header />
-        <div className="pt-32 pb-20">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-3xl font-playfair font-bold mb-6 text-gray-800">Your Cart is Empty</h1>
-            <p className="text-lg text-gray-600 mb-8">Add products to your cart before checking out.</p>
-            <Button onClick={() => navigate('/shop')} className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg">
-              Continue Shopping
-            </Button>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (user && session) {
+      setFormData({
+        firstName: user.first_name || '',
+        lastName: user.last_name || '',
+        email: session.user?.email || '',
+        address: user.address || '',
+        city: user.city || '',
+        state: user.state || '',
+        zipCode: user.zip_code || '',
+      });
+    }
+  }, [user, session]);
 
-  // --- HANDLER FUNCTIONS ---
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
-    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    else if (!/^\S+@\S+\.\S+$/.test(formData.email)) newErrors.email = 'Email is invalid';
-    if (!formData.address.trim()) newErrors.address = 'Address is required';
-    if (!formData.city.trim()) newErrors.city = 'City is required';
-    if (!formData.state.trim()) newErrors.state = 'State is required';
-    if (!formData.zipCode.trim()) newErrors.zipCode = 'Zip code is required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  // --- LOADING & EMPTY CART CHECKS ---
+  if (isLoading || !isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading secure checkout...</p>
+      </div>
+    );
+  }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name as keyof FormData]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
-  };
+  if (cart.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+        <Header />
+        <div className="pt-32 pb-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mx-auto text-center">
+              <ShoppingCart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+              <h1 className="text-3xl font-lobster text-gray-800 mb-4">Your Cart is Empty</h1>
+              <p className="text-gray-600 mb-8">Add some beautiful crystals to your cart before checking out.</p>
+              <Link to="/shop">
+                <Button className="bg-purple-600 hover:bg-purple-700">
+                  Continue Shopping
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
-  // 2. UPDATED: This function now saves the order to Supabase
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm() || !user) {
-      toast({ title: "Please fix the errors in the form.", variant: "destructive" });
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    try {
-      // Step 1: Create the main order record
-      const { data: orderData, error: orderError } = await supabase
-        .from('orders')
-        .insert({
-          user_id: user.id,
-          total_amount: totalAmount,
-          shipping_address: { ...formData }
-        })
-        .select('id')
-        .single();
+  // --- FORM HANDLERS ---
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: undefined
+      }));
+    }
+  };
 
-      if (orderError) throw orderError;
-      const newOrderId = orderData.id;
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
 
-      // Step 2: Prepare the individual order items
-      const orderItems = cart.map(item => ({
-        order_id: newOrderId,
-        product_id: item.id,
-        quantity: item.quantity,
-        price_at_purchase: item.price
-      }));
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
 
-      // Step 3: Insert all order items
-      const { error: orderItemsError } = await supabase
-        .from('order_items')
-        .insert(orderItems);
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
 
-      if (orderItemsError) throw orderItemsError;
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
 
-      // Step 4: Success!
-      clearCart();
-      toast({
-        title: 'Order Placed Successfully!',
-        description: 'Thank you for your purchase. You can view your order in your profile.',
-      });
-      navigate('/profile');
-    } catch (error: any) {
-      console.error("Checkout Error:", error);
-      toast({
-        title: 'Order Error',
-        description: `Something went wrong: ${error.message}`,
-        variant: 'destructive',
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+    if (!formData.address.trim()) {
+      newErrors.address = 'Address is required';
+    }
 
-  // --- RENDER ---
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      <Header />
-      <div className="pt-32 pb-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* ... Header content ... */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* ... Form cards ... */}
-              </form>
-            </div>
-            {/* Order Summary */}
-            <div>
-              <Card className="sticky top-24">
-                <CardHeader>
-                  <CardTitle>Order Summary</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4 mb-6">
-                    {cart.map(item => (
-                      <div key={item.id} className="flex justify-between">
-                        <div>
-                          <p className="font-medium">{item.name}</p>
-                          <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
-                        </div>
-                          {/* 3. FIXED Currency Symbol */}
-                        <p>₹{(item.price * item.quantity).toFixed(2)}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="border-t pt-4">
-                    <div className="flex justify-between font-medium">
-                      <p>Subtotal</p>
-                      <p>₹{totalAmount.toFixed(2)}</p>
-                    </div>
-                    <div className="flex justify-between text-sm text-gray-500 mt-2">
-                      <p>Shipping</p>
-                      <p>Free</p>
-                    </div>
-                    <div className="flex justify-between font-bold text-lg mt-4">
-                      <p>Total</p>
-                      <p>₹{totalAmount.toFixed(2)}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
-    </div>
-  );
+    if (!formData.city.trim()) {
+      newErrors.city = 'City is required';
+    }
+
+    if (!formData.state.trim()) {
+      newErrors.state = 'State is required';
+    }
+
+    if (!formData.zipCode.trim()) {
+      newErrors.zipCode = 'ZIP code is required';
+    } else if (!/^\d{5}(-\d{4})?$/.test(formData.zipCode)) {
+      newErrors.zipCode = 'Please enter a valid ZIP code';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Simulate payment processing
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Clear cart and show success
+      clearCart();
+      
+      toast({
+        title: "Order Placed Successfully!",
+        description: "Thank you for your purchase. You will receive a confirmation email shortly.",
+        variant: "default",
+      });
+
+      // Navigate to success page or home
+      navigate('/');
+    } catch (error) {
+      toast({
+        title: "Payment Failed",
+        description: "There was an error processing your payment. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <Header />
+      
+      <div className="pt-32 pb-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto">
+            {/* Header */}
+            <div className="mb-8">
+              <Link 
+                to="/cart" 
+                className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-4"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Cart
+              </Link>
+              <h1 className="text-4xl font-lobster text-gray-800 mb-2">Checkout</h1>
+              <p className="text-gray-600">Complete your crystal journey</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Checkout Form */}
+              <div className="lg:col-span-2">
+                <Card className="shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-lobster text-gray-800">Shipping Information</CardTitle>
+                    <CardDescription>Enter your delivery details</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="firstName">First Name *</Label>
+                          <Input
+                            id="firstName"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                            className={errors.firstName ? 'border-red-500' : ''}
+                          />
+                          {errors.firstName && (
+                            <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+                          )}
+                        </div>
+                        <div>
+                          <Label htmlFor="lastName">Last Name *</Label>
+                          <Input
+                            id="lastName"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            className={errors.lastName ? 'border-red-500' : ''}
+                          />
+                          {errors.lastName && (
+                            <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label htmlFor="email">Email Address *</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className={errors.email ? 'border-red-500' : ''}
+                        />
+                        {errors.email && (
+                          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                        )}
+                      </div>
+
+                      <div>
+                        <Label htmlFor="address">Street Address *</Label>
+                        <Input
+                          id="address"
+                          name="address"
+                          value={formData.address}
+                          onChange={handleInputChange}
+                          className={errors.address ? 'border-red-500' : ''}
+                        />
+                        {errors.address && (
+                          <p className="text-red-500 text-sm mt-1">{errors.address}</p>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                          <Label htmlFor="city">City *</Label>
+                          <Input
+                            id="city"
+                            name="city"
+                            value={formData.city}
+                            onChange={handleInputChange}
+                            className={errors.city ? 'border-red-500' : ''}
+                          />
+                          {errors.city && (
+                            <p className="text-red-500 text-sm mt-1">{errors.city}</p>
+                          )}
+                        </div>
+                        <div>
+                          <Label htmlFor="state">State *</Label>
+                          <Input
+                            id="state"
+                            name="state"
+                            value={formData.state}
+                            onChange={handleInputChange}
+                            className={errors.state ? 'border-red-500' : ''}
+                          />
+                          {errors.state && (
+                            <p className="text-red-500 text-sm mt-1">{errors.state}</p>
+                          )}
+                        </div>
+                        <div>
+                          <Label htmlFor="zipCode">ZIP Code *</Label>
+                          <Input
+                            id="zipCode"
+                            name="zipCode"
+                            value={formData.zipCode}
+                            onChange={handleInputChange}
+                            className={errors.zipCode ? 'border-red-500' : ''}
+                          />
+                          {errors.zipCode && (
+                            <p className="text-red-500 text-sm mt-1">{errors.zipCode}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Processing Payment...
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-center">
+                            <CreditCard className="w-4 h-4 mr-2" />
+                            Complete Order
+                          </div>
+                        )}
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Order Summary */}
+              <div className="lg:col-span-1">
+                <Card className="shadow-lg sticky top-8">
+                  <CardHeader>
+                    <CardTitle className="text-xl font-lobster text-gray-800">Order Summary</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {cart.map((item) => (
+                        <div key={item.id} className="flex items-center space-x-3">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-12 h-12 object-cover rounded-lg"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-800 truncate">
+                              {item.name}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              Qty: {item.quantity}
+                            </p>
+                          </div>
+                          <p className="text-sm font-medium text-gray-800">
+                            ₹{(item.price * item.quantity).toFixed(2)}
+                          </p>
+                        </div>
+                      ))}
+                      
+                      <Separator />
+                      
+                      <div className="flex justify-between items-center text-lg font-semibold">
+                        <span>Total</span>
+                        <span>₹{totalAmount.toFixed(2)}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
 }

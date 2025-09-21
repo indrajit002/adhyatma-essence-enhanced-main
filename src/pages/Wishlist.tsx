@@ -2,7 +2,7 @@ import React from 'react';
 import { Heart, ShoppingBag, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useWishlist } from '@/hooks/useWishlist';
-import { useCart } from '@/contexts/cart-context';
+import { useCart } from '@/hooks/useCart';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import WishlistIcon from '@/components/WishlistIcon';

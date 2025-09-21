@@ -7,6 +7,7 @@ interface Profile {
   id: string;
   first_name: string;
   last_name: string;
+  email: string;
   phone?: string;
   address?: string;
   city?: string;
@@ -28,7 +29,7 @@ interface AuthContextType extends AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<{ user: SupabaseUser | null; session: Session | null }>;
-  signUp: (userData: Omit<Profile, 'id' | 'updated_at' | 'phone' | 'address' | 'city' | 'state' | 'zip_code'> & { password: string; email: string }) => Promise<{ user: SupabaseUser | null; session: Session | null }>;
+  signUp: (userData: Omit<Profile, 'id' | 'updated_at'> & { password: string; email: string }) => Promise<{ user: SupabaseUser | null; session: Session | null }>;
   signOut: () => Promise<void>;
   updateUser: (userData: Partial<Profile>) => Promise<void>;
   clearError: () => void;
@@ -48,21 +49,32 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [initialized, setInitialized] = useState(false);
 
   const getProfile = useCallback(async (userId: string) => {
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
+    console.log("👤 Fetching profile for user:", userId);
+    try {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
 
-    if (profileError && profileError.code !== 'PGRST116') {
-      console.error('Profile fetch error:', profileError.message);
+      if (profileError) {
+        console.error('❌ Profile fetch error:', profileError);
+        // If profile is not found, sign the user out to prevent a broken state
+        await supabase.auth.signOut();
+        setUser(null);
+        setStatus('unauthenticated');
+        return;
+      }
+      
+      console.log("✅ Profile fetched successfully:", profile);
+      setUser(profile as Profile);
+      setStatus('authenticated');
+    } catch (error) {
+      console.error("❌ Profile fetch exception:", error);
+      await supabase.auth.signOut();
       setUser(null);
       setStatus('unauthenticated');
-      return;
     }
-
-    setUser(profile as Profile);
-    setStatus('authenticated');
   }, []);
 
   useEffect(() => {
@@ -116,11 +128,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
+        console.log("🔄 Auth state change:", event, newSession?.user?.id);
         setSession(newSession);
         if (event === 'SIGNED_IN' && newSession?.user) {
+          console.log("🔐 User signed in, fetching profile...");
           setStatus('loading'); // Set to loading while we fetch the profile
           await getProfile(newSession.user.id);
         } else if (event === 'SIGNED_OUT') {
+          console.log("🚪 User signed out");
           setUser(null);
           setStatus('unauthenticated');
         }
@@ -133,12 +148,22 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [getProfile]);
 
   const signIn = async (email: string, password: string) => {
-    const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-    if (signInError) {
-      setError(transformErrorMessage(signInError, 'signin'));
-      throw signInError;
+    console.log("🔐 Starting sign in process for:", email);
+    try {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      
+      if (signInError) {
+        console.error("❌ Sign in error:", signInError);
+        setError(transformErrorMessage(signInError, 'signin'));
+        throw signInError;
+      }
+      
+      console.log("✅ Sign in successful:", data);
+      return data;
+    } catch (error) {
+      console.error("❌ Sign in exception:", error);
+      throw error;
     }
-    return data;
   };
 
   const signUp = async (userData: Omit<Profile, 'id' | 'updated_at'> & { password: string; email: string }) => {
@@ -157,6 +182,26 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setError(transformErrorMessage(signUpError, 'signup'));
       throw signUpError;
     }
+
+    // If auth user is created, immediately create their profile
+    if (data.user) {
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: data.user.id,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
+          email: data.user.email,
+        });
+
+      if (profileError) {
+        // This is a critical error, as the user exists in auth but not in profiles
+        console.error("CRITICAL: Failed to create profile for new user:", profileError);
+        setError("Failed to create user profile. Please contact support.");
+        throw profileError;
+      }
+    }
+
     return data;
   };
 
@@ -240,29 +285,14 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             <h2 className="text-xl font-semibold text-gray-800 mb-2">Initializing Authentication</h2>
             <p className="text-gray-600">Setting up your crystal journey...</p>
             
-            <div className="mt-6 space-y-2">
-              <button 
-                onClick={() => {
-                  console.log("🚀 Bypassing authentication for testing");
-                  setStatus('unauthenticated');
-                }} 
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm"
-              >
-                Skip Authentication (Testing)
-              </button>
-              
-              {error && (
-                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-red-600 text-sm">{error}</p>
-                  <button 
-                    onClick={() => setStatus('unauthenticated')} 
-                    className="mt-2 text-red-600 underline text-sm hover:text-red-800"
-                  >
-                    Continue without authentication
-                  </button>
-                </div>
-              )}
-            </div>
+            {error && (
+              <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg max-w-md mx-auto">
+                <p className="text-red-600 text-sm">{error}</p>
+                <p className="text-gray-500 text-xs mt-2">
+                  Please check your internet connection and try refreshing the page.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       ) : (

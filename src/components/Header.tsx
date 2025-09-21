@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, Menu, X, LogOut, Heart } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
-import { useCart } from '@/contexts/cart-context';
+import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useWishlist } from '@/hooks/useWishlist';
 

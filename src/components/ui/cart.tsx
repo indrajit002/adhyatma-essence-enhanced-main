@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Plus, Minus, ShoppingBag, Lock } from 'lucide-react';
-import { useCart } from '@/contexts/cart-context';
+import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
