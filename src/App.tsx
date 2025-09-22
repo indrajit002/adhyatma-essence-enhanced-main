@@ -19,9 +19,12 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import Wishlist from "./pages/Wishlist";
-// Import the new page
+// Import the new pages
 import ConfirmEmail from "./pages/ConfirmEmail";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import LenisProvider from "./components/LenisProvider";
+import AuthDebug from "./components/AuthDebug";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +42,7 @@ const App = () => (
                   <div className="min-h-screen bg-background">
                     <CartOverlay />
                     <Cart />
+                    <AuthDebug />
                     <Routes>
                       <Route path="/" element={<Index />} />
                       <Route path="/our-story" element={<OurStory />} />
@@ -50,8 +54,10 @@ const App = () => (
                       <Route path="/collections" element={<Collections />} />
                       <Route path="/collections/:id" element={<CollectionDetail />} />
                       <Route path="/checkout" element={<Checkout />} />
-                      {/* Add the new route here */}
+                      {/* Add the new routes here */}
                       <Route path="/confirm-email" element={<ConfirmEmail />} />
+                      <Route path="/forgot-password" element={<ForgotPassword />} />
+                      <Route path="/reset-password" element={<ResetPassword />} />
                       <Route path="*" element={<NotFound />} />
                     </Routes>
                   </div>

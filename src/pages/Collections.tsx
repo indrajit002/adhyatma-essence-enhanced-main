@@ -4,13 +4,15 @@ import { Input } from '@/components/ui/input';
 import { Search, Filter, Grid, List } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useCollections, type Collection } from '@/hooks/useCollections';
 
 const Collections = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const { collections, loading, error } = useCollections();
 
-  const collections = [
+  const mockCollections = [
     {
       id: 'healing-crystals',
       name: 'Healing Crystals',
@@ -93,15 +95,56 @@ const Collections = () => {
 
   const filteredCollections = collections.filter(collection => {
     const matchesSearch = collection.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         collection.description.toLowerCase().includes(searchTerm.toLowerCase());
+                         (collection.description && collection.description.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || 
-                           (selectedCategory === 'featured' && collection.featured) ||
+                           (selectedCategory === 'featured' && collection.is_featured) ||
                            (selectedCategory === 'healing' && collection.name.toLowerCase().includes('healing')) ||
                            (selectedCategory === 'jewelry' && collection.name.toLowerCase().includes('bracelet')) ||
                            (selectedCategory === 'decorative' && (collection.name.toLowerCase().includes('tree') || collection.name.toLowerCase().includes('bottle')));
     
     return matchesSearch && matchesCategory;
   });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="pt-32 pb-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">Loading Collections</h2>
+              <p className="text-gray-600">Please wait while we fetch the latest collections...</p>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="pt-32 pb-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center py-20">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Search className="w-8 h-8 text-red-600" />
+              </div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Collections</h2>
+              <p className="text-gray-600 mb-4">{error}</p>
+              <Button onClick={() => window.location.reload()} className="bg-purple-600 hover:bg-purple-700">
+                Try Again
+              </Button>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

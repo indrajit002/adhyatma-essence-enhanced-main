@@ -4,15 +4,30 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { MailCheck } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { supabase } from '@/lib/supabaseClient';
 
 const ConfirmEmail = () => {
   const location = useLocation();
   // Get the email address passed from the sign-up page
   const email = location.state?.email || 'your email address';
 
-  const handleResendEmail = () => {
-    // In a real app, you would call a Supabase function here to resend the confirmation
-    alert('A new confirmation email has been sent!');
+  const handleResendEmail = async () => {
+    try {
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: email
+      });
+      
+      if (error) {
+        console.error('Error resending email:', error);
+        alert('Failed to resend email. Please try again.');
+      } else {
+        alert('A new confirmation email has been sent!');
+      }
+    } catch (error) {
+      console.error('Error resending email:', error);
+      alert('Failed to resend email. Please try again.');
+    }
   };
 
   return (

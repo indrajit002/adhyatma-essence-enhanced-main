@@ -2,13 +2,50 @@ import { Button } from '@/components/ui/button';
 import { Star, ShoppingCart } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
-import { getFeaturedProducts } from '@/data/products';
+import { useFeaturedProducts } from '@/hooks/useProducts';
+import { type Product } from '@/data/products';
 import WishlistIcon from '@/components/WishlistIcon';
 
 const FeaturedProducts = () => {
   const { addItem } = useCart();
-  
-  const featuredProducts = getFeaturedProducts();
+  const { products: featuredProducts, loading, error } = useFeaturedProducts();
+
+  if (loading) {
+    return (
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+              Featured Products
+            </h2>
+            <p className="text-lg text-gray-600 font-lobster">
+              Loading our most loved crystals and healing stones...
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+              Featured Products
+            </h2>
+            <p className="text-lg text-gray-600 font-lobster">
+              Unable to load featured products. Please try again later.
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-gray-50">

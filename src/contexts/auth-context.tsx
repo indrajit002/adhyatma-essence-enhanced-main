@@ -10,9 +10,8 @@ interface Profile {
   email: string;
   phone?: string;
   address?: string;
-  city?: string;
-  state?: string;
-  zip_code?: string;
+  avatar_url?: string;
+  created_at?: string;
   updated_at?: string;
 }
 
@@ -47,9 +46,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [status, setStatus] = useState<AuthStatus>('loading');
   const [error, setError] = useState<string | null>(null);
   const [initialized, setInitialized] = useState(false);
+  const [isProcessingProfile, setIsProcessingProfile] = useState(false);
 
   const getProfile = useCallback(async (userId: string) => {
+    if (isProcessingProfile) {
+      console.log("⏳ Already processing profile, skipping...");
+      return;
+    }
+    
     console.log("👤 Fetching profile for user:", userId);
+    setIsProcessingProfile(true);
+    
     try {
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
@@ -59,7 +66,75 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (profileError) {
         console.error('❌ Profile fetch error:', profileError);
-        // If profile is not found, sign the user out to prevent a broken state
+        
+        // If profile doesn't exist, create it from auth user data
+        if (profileError.code === 'PGRST116') {
+          console.log("👤 Profile not found, creating new profile...");
+          
+          // Get the current user from auth
+          const { data: { user: authUser } } = await supabase.auth.getUser();
+          
+          if (authUser) {
+            const { error: createError } = await supabase
+              .from('profiles')
+              .insert({
+                id: authUser.id,
+                first_name: authUser.user_metadata?.first_name || '',
+                last_name: authUser.user_metadata?.last_name || '',
+                email: authUser.email || '',
+              });
+
+            if (createError) {
+              console.error("❌ Failed to create missing profile:", createError);
+              // Instead of signing out, create a temporary profile from auth data
+              console.log("🔄 Creating temporary profile from auth data...");
+              const tempProfile: Profile = {
+                id: authUser.id,
+                first_name: authUser.user_metadata?.first_name || '',
+                last_name: authUser.user_metadata?.last_name || '',
+                email: authUser.email || '',
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
+              };
+              setUser(tempProfile);
+              setStatus('authenticated');
+              return;
+            }
+            
+            // Fetch the newly created profile
+            const { data: newProfile } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', userId)
+              .single();
+              
+            if (newProfile) {
+              console.log("✅ Profile created and fetched successfully:", newProfile);
+              setUser(newProfile as Profile);
+              setStatus('authenticated');
+              return;
+            }
+          }
+        }
+        
+        // If we can't fetch or create profile, create a temporary one from auth data
+        console.log("🔄 Creating temporary profile from auth data...");
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser) {
+          const tempProfile: Profile = {
+            id: authUser.id,
+            first_name: authUser.user_metadata?.first_name || '',
+            last_name: authUser.user_metadata?.last_name || '',
+            email: authUser.email || '',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          };
+          setUser(tempProfile);
+          setStatus('authenticated');
+          return;
+        }
+        
+        // If we can't get auth user, sign out
         await supabase.auth.signOut();
         setUser(null);
         setStatus('unauthenticated');
@@ -71,11 +146,36 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setStatus('authenticated');
     } catch (error) {
       console.error("❌ Profile fetch exception:", error);
+      
+      // Instead of signing out immediately, try to create a temporary profile
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser) {
+          console.log("🔄 Creating temporary profile from auth data after error...");
+          const tempProfile: Profile = {
+            id: authUser.id,
+            first_name: authUser.user_metadata?.first_name || '',
+            last_name: authUser.user_metadata?.last_name || '',
+            email: authUser.email || '',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          };
+          setUser(tempProfile);
+          setStatus('authenticated');
+          return;
+        }
+      } catch (authError) {
+        console.error("❌ Failed to get auth user:", authError);
+      }
+      
+      // Only sign out if we can't create a temporary profile
       await supabase.auth.signOut();
       setUser(null);
       setStatus('unauthenticated');
+    } finally {
+      setIsProcessingProfile(false);
     }
-  }, []);
+  }, [isProcessingProfile]);
 
   useEffect(() => {
     const getInitialSession = async () => {
@@ -130,6 +230,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       async (event, newSession) => {
         console.log("🔄 Auth state change:", event, newSession?.user?.id);
         setSession(newSession);
+        
         if (event === 'SIGNED_IN' && newSession?.user) {
           console.log("🔐 User signed in, fetching profile...");
           setStatus('loading'); // Set to loading while we fetch the profile
@@ -137,7 +238,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         } else if (event === 'SIGNED_OUT') {
           console.log("🚪 User signed out");
           setUser(null);
+          setSession(null);
           setStatus('unauthenticated');
+        } else if (event === 'TOKEN_REFRESHED' && newSession?.user) {
+          console.log("🔄 Token refreshed, ensuring profile is loaded...");
+          // Always refresh profile on token refresh to ensure data is current
+          await getProfile(newSession.user.id);
         }
       }
     );
@@ -166,43 +272,56 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signUp = async (userData: Omit<Profile, 'id' | 'updated_at'> & { password: string; email: string }) => {
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email: userData.email,
-      password: userData.password,
-      options: {
-        data: {
-          first_name: userData.first_name,
-          last_name: userData.last_name,
+  const signUp = async (userData: Omit<Profile, 'id' | 'updated_at' | 'created_at'> & { password: string; email: string }) => {
+    console.log("🔐 Starting sign up process for:", userData.email);
+    
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: userData.email,
+        password: userData.password,
+        options: {
+          data: {
+            first_name: userData.first_name,
+            last_name: userData.last_name,
+          }
+        }
+      });
+
+      if (signUpError) {
+        console.error("❌ Sign up error:", signUpError);
+        setError(transformErrorMessage(signUpError, 'signup'));
+        throw signUpError;
+      }
+
+      console.log("✅ Auth user created successfully:", data);
+
+      // If auth user is created, try to create their profile
+      if (data.user) {
+        console.log("👤 Creating profile for user:", data.user.id);
+        
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: data.user.id,
+            first_name: userData.first_name,
+            last_name: userData.last_name,
+            email: data.user.email,
+          });
+
+        if (profileError) {
+          console.error("⚠️ Failed to create profile for new user:", profileError);
+          // Don't throw error, just log it - the user can still sign in
+          console.log("🔄 User can still sign in, profile will be created on first login");
+        } else {
+          console.log("✅ Profile created successfully");
         }
       }
-    });
 
-    if (signUpError) {
-      setError(transformErrorMessage(signUpError, 'signup'));
-      throw signUpError;
+      return data;
+    } catch (error) {
+      console.error("❌ Sign up exception:", error);
+      throw error;
     }
-
-    // If auth user is created, immediately create their profile
-    if (data.user) {
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          id: data.user.id,
-          first_name: userData.first_name,
-          last_name: userData.last_name,
-          email: data.user.email,
-        });
-
-      if (profileError) {
-        // This is a critical error, as the user exists in auth but not in profiles
-        console.error("CRITICAL: Failed to create profile for new user:", profileError);
-        setError("Failed to create user profile. Please contact support.");
-        throw profileError;
-      }
-    }
-
-    return data;
   };
 
   const signOut = async () => {

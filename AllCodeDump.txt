@@ -6479,6 +6479,14 @@ export default WishlistIcon;
 // Separate exports file to avoid HMR issues with Fast Refresh
 export { AuthContext } from './auth-context';
 
+----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\contexts\auth-context-provider.tsx -----
+
+ 
+
+----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\contexts\auth-context-types.ts -----
+
+ 
+
 ----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\contexts\auth-context.tsx -----
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
@@ -6518,7 +6526,7 @@ interface AuthContextType extends AuthState {
   clearError: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -6923,7 +6931,7 @@ type CartContextType = {
   toggleCart: () => void;
 };
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+export const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState, () => {
@@ -7565,6 +7573,10 @@ export const useAuth = () => {
   }
   return context;
 };
+
+----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\hooks\useAuthForm.ts -----
+
+ 
 
 ----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\hooks\useCart.ts -----
 
@@ -8946,6 +8958,10 @@ const ConfirmEmail = () => {
 
 export default ConfirmEmail;
 
+----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\pages\ForgotPassword.tsx -----
+
+ 
+
 ----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\pages\Index.tsx -----
 
 import Header from '@/components/Header';
@@ -9927,6 +9943,10 @@ const Profile = () => {
 };
 
 export default Profile;
+
+----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\pages\ResetPassword.tsx -----
+
+ 
 
 ----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\pages\Shop.tsx -----
 
@@ -11097,6 +11117,10 @@ const Wishlist: React.FC = () => {
 };
 
 export default Wishlist;
+
+----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\utils\validation.ts -----
+
+ 
 
 ----- D:\01--PROJECTS--APPROTECH\adhyatma-essence-enhanced-main\src\App.tsx -----
 

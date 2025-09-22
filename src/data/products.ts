@@ -215,17 +215,65 @@ export const products: Product[] = [
     featured: false,
     description: 'Collection of 7 different tumbled stones for daily use',
     benefits: ['Variety', 'Daily Use', 'Collection']
+  },
+  {
+    id: '13',
+    name: 'Crystal Bracelet Set',
+    price: 65.99,
+    originalPrice: 89.99,
+    image: crystalBraceletsImg,
+    rating: 4.8,
+    reviewCount: 142,
+    category: 'jewelry',
+    colors: ['Mixed', 'Purple', 'Rose'],
+    size: 'One Size',
+    inStock: true,
+    featured: true,
+    description: 'Wearable crystal jewelry for daily energy. This set includes multiple bracelets with different healing properties.',
+    benefits: ['Daily Energy', 'Wearable', 'Multiple Crystals']
+  },
+  {
+    id: '14',
+    name: 'Citrine Abundance Crystal',
+    price: 42.99,
+    originalPrice: 55.99,
+    image: healingCrystalsImg,
+    rating: 4.6,
+    reviewCount: 134,
+    category: 'healing',
+    colors: ['Yellow', 'Gold'],
+    size: 'Medium',
+    inStock: true,
+    featured: false,
+    description: 'Manifest abundance and prosperity with this golden citrine crystal. Known as the merchant\'s stone, it attracts wealth and success.',
+    benefits: ['Abundance', 'Prosperity', 'Success']
+  },
+  {
+    id: '15',
+    name: 'Crystal Infused Water Bottle',
+    price: 39.99,
+    originalPrice: 49.99,
+    image: crystalBottlesImg,
+    rating: 4.5,
+    reviewCount: 76,
+    category: 'accessories',
+    colors: ['Clear', 'Blue', 'Pink'],
+    size: '500ml',
+    inStock: true,
+    featured: false,
+    description: 'Infused water bottle with crystal energy. This unique bottle combines hydration with crystal healing properties.',
+    benefits: ['Hydration', 'Crystal Energy', 'Portable']
   }
 ];
 
 export const categories = [
-  { id: 'all', name: 'All Products', count: 12 },
-  { id: 'healing', name: 'Healing Crystals', count: 3 },
+  { id: 'all', name: 'All Products', count: 15 },
+  { id: 'healing', name: 'Healing Crystals', count: 4 },
   { id: 'natural', name: 'Natural Crystals', count: 4 },
-  { id: 'jewelry', name: 'Crystal Jewelry', count: 1 },
+  { id: 'jewelry', name: 'Crystal Jewelry', count: 2 },
   { id: 'decorative', name: 'Decorative', count: 1 },
   { id: 'kits', name: 'Crystal Kits', count: 2 },
-  { id: 'accessories', name: 'Accessories', count: 1 }
+  { id: 'accessories', name: 'Accessories', count: 2 }
 ];
 
 export const colors = [

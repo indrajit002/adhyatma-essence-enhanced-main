@@ -41,9 +41,6 @@ const Profile = () => {
     email: '',
     phone: '',
     address: '',
-    city: '',
-    state: '',
-    zipCode: '',
     joinDate: ''
   });
   
@@ -55,10 +52,7 @@ const Profile = () => {
         email: user.email || '',
         phone: user.phone || '',
         address: user.address || '',
-        city: user.city || '',
-        state: user.state || '',
-        zipCode: user.zip_code || '',
-        joinDate: user.updated_at ? new Date(user.updated_at).toLocaleDateString() : 'Recently joined'
+        joinDate: user.created_at ? new Date(user.created_at).toLocaleDateString() : 'Recently joined'
       });
     }
   }, [user]);
@@ -101,10 +95,7 @@ const Profile = () => {
         first_name: profileData.firstName,
         last_name: profileData.lastName,
         phone: profileData.phone,
-        address: profileData.address,
-        city: profileData.city,
-        state: profileData.state,
-        zip_code: profileData.zipCode
+        address: profileData.address
       });
       setIsEditing(false);
     } catch (error) {
@@ -121,10 +112,7 @@ const Profile = () => {
         email: user.email || '',
         phone: user.phone || '',
         address: user.address || '',
-        city: user.city || '',
-        state: user.state || '',
-        zipCode: user.zip_code || '',
-        joinDate: user.updated_at ? new Date(user.updated_at).toLocaleDateString() : 'Recently joined'
+        joinDate: user.created_at ? new Date(user.created_at).toLocaleDateString() : 'Recently joined'
       });
     }
   };
@@ -300,39 +288,6 @@ const Profile = () => {
                               id="address"
                               name="address"
                               value={profileData.address}
-                              onChange={handleInputChange}
-                              disabled={!isEditing}
-                              className="mt-1"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="city">City</Label>
-                            <Input
-                              id="city"
-                              name="city"
-                              value={profileData.city}
-                              onChange={handleInputChange}
-                              disabled={!isEditing}
-                              className="mt-1"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="state">State</Label>
-                            <Input
-                              id="state"
-                              name="state"
-                              value={profileData.state}
-                              onChange={handleInputChange}
-                              disabled={!isEditing}
-                              className="mt-1"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor="zipCode">ZIP Code</Label>
-                            <Input
-                              id="zipCode"
-                              name="zipCode"
-                              value={profileData.zipCode}
                               onChange={handleInputChange}
                               disabled={!isEditing}
                               className="mt-1"
