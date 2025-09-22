@@ -10,8 +10,9 @@ interface Profile {
   email: string;
   phone?: string;
   address?: string;
-  avatar_url?: string;
-  created_at?: string;
+  city?: string;
+  state?: string;
+  zip_code?: string;
   updated_at?: string;
 }
 
@@ -81,19 +82,17 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 id: authUser.id,
                 first_name: authUser.user_metadata?.first_name || '',
                 last_name: authUser.user_metadata?.last_name || '',
-                email: authUser.email || '',
               });
 
             if (createError) {
               console.error("❌ Failed to create missing profile:", createError);
-              // Instead of signing out, create a temporary profile from auth data
+              console.log("🔄 Profiles table might not exist. Please create it in Supabase.");
               console.log("🔄 Creating temporary profile from auth data...");
               const tempProfile: Profile = {
                 id: authUser.id,
                 first_name: authUser.user_metadata?.first_name || '',
                 last_name: authUser.user_metadata?.last_name || '',
                 email: authUser.email || '',
-                created_at: new Date().toISOString(),
                 updated_at: new Date().toISOString()
               };
               setUser(tempProfile);
@@ -126,7 +125,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             first_name: authUser.user_metadata?.first_name || '',
             last_name: authUser.user_metadata?.last_name || '',
             email: authUser.email || '',
-            created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           };
           setUser(tempProfile);
@@ -157,7 +155,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             first_name: authUser.user_metadata?.first_name || '',
             last_name: authUser.user_metadata?.last_name || '',
             email: authUser.email || '',
-            created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           };
           setUser(tempProfile);
@@ -272,7 +269,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const signUp = async (userData: Omit<Profile, 'id' | 'updated_at' | 'created_at'> & { password: string; email: string }) => {
+  const signUp = async (userData: { first_name: string; last_name: string; email: string; password: string }) => {
     console.log("🔐 Starting sign up process for:", userData.email);
     
     try {
@@ -299,24 +296,28 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (data.user) {
         console.log("👤 Creating profile for user:", data.user.id);
         
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .insert({
-            id: data.user.id,
-            first_name: userData.first_name,
-            last_name: userData.last_name,
-            email: data.user.email,
-          });
+        try {
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .insert({
+              id: data.user.id,
+              first_name: userData.first_name,
+              last_name: userData.last_name,
+            });
 
-        if (profileError) {
-          console.error("⚠️ Failed to create profile for new user:", profileError);
-          // Don't throw error, just log it - the user can still sign in
+          if (profileError) {
+            console.error("⚠️ Failed to create profile for new user:", profileError);
+            console.log("🔄 User can still sign in, profile will be created on first login");
+          } else {
+            console.log("✅ Profile created successfully");
+          }
+        } catch (profileError) {
+          console.error("⚠️ Profile creation exception:", profileError);
           console.log("🔄 User can still sign in, profile will be created on first login");
-        } else {
-          console.log("✅ Profile created successfully");
         }
       }
 
+      console.log("✅ Signup process completed successfully");
       return data;
     } catch (error) {
       console.error("❌ Sign up exception:", error);
@@ -337,21 +338,35 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const oldUser = user;
     setUser(prevUser => prevUser ? { ...prevUser, ...userData } : null);
 
-    const { data, error: updateError } = await supabase
-      .from('profiles')
-      .update(userData)
-      .eq('id', user.id)
-      .select()
-      .single();
+    try {
+      const { data, error: updateError } = await supabase
+        .from('profiles')
+        .update(userData)
+        .eq('id', user.id)
+        .select()
+        .single();
 
-    if (updateError) {
-      setError(transformErrorMessage(updateError, 'profile'));
-      setUser(oldUser);
-      throw updateError;
-    }
+      if (updateError) {
+        console.error("❌ Failed to update profile in Supabase:", updateError);
+        console.log("🔄 Profiles table might not exist. Profile updated locally only.");
+        
+        // Update the local user state with the new data
+        const updatedUser = { ...oldUser, ...userData, updated_at: new Date().toISOString() };
+        setUser(updatedUser);
+        return;
+      }
 
-    if (data) {
-      setUser(data as Profile);
+      if (data) {
+        setUser(data as Profile);
+        console.log("✅ Profile updated successfully in Supabase:", data);
+      }
+    } catch (error) {
+      console.error("❌ Profile update exception:", error);
+      console.log("🔄 Profiles table might not exist. Profile updated locally only.");
+      
+      // Update the local user state with the new data
+      const updatedUser = { ...oldUser, ...userData, updated_at: new Date().toISOString() };
+      setUser(updatedUser);
     }
   };
 

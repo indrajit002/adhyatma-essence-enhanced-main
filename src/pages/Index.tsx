@@ -1,4 +1,3 @@
-import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import ShippingBanner from '@/components/ShippingBanner';
 import MissionSection from '@/components/MissionSection';
@@ -11,12 +10,10 @@ import CallToAction from '@/components/CallToAction';
 import BlogSection from '@/components/BlogSection';
 import ContactInfo from '@/components/ContactInfo';
 import NewsletterSection from '@/components/NewsletterSection';
-import Footer from '@/components/Footer';
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Header />
       <main>
         <HeroSection />
         <ShippingBanner />
@@ -37,7 +34,6 @@ const Index = () => {
         <ContactInfo />
         <NewsletterSection />
       </main>
-      <Footer />
     </div>
   );
 };

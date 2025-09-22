@@ -4,9 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Eye, EyeOff, Mail, Lock, User, ArrowLeft } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Eye, EyeOff, Mail, Lock, User, ArrowLeft, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import AlertMessage from '@/components/AlertMessage';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -21,6 +19,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [signupStatus, setSignupStatus] = useState<'idle' | 'creating-user' | 'creating-profile' | 'success' | 'error'>('idle');
   const { signUp, isLoading, error, clearError } = useAuth();
   const navigate = useNavigate();
 
@@ -75,34 +74,47 @@ const SignUp = () => {
     e.preventDefault();
     clearError();
     setErrors({});
+    setSignupStatus('idle');
     
     if (!validateForm()) {
       return;
     }
 
     try {
-      await signUp({
+      console.log("🚀 Starting signup process...");
+      setSignupStatus('creating-user');
+      
+      const result = await signUp({
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
         password: formData.password
       });
 
-      // **THIS IS THE CORRECTED PART**
-      // Always navigate to the confirmation page after successful sign-up,
-      // and pass the email along so the page can display it.
-      navigate('/confirm-email', { state: { email: formData.email }, replace: true });
+      console.log("✅ Signup completed successfully:", result);
+      setSignupStatus('success');
+      
+      // Show success state briefly before redirecting
+      setTimeout(() => {
+        console.log("🔄 Navigating to confirm email page...");
+        try {
+          navigate('/confirm-email', { state: { email: formData.email }, replace: true });
+          console.log("✅ Navigation triggered");
+        } catch (navError) {
+          console.error("❌ Navigation failed:", navError);
+          // Fallback: try window.location
+          window.location.href = '/confirm-email';
+        }
+      }, 1500);
 
     } catch (error) {
-      // Error is handled by the auth context and displayed in the UI
-      console.error("Sign up failed:", error);
+      console.error("❌ Sign up failed:", error);
+      setSignupStatus('error');
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      <Header />
-      
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
@@ -133,6 +145,42 @@ const SignUp = () => {
               </CardHeader>
               
               <CardContent>
+                {/* Status Indicator */}
+                {signupStatus !== 'idle' && (
+                  <div className="mb-6 p-4 rounded-lg border-2 border-dashed">
+                    {signupStatus === 'creating-user' && (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-center space-x-3 text-purple-600">
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <span className="font-medium">Creating your account...</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-purple-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
+                        </div>
+                        <p className="text-xs text-gray-500 text-center">Setting up your profile and preferences...</p>
+                      </div>
+                    )}
+                    {signupStatus === 'success' && (
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-center space-x-3 text-green-600">
+                          <CheckCircle className="w-5 h-5" />
+                          <span className="font-medium">Account created successfully! Redirecting...</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div className="bg-green-600 h-2 rounded-full transition-all duration-500" style={{ width: '100%' }}></div>
+                        </div>
+                        <p className="text-xs text-gray-500 text-center">Taking you to the confirmation page...</p>
+                      </div>
+                    )}
+                    {signupStatus === 'error' && (
+                      <div className="flex items-center justify-center space-x-3 text-red-600">
+                        <AlertCircle className="w-5 h-5" />
+                        <span className="font-medium">Something went wrong. Please try again.</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {error && (
                   <AlertMessage
                     type="error"
@@ -147,7 +195,7 @@ const SignUp = () => {
                     onClose={clearError}
                   />
                 )}
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className={`space-y-6 transition-opacity duration-300 ${signupStatus === 'creating-user' ? 'opacity-75' : 'opacity-100'}`}>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="first_name" className="text-sm font-medium text-gray-700">
@@ -162,9 +210,10 @@ const SignUp = () => {
                           placeholder="First name"
                           value={formData.first_name}
                           onChange={handleInputChange}
+                          disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
                           className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
                             errors.first_name ? 'border-red-500' : ''
-                          }`}
+                          } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                           required
                         />
                       </div>
@@ -186,9 +235,10 @@ const SignUp = () => {
                           placeholder="Last name"
                           value={formData.last_name}
                           onChange={handleInputChange}
+                          disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
                           className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
                             errors.last_name ? 'border-red-500' : ''
-                          }`}
+                          } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                           required
                         />
                       </div>
@@ -211,9 +261,10 @@ const SignUp = () => {
                         placeholder="Enter your email"
                         value={formData.email}
                         onChange={handleInputChange}
+                        disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
                         className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
                           errors.email ? 'border-red-500' : ''
-                        }`}
+                        } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                         required
                       />
                     </div>
@@ -235,9 +286,10 @@ const SignUp = () => {
                         placeholder="Create a password"
                         value={formData.password}
                         onChange={handleInputChange}
+                        disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
                         className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
                           errors.password ? 'border-red-500' : ''
-                        }`}
+                        } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                         required
                       />
                       <button
@@ -266,9 +318,10 @@ const SignUp = () => {
                         placeholder="Confirm your password"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
+                        disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
                         className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
                           errors.confirmPassword ? 'border-red-500' : ''
-                        }`}
+                        } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                         required
                       />
                       <button
@@ -288,7 +341,10 @@ const SignUp = () => {
                     <input
                       id="terms"
                       type="checkbox"
-                      className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                      disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
+                      className={`h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded ${
+                        signupStatus === 'creating-user' || signupStatus === 'success' ? 'opacity-50' : ''
+                      }`}
                       required
                     />
                     <Label htmlFor="terms" className="ml-2 text-sm text-gray-600">
@@ -305,10 +361,27 @@ const SignUp = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium disabled:opacity-50"
-                    disabled={isLoading}
+                    className={`w-full py-3 rounded-lg font-medium transition-all duration-300 ${
+                      signupStatus === 'creating-user' 
+                        ? 'bg-purple-500 cursor-not-allowed' 
+                        : signupStatus === 'success'
+                        ? 'bg-green-600 hover:bg-green-700'
+                        : 'bg-purple-600 hover:bg-purple-700'
+                    } text-white disabled:opacity-50`}
+                    disabled={isLoading || signupStatus === 'creating-user' || signupStatus === 'success'}
                   >
-                    {isLoading ? 'Creating Account...' : 'Create Account'}
+                    <div className="flex items-center justify-center space-x-2">
+                      {signupStatus === 'creating-user' && <Loader2 className="w-4 h-4 animate-spin" />}
+                      {signupStatus === 'success' && <CheckCircle className="w-4 h-4" />}
+                      <span>
+                        {signupStatus === 'creating-user' 
+                          ? 'Creating Account...' 
+                          : signupStatus === 'success'
+                          ? 'Account Created!'
+                          : 'Create Account'
+                        }
+                      </span>
+                    </div>
                   </Button>
                 </form>
 
@@ -328,8 +401,6 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

@@ -5,8 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Lock, Eye, EyeOff } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import AlertMessage from '@/components/AlertMessage';
 import { supabase } from '@/lib/supabaseClient';
 
@@ -70,7 +68,6 @@ const ResetPassword = () => {
   if (success) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-        <Header />
         
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,14 +95,12 @@ const ResetPassword = () => {
           </div>
         </div>
 
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      <Header />
       
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -206,7 +201,6 @@ const ResetPassword = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };

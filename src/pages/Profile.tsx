@@ -9,8 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { User, Package, Heart, Settings, LogOut, Edit, Save, X } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { useAuth } from '@/hooks/useAuth';
 import { useWishlist } from '@/hooks/useWishlist';
 import { supabase } from '@/lib/supabaseClient';
@@ -41,6 +39,9 @@ const Profile = () => {
     email: '',
     phone: '',
     address: '',
+    city: '',
+    state: '',
+    zipCode: '',
     joinDate: ''
   });
   
@@ -52,7 +53,10 @@ const Profile = () => {
         email: user.email || '',
         phone: user.phone || '',
         address: user.address || '',
-        joinDate: user.created_at ? new Date(user.created_at).toLocaleDateString() : 'Recently joined'
+        city: user.city || '',
+        state: user.state || '',
+        zipCode: user.zip_code || '',
+        joinDate: user.updated_at ? new Date(user.updated_at).toLocaleDateString() : 'Recently joined'
       });
     }
   }, [user]);
@@ -95,7 +99,10 @@ const Profile = () => {
         first_name: profileData.firstName,
         last_name: profileData.lastName,
         phone: profileData.phone,
-        address: profileData.address
+        address: profileData.address,
+        city: profileData.city,
+        state: profileData.state,
+        zip_code: profileData.zipCode
       });
       setIsEditing(false);
     } catch (error) {
@@ -112,7 +119,10 @@ const Profile = () => {
         email: user.email || '',
         phone: user.phone || '',
         address: user.address || '',
-        joinDate: user.created_at ? new Date(user.created_at).toLocaleDateString() : 'Recently joined'
+        city: user.city || '',
+        state: user.state || '',
+        zipCode: user.zip_code || '',
+        joinDate: user.updated_at ? new Date(user.updated_at).toLocaleDateString() : 'Recently joined'
       });
     }
   };
@@ -156,7 +166,6 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
-      <Header />
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
@@ -294,6 +303,39 @@ const Profile = () => {
                             />
                           </div>
                           <div>
+                            <Label htmlFor="city">City</Label>
+                            <Input
+                              id="city"
+                              name="city"
+                              value={profileData.city}
+                              onChange={handleInputChange}
+                              disabled={!isEditing}
+                              className="mt-1"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="state">State</Label>
+                            <Input
+                              id="state"
+                              name="state"
+                              value={profileData.state}
+                              onChange={handleInputChange}
+                              disabled={!isEditing}
+                              className="mt-1"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="zipCode">ZIP Code</Label>
+                            <Input
+                              id="zipCode"
+                              name="zipCode"
+                              value={profileData.zipCode}
+                              onChange={handleInputChange}
+                              disabled={!isEditing}
+                              className="mt-1"
+                            />
+                          </div>
+                          <div>
                             <Label>Member Since</Label>
                             <Input
                               value={profileData.joinDate}
@@ -424,7 +466,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
