@@ -76,39 +76,69 @@ const SignUp = () => {
     setErrors({});
     setSignupStatus('idle');
     
+    // Add browser detection and debugging
+    const userAgent = navigator.userAgent;
+    const isChrome = userAgent.includes('Chrome') && !userAgent.includes('Edge');
+    const isIncognito = window.navigator.storage && window.navigator.storage.estimate ? true : false;
+    
+    console.log("🌐 Browser Info:", {
+      userAgent: userAgent,
+      isChrome: isChrome,
+      isIncognito: isIncognito,
+      timestamp: new Date().toISOString()
+    });
+    
     if (!validateForm()) {
       return;
     }
 
     try {
       console.log("🚀 Starting signup process...");
+      console.log("⏰ Timestamp:", Date.now());
       setSignupStatus('creating-user');
       
-      const result = await signUp({
+      // Add timeout protection for Chrome
+      const signupPromise = signUp({
         first_name: formData.first_name,
         last_name: formData.last_name,
         email: formData.email,
         password: formData.password
       });
-
+      
+      // Add timeout for Chrome compatibility (reduced to 10 seconds)
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Signup timeout after 10 seconds')), 10000)
+      );
+      
+      const result = await Promise.race([signupPromise, timeoutPromise]);
+      
       console.log("✅ Signup completed successfully:", result);
+      console.log("⏰ Completion timestamp:", Date.now());
       setSignupStatus('success');
       
-      // Show success state briefly before redirecting
+      // Show success state briefly before redirecting (reduced delay)
       setTimeout(() => {
         console.log("🔄 Navigating to confirm email page...");
+        console.log("⏰ Navigation timestamp:", Date.now());
         try {
           navigate('/confirm-email', { state: { email: formData.email }, replace: true });
           console.log("✅ Navigation triggered");
         } catch (navError) {
           console.error("❌ Navigation failed:", navError);
           // Fallback: try window.location
+          console.log("🔄 Trying window.location fallback...");
           window.location.href = '/confirm-email';
         }
-      }, 1500);
+      }, 800); // Reduced from 1500ms to 800ms
 
     } catch (error) {
       console.error("❌ Sign up failed:", error);
+      console.error("❌ Error details:", {
+        name: error.name,
+        message: error.message,
+        stack: error.stack,
+        timestamp: Date.now()
+      });
       setSignupStatus('error');
     }
   };
