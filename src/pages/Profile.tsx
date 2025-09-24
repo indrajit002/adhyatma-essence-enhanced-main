@@ -1,6 +1,6 @@
 // src/pages/Profile.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { User, Package, Heart, Settings, LogOut, Edit, Save, X } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useWishlist } from '@/hooks/useWishlist';
-import { supabase } from '@/lib/supabaseClient';
+import { OrderService } from '@/services/orderService';
 
 // 2. Define a type for your order data
 type Order = {
@@ -32,6 +32,8 @@ const Profile = () => {
   // Add state for orders and loading status
   const [orders, setOrders] = useState<Order[]>([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
+  const [ordersLoaded, setOrdersLoaded] = useState(false);
+  const isFetchingOrdersRef = useRef(false);
 
   const [profileData, setProfileData] = useState({
     firstName: '',
@@ -61,32 +63,54 @@ const Profile = () => {
     }
   }, [user]);
 
-  // Fetch orders when the 'orders' tab is active
+  // Fetch orders when the 'orders' tab is active (with debouncing)
   useEffect(() => {
-    if (activeTab === 'orders' && user) {
+    if (activeTab === 'orders' && user && !ordersLoaded && !isFetchingOrdersRef.current) {
       const fetchOrders = async () => {
+        isFetchingOrdersRef.current = true;
         setLoadingOrders(true);
+        
         try {
-          const { data, error } = await supabase
-            .from('orders')
-            .select('*')
-            .eq('user_id', user.id)
-            .order('created_at', { ascending: false });
-
-          if (error) {
-            console.error("Error fetching orders:", error);
-          } else if (data) {
-            setOrders(data);
-          }
+          console.log('🛒 Fetching orders for user:', user.id);
+          const userOrders = await OrderService.getUserOrders(user.id);
+          
+          // Transform orders to match the expected format
+          const transformedOrders: Order[] = userOrders.map(order => ({
+            id: order.id,
+            created_at: order.createdAt,
+            status: order.status.charAt(0).toUpperCase() + order.status.slice(1) as 'Processing' | 'Shipped' | 'Delivered',
+            total_amount: order.totalAmount
+          }));
+          
+          setOrders(transformedOrders);
+          setOrdersLoaded(true);
+          console.log('✅ Orders fetched successfully:', transformedOrders);
         } catch (error) {
-          console.error("Error fetching orders:", error);
+          console.error("❌ Error fetching orders:", error);
+        } finally {
+          setLoadingOrders(false);
+          isFetchingOrdersRef.current = false;
         }
-        setLoadingOrders(false);
       };
 
       fetchOrders();
     }
-  }, [activeTab, user]);
+  }, [activeTab, user, ordersLoaded]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      isFetchingOrdersRef.current = false;
+    };
+  }, []);
+
+  // Function to refresh orders
+  const refreshOrders = React.useCallback(async () => {
+    if (!user || isFetchingOrdersRef.current) return;
+    
+    setOrdersLoaded(false);
+    setOrders([]);
+  }, [user]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -352,8 +376,20 @@ const Profile = () => {
                   <TabsContent value="orders">
                     <Card className="shadow-lg">
                       <CardHeader>
-                        <CardTitle className="text-2xl font-lobster text-gray-800">Order History</CardTitle>
-                        <CardDescription>View your past and current orders</CardDescription>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <CardTitle className="text-2xl font-lobster text-gray-800">Order History</CardTitle>
+                            <CardDescription>View your past and current orders</CardDescription>
+                          </div>
+                          <Button 
+                            onClick={refreshOrders} 
+                            disabled={loadingOrders || isFetchingOrdersRef.current}
+                            variant="outline"
+                            size="sm"
+                          >
+                            {loadingOrders ? 'Loading...' : 'Refresh'}
+                          </Button>
+                        </div>
                       </CardHeader>
                       <CardContent>
                         {loadingOrders ? (
