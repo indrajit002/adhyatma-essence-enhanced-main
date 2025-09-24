@@ -12,6 +12,7 @@ import { User, Package, Heart, Settings, LogOut, Edit, Save, X } from 'lucide-re
 import { useAuth } from '@/hooks/useAuth';
 import { useWishlist } from '@/hooks/useWishlist';
 import { OrderService } from '@/services/orderService';
+import ApiDebounceManager from '@/utils/apiDebounce';
 
 // 2. Define a type for your order data
 type Order = {
@@ -72,7 +73,13 @@ const Profile = () => {
         
         try {
           console.log('🛒 Fetching orders for user:', user.id);
-          const userOrders = await OrderService.getUserOrders(user.id);
+          
+          // Use debounced API call
+          const userOrders = await ApiDebounceManager.debounce(
+            `getUserOrders-${user.id}`,
+            () => OrderService.getUserOrders(user.id),
+            200
+          );
           
           // Transform orders to match the expected format
           const transformedOrders: Order[] = userOrders.map(order => ({
@@ -108,8 +115,38 @@ const Profile = () => {
   const refreshOrders = React.useCallback(async () => {
     if (!user || isFetchingOrdersRef.current) return;
     
+    console.log('🔄 Refreshing orders...');
+    isFetchingOrdersRef.current = true;
     setOrdersLoaded(false);
     setOrders([]);
+    setLoadingOrders(true);
+    
+    try {
+      // Cancel any existing request for this user
+      ApiDebounceManager.cancel(`getUserOrders-${user.id}`);
+      
+      const userOrders = await ApiDebounceManager.debounce(
+        `getUserOrders-${user.id}`,
+        () => OrderService.getUserOrders(user.id),
+        100
+      );
+      
+      const transformedOrders: Order[] = userOrders.map(order => ({
+        id: order.id,
+        created_at: order.createdAt,
+        status: order.status.charAt(0).toUpperCase() + order.status.slice(1) as 'Processing' | 'Shipped' | 'Delivered',
+        total_amount: order.totalAmount
+      }));
+      
+      setOrders(transformedOrders);
+      setOrdersLoaded(true);
+      console.log('✅ Orders refreshed successfully:', transformedOrders);
+    } catch (error) {
+      console.error("❌ Error refreshing orders:", error);
+    } finally {
+      setLoadingOrders(false);
+      isFetchingOrdersRef.current = false;
+    }
   }, [user]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

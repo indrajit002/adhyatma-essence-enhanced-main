@@ -2,6 +2,8 @@ import { supabase } from '@/lib/supabaseClient';
 import { Order, CreateOrderRequest } from '@/types/order';
 
 export class OrderService {
+  private static pendingRequests = new Map<string, Promise<any>>();
+
   /**
    * Create a new order
    */
@@ -100,6 +102,26 @@ export class OrderService {
    * Get orders for a specific user
    */
   static async getUserOrders(userId: string): Promise<Order[]> {
+    const requestKey = `getUserOrders-${userId}`;
+    
+    // Check if there's already a pending request for this user
+    if (this.pendingRequests.has(requestKey)) {
+      console.log('🔄 Request already in progress, waiting for existing request...');
+      return this.pendingRequests.get(requestKey)!;
+    }
+    
+    const requestPromise = this.fetchUserOrders(userId);
+    this.pendingRequests.set(requestKey, requestPromise);
+    
+    try {
+      const result = await requestPromise;
+      return result;
+    } finally {
+      this.pendingRequests.delete(requestKey);
+    }
+  }
+  
+  private static async fetchUserOrders(userId: string): Promise<Order[]> {
     try {
       // Try to get from Supabase first
       try {

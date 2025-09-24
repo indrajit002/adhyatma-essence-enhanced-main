@@ -175,6 +175,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [isProcessingProfile]);
 
   useEffect(() => {
+    let isMounted = true;
+    let timeoutId: NodeJS.Timeout;
+    
     const getInitialSession = async () => {
       try {
         console.log("🔍 Checking for existing session...");
@@ -182,8 +185,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         // Check if Supabase is properly configured
         if (!supabase || !supabase.auth) {
           console.log("⚠️ Supabase not configured, skipping authentication");
-          setStatus('unauthenticated');
-          setInitialized(true);
+          if (isMounted) {
+            setStatus('unauthenticated');
+            setInitialized(true);
+          }
           return;
         }
         
@@ -191,41 +196,56 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (sessionError) {
           console.error("❌ Session error:", sessionError);
-          setStatus('unauthenticated');
+          if (isMounted) {
+            setStatus('unauthenticated');
+          }
           return;
         }
 
         console.log("📋 Session check result:", initialSession ? "Session found" : "No session");
 
-        if (initialSession?.user) {
+        if (initialSession?.user && isMounted) {
           console.log("👤 User found, fetching profile...");
           await getProfile(initialSession.user.id);
-        } else {
+        } else if (isMounted) {
           console.log("🚪 No user, setting unauthenticated");
           setStatus('unauthenticated');
         }
       } catch (err) {
         console.error("❌ Error during initial session fetch:", err);
-        setError("Failed to connect to the server.");
-        setStatus('unauthenticated');
+        if (isMounted) {
+          setError("Failed to connect to the server.");
+          setStatus('unauthenticated');
+        }
       }
     };
 
     // Add a timeout to prevent infinite loading
-    const timeoutId = setTimeout(() => {
+    timeoutId = setTimeout(() => {
       console.log("⏰ Authentication timeout, setting unauthenticated");
-      setStatus('unauthenticated');
-      setInitialized(true);
+      if (isMounted) {
+        setStatus('unauthenticated');
+        setInitialized(true);
+      }
     }, 10000); // 10 second timeout
 
     getInitialSession().finally(() => {
-      clearTimeout(timeoutId);
-      setInitialized(true);
+      if (isMounted) {
+        clearTimeout(timeoutId);
+        setInitialized(true);
+      }
     });
+    
+    return () => {
+      isMounted = false;
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
-        // console.log("🔄 Auth state change:", event, newSession?.user?.id);
+        console.log("🔄 Auth state change:", event, newSession?.user?.id);
         setSession(newSession);
         
         if (event === 'SIGNED_IN' && newSession?.user) {
@@ -239,8 +259,10 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setStatus('unauthenticated');
         } else if (event === 'TOKEN_REFRESHED' && newSession?.user) {
           console.log("🔄 Token refreshed, ensuring profile is loaded...");
-          // Always refresh profile on token refresh to ensure data is current
-          await getProfile(newSession.user.id);
+          // Only refresh profile if we don't already have user data
+          if (!user || user.id !== newSession.user.id) {
+            await getProfile(newSession.user.id);
+          }
         }
       }
     );
