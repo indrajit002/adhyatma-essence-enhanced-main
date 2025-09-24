@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabaseClient';
 import { Order, CreateOrderRequest } from '@/types/order';
+import { EmailService } from './emailService';
 
 export class OrderService {
   private static pendingRequests = new Map<string, Promise<any>>();
@@ -71,6 +72,16 @@ export class OrderService {
 
         // Update the order object with the database ID
         order.id = orderData.id;
+
+        // Send confirmation email
+        try {
+          console.log('📧 Sending order confirmation email...');
+          await this.sendOrderConfirmationEmail(orderData.id, userId, order);
+          console.log('✅ Order confirmation email sent successfully');
+        } catch (emailError) {
+          console.error('⚠️ Failed to send confirmation email:', emailError);
+          // Don't throw here, order is still created successfully
+        }
 
       } catch (dbError) {
         console.error('❌ Database error:', dbError);
@@ -284,6 +295,53 @@ export class OrderService {
     } catch (error) {
       console.error('❌ Error updating order status:', error);
       return false;
+    }
+  }
+
+  /**
+   * Send order confirmation email
+   */
+  private static async sendOrderConfirmationEmail(orderId: string, userId: string, order: Order): Promise<void> {
+    try {
+      // Get user profile for email
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('first_name, last_name, email')
+        .eq('id', userId)
+        .single();
+
+      if (profileError || !profile) {
+        console.error('❌ Failed to fetch user profile for email:', profileError);
+        return;
+      }
+
+      // Prepare email data
+      const customerName = `${profile.first_name || ''} ${profile.last_name || ''}`.trim() || 'Valued Customer';
+      
+      const emailData = {
+        orderId: order.id,
+        customerName,
+        customerEmail: profile.email,
+        totalAmount: order.totalAmount,
+        items: order.items.map(item => ({
+          productId: item.id,
+          quantity: item.quantity,
+          price: item.price
+        }))
+      };
+
+      // Send email using EmailService
+      const emailSent = await EmailService.sendOrderConfirmation(emailData);
+      
+      if (emailSent) {
+        console.log('✅ Order confirmation email sent successfully to:', profile.email);
+      } else {
+        console.error('❌ Failed to send order confirmation email');
+      }
+      
+    } catch (error) {
+      console.error('❌ Error sending confirmation email:', error);
+      throw error;
     }
   }
 

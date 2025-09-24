@@ -82,6 +82,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 id: authUser.id,
                 first_name: authUser.user_metadata?.first_name || '',
                 last_name: authUser.user_metadata?.last_name || '',
+                email: authUser.email || '',
               });
 
             if (createError) {
@@ -356,6 +357,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 id: data.user.id,
                 first_name: userData.first_name,
                 last_name: userData.last_name,
+                email: userData.email,
               });
             
             if (profileError) {
