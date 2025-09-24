@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
+import { OrderService } from '@/services/orderService';
 import { Package } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -30,6 +31,14 @@ export default function CheckoutSimple() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      isSubmittingRef.current = false;
+    };
+  }, []);
 
   // Simple input handler
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,32 +49,75 @@ export default function CheckoutSimple() {
     }));
   };
 
-  // Simple form submission
+  // Form submission with proper debouncing
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Prevent multiple submissions
+    if (isSubmittingRef.current) {
+      console.log('🚫 Order submission already in progress, ignoring duplicate');
+      return;
+    }
+    
+    if (!user) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to create an order.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
+    isSubmittingRef.current = true;
     
     try {
-      // Simulate order creation
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('🛒 Starting order creation...');
+      
+      const orderData = {
+        items: cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+        })),
+        totalAmount: totalAmount,
+        shippingAddress: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode,
+        },
+      };
+
+      console.log('📦 Order data:', orderData);
+      
+      const order = await OrderService.createOrder(orderData, user.id);
+      
+      console.log('✅ Order created successfully:', order);
       
       clearCart();
       toast({
         title: "Order Created!",
-        description: "Your order has been created successfully.",
+        description: `Your order #${order.id} has been created successfully.`,
         variant: "default",
       });
       
-      navigate('/');
+      navigate(`/order-confirmation/${order.id}`);
     } catch (error) {
+      console.error('❌ Order creation failed:', error);
       toast({
-        title: "Error",
-        description: "Failed to create order.",
+        title: "Order Failed",
+        description: `Failed to create order: ${error instanceof Error ? error.message : 'Unknown error'}`,
         variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
+      isSubmittingRef.current = false;
     }
   };
 
