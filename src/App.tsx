@@ -19,7 +19,6 @@ import MainLayout from "./components/MainLayout"; // Correctly imported
 // Pages
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Checkout from "./pages/Checkout";
 import Collections from "./pages/Collections";
 import CollectionDetail from "./pages/CollectionDetail";
 import OurStory from "./pages/OurStory";
@@ -31,6 +30,8 @@ import Wishlist from "./pages/Wishlist";
 import ConfirmEmail from "./pages/ConfirmEmail";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import OrderConfirmation from "./pages/OrderConfirmation";
+import CheckoutSimple from "./pages/CheckoutSimple";
 
 const queryClient = new QueryClient();
 
@@ -59,7 +60,8 @@ const App = () => (
                       <Route path="/wishlist" element={<Wishlist />} />
                       <Route path="/collections" element={<Collections />} />
                       <Route path="/collections/:id" element={<CollectionDetail />} />
-                      <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/checkout" element={<CheckoutSimple />} />
+                      <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
                       <Route path="/confirm-email" element={<ConfirmEmail />} />
                       <Route path="/forgot-password" element={<ForgotPassword />} />
                       <Route path="/reset-password" element={<ResetPassword />} />

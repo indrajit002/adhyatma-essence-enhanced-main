@@ -9,12 +9,14 @@ import { Badge } from '@/components/ui/badge';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
-import { ShoppingCart, CreditCard, Package, ArrowLeft, Check } from 'lucide-react';
+import { ShoppingCart, Package, ArrowLeft, Check } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { OrderService } from '@/services/orderService';
+import { CreateOrderRequest } from '@/types/order';
 
 // Define the shape for form data
-type FormData = {
+type CheckoutFormData = {
   firstName: string;
   lastName: string;
   email: string;
@@ -26,7 +28,7 @@ type FormData = {
 
 // Define the shape for form validation errors
 type FormErrors = {
-  [key in keyof FormData]?: string;
+  [key in keyof CheckoutFormData]?: string;
 };
 
 export default function Checkout() {
@@ -39,14 +41,14 @@ export default function Checkout() {
   const location = useLocation();
 
   // --- STATE MANAGEMENT ---
-  const [formData, setFormData] = useState<FormData>({
-    firstName: user?.first_name || '',
-    lastName: user?.last_name || '',
-    email: session?.user?.email || '',
-    address: user?.address || '',
-    city: user?.city || '',
-    state: user?.state || '',
-    zipCode: user?.zip_code || '',
+  const [formData, setFormData] = useState<CheckoutFormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,7 +67,8 @@ export default function Checkout() {
 
   useEffect(() => {
     if (user && session) {
-      setFormData({
+      setFormData(prev => ({
+        ...prev,
         firstName: user.first_name || '',
         lastName: user.last_name || '',
         email: session.user?.email || '',
@@ -73,7 +76,7 @@ export default function Checkout() {
         city: user.city || '',
         state: user.state || '',
         zipCode: user.zip_code || '',
-      });
+      }));
     }
   }, [user, session]);
 
@@ -112,10 +115,15 @@ export default function Checkout() {
   // --- FORM HANDLERS ---
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    console.log(`Input changed: ${name} = "${value}"`);
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        [name]: value
+      };
+      console.log('New form data:', newData);
+      return newData;
+    });
     
     // Clear error when user starts typing
     if (errors[name]) {
@@ -157,8 +165,8 @@ export default function Checkout() {
 
     if (!formData.zipCode.trim()) {
       newErrors.zipCode = 'ZIP code is required';
-    } else if (!/^\d{5}(-\d{4})?$/.test(formData.zipCode)) {
-      newErrors.zipCode = 'Please enter a valid ZIP code';
+    } else if (!/^[A-Za-z0-9\s-]{3,10}$/.test(formData.zipCode.trim())) {
+      newErrors.zipCode = 'Please enter a valid ZIP/Postal code (3-10 characters, letters, numbers, spaces, and hyphens allowed)';
     }
 
     setErrors(newErrors);
@@ -172,27 +180,58 @@ export default function Checkout() {
       return;
     }
 
+    if (!user) {
+      toast({
+        title: "Authentication Error",
+        description: "Please login to place an order.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Simulate payment processing
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Prepare order data
+      const orderData: CreateOrderRequest = {
+        items: cart.map(item => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+        })),
+        totalAmount,
+        shippingAddress: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          address: formData.address,
+          city: formData.city,
+          state: formData.state,
+          zipCode: formData.zipCode,
+        },
+      };
 
-      // Clear cart and show success
+      // Create the order
+      const order = await OrderService.createOrder(orderData, user.id);
+      
+      // Clear cart after successful order creation
       clearCart();
       
       toast({
         title: "Order Placed Successfully!",
-        description: "Thank you for your purchase. You will receive a confirmation email shortly.",
+        description: `Your order #${order.id} has been created. You will receive a confirmation email shortly.`,
         variant: "default",
       });
 
-      // Navigate to success page or home
-      navigate('/');
+      // Navigate to order confirmation page
+      navigate(`/order-confirmation/${order.id}`);
     } catch (error) {
+      console.error('Order creation failed:', error);
       toast({
-        title: "Payment Failed",
-        description: "There was an error processing your payment. Please try again.",
+        title: "Order Failed",
+        description: "There was an error creating your order. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -229,6 +268,17 @@ export default function Checkout() {
                     <CardDescription>Enter your delivery details</CardDescription>
                   </CardHeader>
                   <CardContent>
+                    {/* Debug button - remove in production */}
+                    <div className="mb-4 p-2 bg-blue-50 border border-blue-200 rounded">
+                      <button 
+                        type="button" 
+                        onClick={() => console.log('Current form data:', formData)}
+                        className="text-sm text-blue-600 hover:text-blue-800"
+                      >
+                        Debug: Log Form Data
+                      </button>
+                    </div>
+                    
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
@@ -281,11 +331,17 @@ export default function Checkout() {
                           name="address"
                           value={formData.address}
                           onChange={handleInputChange}
+                          placeholder="Enter your street address"
                           className={errors.address ? 'border-red-500' : ''}
+                          autoComplete="street-address"
                         />
                         {errors.address && (
                           <p className="text-red-500 text-sm mt-1">{errors.address}</p>
                         )}
+                        {/* Debug info for address field */}
+                        <div className="text-xs text-gray-500 mt-1">
+                          Current address value: "{formData.address}" (Length: {formData.address.length})
+                        </div>
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -316,12 +372,13 @@ export default function Checkout() {
                           )}
                         </div>
                         <div>
-                          <Label htmlFor="zipCode">ZIP Code *</Label>
+                          <Label htmlFor="zipCode">ZIP/Postal Code *</Label>
                           <Input
                             id="zipCode"
                             name="zipCode"
                             value={formData.zipCode}
                             onChange={handleInputChange}
+                            placeholder="e.g., 12345 or M5V 3A8"
                             className={errors.zipCode ? 'border-red-500' : ''}
                           />
                           {errors.zipCode && (
@@ -338,11 +395,11 @@ export default function Checkout() {
                         {isSubmitting ? (
                           <div className="flex items-center justify-center">
                             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                            Processing Payment...
+                            Creating Order...
                           </div>
                         ) : (
                           <div className="flex items-center justify-center">
-                            <CreditCard className="w-4 h-4 mr-2" />
+                            <Package className="w-4 h-4 mr-2" />
                             Complete Order
                           </div>
                         )}

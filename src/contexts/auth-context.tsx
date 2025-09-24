@@ -225,7 +225,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
-        console.log("🔄 Auth state change:", event, newSession?.user?.id);
+        // console.log("🔄 Auth state change:", event, newSession?.user?.id);
         setSession(newSession);
         
         if (event === 'SIGNED_IN' && newSession?.user) {
@@ -326,25 +326,27 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.log("👤 Creating profile for user:", data.user.id);
         
         // Create profile asynchronously without blocking the main flow
-        supabase
-          .from('profiles')
-          .insert({
-            id: data.user.id,
-            first_name: userData.first_name,
-            last_name: userData.last_name,
-          })
-          .then(({ error: profileError }) => {
+        (async () => {
+          try {
+            const { error: profileError } = await supabase
+              .from('profiles')
+              .insert({
+                id: data.user.id,
+                first_name: userData.first_name,
+                last_name: userData.last_name,
+              });
+            
             if (profileError) {
               console.error("⚠️ Failed to create profile for new user:", profileError);
               console.log("🔄 User can still sign in, profile will be created on first login");
             } else {
               console.log("✅ Profile created successfully");
             }
-          })
-          .catch((profileError) => {
+          } catch (profileError) {
             console.error("⚠️ Profile creation exception:", profileError);
             console.log("🔄 User can still sign in, profile will be created on first login");
-          });
+          }
+        })();
       }
 
       console.log("✅ Signup process completed successfully");
