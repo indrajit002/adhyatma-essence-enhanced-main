@@ -247,7 +247,8 @@ export default function Checkout() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             {/* Header */}
-            <div className="mb-8">
+            <div className="mb-8"> 
+              
               <Link 
                 to="/cart" 
                 className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-4"
