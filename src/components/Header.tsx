@@ -51,7 +51,7 @@ const Header = () => {
               />
               <div className="absolute inset-0 bg-gradient-lilac rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-2xl font-cormorant-light text-[#4a3c4d]">
+            <span className="text-2xl font-cormorant-light text-[#8a6b8d] font-bold">
               Adhyatma
             </span>
           </Link>
@@ -61,7 +61,7 @@ const Header = () => {
               <Link
                 key={link.label}
                 to={link.href}
-                className="relative text-[#b094b2] hover:text-[#d1bccd] transition-all duration-300 font-madefor-medium text-sm tracking-wide group"
+                className="relative text-[#8a6b8d] hover:text-[#6b4c6f] transition-all duration-300 font-madefor-medium text-lg tracking-wide group font-bold"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
@@ -76,7 +76,7 @@ const Header = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 transition-all duration-300 font-madefor-medium"
+                    className="text-[#8a6b8d] hover:text-[#6b4c6f] hover:bg-[#d1bccd]/20 transition-all duration-300 font-madefor-medium font-bold"
                   >
                     <User className="w-4 h-4 mr-2" />
                     {user.first_name}
@@ -86,7 +86,7 @@ const Header = () => {
                   variant="ghost" 
                   size="sm" 
                   onClick={signOut}
-                  className="text-[#b094b2] hover:text-red-500 hover:bg-red-50 transition-all duration-300 font-madefor-medium"
+                  className="text-[#8a6b8d] hover:text-red-600 hover:bg-red-50 transition-all duration-300 font-madefor-medium font-bold"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -98,7 +98,7 @@ const Header = () => {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                    className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 transition-all duration-300 font-medium"
+                    className="text-[#8a6b8d] hover:text-[#6b4c6f] hover:bg-[#d1bccd]/20 transition-all duration-300 font-medium font-bold"
                 >
                   <User className="w-4 h-4 mr-2" />
                   Login
@@ -109,7 +109,7 @@ const Header = () => {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 relative transition-all duration-300 group"
+                className="text-[#8a6b8d] hover:text-[#6b4c6f] hover:bg-[#d1bccd]/20 relative transition-all duration-300 group"
               >
                 <Heart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 {wishlistCount > 0 && (
@@ -122,7 +122,7 @@ const Header = () => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 relative transition-all duration-300 group"
+              className="text-[#8a6b8d] hover:text-[#6b4c6f] hover:bg-[#d1bccd]/20 relative transition-all duration-300 group"
               onClick={toggleCart}
             >
               <ShoppingCart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
@@ -137,7 +137,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden text-[#b094b2]"
+            className="md:hidden text-[#8a6b8d]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -150,7 +150,7 @@ const Header = () => {
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="block py-3 text-[#b094b2] hover:text-[#d1bccd] transition-colors duration-200 font-madefor-medium"
+                  className="block py-3 text-[#8a6b8d] hover:text-[#6b4c6f] transition-colors duration-200 font-madefor-medium font-bold"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -160,7 +160,7 @@ const Header = () => {
               {user ? (
                 <div className="flex gap-4 w-full">
                   <Link to="/profile" className="flex-1">
-                     <Button variant="ghost" size="sm" className="text-[#b094b2] w-full">
+                     <Button variant="ghost" size="sm" className="text-[#8a6b8d] w-full font-bold">
                       <User className="w-4 h-4 mr-2" />
                       {user.first_name}
                     </Button>
@@ -169,7 +169,7 @@ const Header = () => {
                     variant="ghost" 
                     size="sm" 
                     onClick={signOut}
-                     className="text-[#b094b2] hover:text-red-500 hover:bg-red-50 flex-1"
+                     className="text-[#8a6b8d] hover:text-red-600 hover:bg-red-50 flex-1 font-bold"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -178,7 +178,7 @@ const Header = () => {
               ) : (
                 // Also add the 'state' prop to the mobile Login link
                 <Link to="/signin" state={{ from: location }} className="flex-1">
-                     <Button variant="ghost" size="sm" className="text-[#b094b2] w-full">
+                     <Button variant="ghost" size="sm" className="text-[#8a6b8d] w-full font-bold">
                       <User className="w-4 h-4 mr-2" />
                       Login
                     </Button>
