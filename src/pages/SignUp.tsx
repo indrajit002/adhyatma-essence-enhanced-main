@@ -135,7 +135,7 @@ const SignUp = () => {
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Home
               </Link>
-              <h1 className="text-3xl font-playfair font-bold text-gray-800 mb-2">
+              <h1 className="text-3xl font-cormorant-light text-gray-900 mb-2">
                 Create Account
               </h1>
               <p className="text-gray-600">
@@ -145,7 +145,7 @@ const SignUp = () => {
 
             <Card className="shadow-xl border-0">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="text-2xl font-playfair text-gray-800">
+                <CardTitle className="text-2xl font-cormorant-light text-gray-900">
                   Sign Up
                 </CardTitle>
                 <CardDescription>

@@ -173,7 +173,7 @@ const CollectionDetail = () => {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Collections
             </Button>
-            <h1 className="text-4xl md:text-6xl font-playfair font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-6xl font-cormorant-light text-white mb-4 drop-shadow-lg">
               {collection.name}
             </h1>
             <p className="text-xl text-gray-200 mb-6 max-w-2xl">
@@ -198,7 +198,7 @@ const CollectionDetail = () => {
       <section className="py-12 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-playfair font-bold text-center mb-8 text-gray-800">
+            <h2 className="text-3xl font-cormorant-light text-center mb-8 text-gray-900">
               Collection Benefits
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">

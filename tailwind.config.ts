@@ -103,6 +103,10 @@ export default {
         'lilac': 'var(--shadow-lilac)',
       },
       fontFamily: {
+        'cormorant-light': ['Cormorant Garamond', 'serif'],
+        'madefor-medium': ['Madefor Text', 'sans-serif'],
+        'lato-light': ['Lato', 'sans-serif'],
+        'arial': ['Arial', 'sans-serif'],
         'playfair': ['Playfair Display', 'serif'],
         'inter': ['Inter', 'sans-serif'],
         'lobster': ['Lobster', 'Brush Script MT', 'Lucida Handwriting', 'Comic Sans MS', 'cursive', 'sans-serif'],

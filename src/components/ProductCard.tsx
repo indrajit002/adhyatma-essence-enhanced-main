@@ -57,10 +57,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       
       <div className="absolute bottom-0 left-0 right-0 p-6">
         <div className="flex justify-between items-center mb-2">
-          <h3 className="text-xl font-lobster text-foreground">
+          <h3 className="text-xl font-cormorant-light text-foreground">
             {product.name}
           </h3>
-          <span className="text-lg font-lobster">₹{product.price.toFixed(2)}</span>
+          <span className="text-lg font-madefor-medium">₹{product.price.toFixed(2)}</span>
         </div>
         <p className="text-sm text-muted-foreground mb-4">
           {product.description}
@@ -69,7 +69,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Button 
             variant="secondary" 
             size="sm" 
-            className="rounded-full flex-1 font-lobster" 
+            className="rounded-full flex-1 font-arial" 
             onClick={handleAddToCart}
           >
             <ShoppingCart className="h-4 w-4 mr-2" />
@@ -78,7 +78,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Button 
             variant="default" 
             size="sm" 
-            className="rounded-full flex-1 font-lobster" 
+            className="rounded-full flex-1 font-arial" 
             onClick={handleBuyNow}
           >
             <CreditCard className="h-4 w-4 mr-2" />

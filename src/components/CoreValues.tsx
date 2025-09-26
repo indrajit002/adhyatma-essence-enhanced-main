@@ -33,11 +33,11 @@ const CoreValues = () => {
     <section className="py-24 bg-gradient-to-br from-white via-[#d1bccd] to-[#d1bccd]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-lobster font-normal mb-8 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-cormorant-light mb-8 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
             Core Values
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto rounded-full mb-8"></div>
-          <p className="text-xl text-gray-600 max-w-5xl mx-auto leading-relaxed font-lobster">
+          <p className="text-xl text-gray-600 max-w-5xl mx-auto leading-relaxed font-madefor-medium">
             Adhyatma is a crystal store born from a deep reverence for energy, intention, 
             and the quiet power of nature. We offer thoughtfully chosen stones that inspire 
             clarity, balance, and inner transformation. Guided by a mindful approach, Adhyatma 
@@ -59,7 +59,7 @@ const CoreValues = () => {
                 </div>
               </div>
               
-              <h3 className="text-xl font-lobster mb-4 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
+              <h3 className="text-xl font-cormorant-light mb-4 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
                 {value.title}
               </h3>
               <p className="text-gray-600 leading-relaxed">

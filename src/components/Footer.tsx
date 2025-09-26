@@ -26,11 +26,11 @@ const Footer = () => {
                 alt="Adhyatma Logo" 
                 className="w-8 h-8 object-contain" 
               />
-              <span className="text-xl font-lobster font-normal text-[#6b4c6f]">
+              <span className="text-xl font-cormorant-light text-[#4a3c4d]">
                 Adhyatma
               </span>
             </div>
-            <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+            <p className="text-gray-600 mb-6 text-sm leading-relaxed font-madefor-medium">
               Sacred stones for modern souls. Ethically sourced crystals for healing, 
               mindfulness, and spiritual growth.
             </p>

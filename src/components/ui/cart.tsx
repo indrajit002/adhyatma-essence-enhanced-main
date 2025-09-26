@@ -35,7 +35,7 @@ export function Cart() {
               <ShoppingBag className="h-16 w-16 text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium">Your cart is empty</h3>
               <p className="text-sm text-muted-foreground mt-1">Add items to your cart to see them here</p>
-              <Button onClick={toggleCart} className="mt-6 font-lobster">
+              <Button onClick={toggleCart} className="mt-6 font-arial">
                 Continue Shopping
               </Button>
             </div>
@@ -105,7 +105,7 @@ export function Cart() {
             <div className="mt-4 space-y-2">
               {isAuthenticated ? (
                 <Button 
-                  className="w-full font-lobster"
+                  className="w-full font-arial"
                   onClick={() => {
                     toggleCart();
                     navigate('/checkout');
@@ -120,7 +120,7 @@ export function Cart() {
                     <span className="text-sm text-amber-800">Login required to checkout</span>
                   </div>
                   <Button 
-                    className="w-full font-lobster"
+                    className="w-full font-arial"
                     onClick={() => {
                       toggleCart();
                       navigate('/signin', { state: { from: { pathname: '/checkout' } } });
@@ -132,14 +132,14 @@ export function Cart() {
               )}
               <Button
                 variant="outline"
-                className="w-full font-lobster"
+                className="w-full font-arial"
                 onClick={toggleCart}
               >
                 Continue Shopping
               </Button>
               <Button
                 variant="ghost"
-                className="w-full text-sm font-lobster"
+                className="w-full text-sm font-arial"
                 onClick={clearCart}
               >
                 Clear Cart

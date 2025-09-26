@@ -49,22 +49,22 @@ const HeroSection = () => {
         {/* Text content centered below the SVG */}
         <div className="space-y-8">
           <div className="space-y-6">
-            <h1 className="text-6xl md:text-8xl font-lobster font-normal text-[#6b4c6f] leading-tight">
+            <h1 className="text-6xl md:text-8xl font-cormorant-light text-[#4a3c4d] leading-tight">
               ADHYATMA
             </h1>
             
-            <p className="text-2xl md:text-3xl text-[#6b4c6f] font-lobster tracking-wide">
+            <p className="text-2xl md:text-3xl text-[#6b4c6f] font-madefor-medium tracking-wide">
               Sacred Stones for Modern Soul
             </p>
             
-            <h2 className="text-xl md:text-2xl text-[#6b4c6f] font-lobster tracking-wider">
+            <h2 className="text-xl md:text-2xl text-[#6b4c6f] font-madefor-medium tracking-wider">
               Crystal Store
             </h2>
           </div>
           
           <div className="mt-16 space-y-6">
             <Button 
-              className="px-12 py-6 text-xl bg-gradient-mystic hover:bg-gradient-rose text-white rounded-full font-lobster tracking-wide transition-all duration-500 hover:shadow-glow hover:scale-105 transform"
+              className="px-12 py-6 text-xl bg-gradient-mystic hover:bg-gradient-rose text-white rounded-full font-arial tracking-wide transition-all duration-500 hover:shadow-glow hover:scale-105 transform"
               onClick={handleScrollToShop}
               aria-label="Shop our collection of healing crystals"
             >
@@ -95,7 +95,7 @@ const HeroSection = () => {
           {/* onClick={handleScrollToShop} */}
           {/* className="flex flex-col items-center space-y-2 text-gray-400 animate-bounce hover:text-gray-600 transition-colors duration-300 cursor-pointer group" */}
         {/* > */}
-          {/* <span className="text-sm font-lobster group-hover:text-gray-600">Explore</span> */}
+          {/* <span className="text-sm font-madefor-medium group-hover:text-gray-600">Explore</span> */}
           {/* <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center pt-2 group-hover:border-gray-400 transition-colors duration-300"> */}
             {/* <div className="w-1 h-3 bg-gray-400 rounded-full group-hover:bg-gray-600 transition-colors duration-300" /> */}
           {/* </div> */}

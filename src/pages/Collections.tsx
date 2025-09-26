@@ -154,7 +154,7 @@ const Collections = () => {
       <section className="bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd] py-20">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-gray-800 via-[#b094b2] to-gray-800 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-cormorant-light mb-6 bg-gradient-to-r from-gray-900 via-[#8a6b8d] to-gray-900 bg-clip-text text-transparent">
               Crystal Collections
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -318,7 +318,7 @@ const Collections = () => {
         </div>
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

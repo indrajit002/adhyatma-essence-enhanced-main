@@ -81,7 +81,7 @@ export default function OrderConfirmation() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center">
               <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h1 className="text-3xl font-lobster text-gray-800 mb-4">Order Not Found</h1>
+              <h1 className="text-3xl font-cormorant-light text-gray-900 mb-4">Order Not Found</h1>
               <p className="text-gray-600 mb-8">The order you're looking for doesn't exist.</p>
               <Link to="/">
                 <Button className="bg-[#b094b2] hover:bg-[#b094b2]/80">
@@ -131,7 +131,7 @@ export default function OrderConfirmation() {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Check className="w-10 h-10 text-green-600" />
               </div>
-              <h1 className="text-4xl font-lobster text-gray-800 mb-2">Order Confirmed!</h1>
+              <h1 className="text-4xl font-cormorant-light text-gray-900 mb-2">Order Confirmed!</h1>
               <p className="text-gray-600 text-lg">Thank you for your purchase. Your order has been successfully created.</p>
             </div>
 
@@ -141,7 +141,7 @@ export default function OrderConfirmation() {
                 {/* Order Information */}
                 <Card className="shadow-lg">
                   <CardHeader>
-                    <CardTitle className="text-2xl font-lobster text-gray-800">Order Details</CardTitle>
+                    <CardTitle className="text-2xl font-cormorant-light text-gray-900">Order Details</CardTitle>
                     <CardDescription>Order #{order.id}</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -171,7 +171,7 @@ export default function OrderConfirmation() {
                 {/* Order Items */}
                 <Card className="shadow-lg">
                   <CardHeader>
-                    <CardTitle className="text-xl font-lobster text-gray-800">Order Items</CardTitle>
+                    <CardTitle className="text-xl font-cormorant-light text-gray-900">Order Items</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
@@ -199,7 +199,7 @@ export default function OrderConfirmation() {
                 {/* Shipping Address */}
                 <Card className="shadow-lg">
                   <CardHeader>
-                    <CardTitle className="text-xl font-lobster text-gray-800">Shipping Address</CardTitle>
+                    <CardTitle className="text-xl font-cormorant-light text-gray-900">Shipping Address</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
@@ -224,7 +224,7 @@ export default function OrderConfirmation() {
               <div className="lg:col-span-1">
                 <Card className="shadow-lg sticky top-8">
                   <CardHeader>
-                    <CardTitle className="text-xl font-lobster text-gray-800">What's Next?</CardTitle>
+                    <CardTitle className="text-xl font-cormorant-light text-gray-900">What's Next?</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">

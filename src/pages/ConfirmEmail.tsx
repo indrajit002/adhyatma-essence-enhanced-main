@@ -38,7 +38,7 @@ const ConfirmEmail = () => {
                 <div className="w-16 h-16 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] rounded-full flex items-center justify-center mx-auto mb-4">
                   <MailCheck className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-3xl font-playfair text-gray-800">
+                <CardTitle className="text-3xl font-cormorant-light text-gray-900">
                   Confirm Your Email
                 </CardTitle>
                 <CardDescription className="text-lg text-gray-600 pt-2">

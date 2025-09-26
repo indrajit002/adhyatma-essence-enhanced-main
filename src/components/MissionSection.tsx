@@ -9,7 +9,7 @@ const MissionSection = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-5xl mx-auto text-center">
           <div className="mb-16 scroll-animate" ref={missionRef}>
-            <h2 id="mission-heading" className="text-5xl md:text-6xl font-lobster font-normal mb-6 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+            <h2 id="mission-heading" className="text-5xl md:text-6xl font-cormorant-light mb-6 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
               Our Mission
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto rounded-full"></div>
@@ -21,7 +21,7 @@ const MissionSection = () => {
                 <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] rounded-full opacity-20"></div>
                 <div className="absolute -bottom-4 -right-4 w-12 h-12 bg-gradient-to-r from-[#d1bccd] to-[#b094b2] rounded-full opacity-20"></div>
                 
-                <p className="text-xl md:text-2xl leading-relaxed text-gray-700 mb-10 font-lobster">
+                <p className="text-xl md:text-2xl leading-relaxed text-gray-700 mb-10 font-madefor-medium">
                   At <span className="font-semibold text-[#b094b2]">Adhyatma</span>, we are devoted to offering ethically sourced, energetically charged crystals 
                   that serve as tools for healing, mindfulness, and spiritual growth. Through education, 
                   intention, and authentic connection, we empower individuals to align with their highest 
@@ -29,7 +29,8 @@ const MissionSection = () => {
                 </p>
                 
                 <Button 
-                  className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-10 py-4 rounded-full font-lobster tracking-wide text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 transform"
+                  className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-10 py-4 rounded-full font-arial tracking-wide text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 transform"
+                  onClick={() => window.location.href = '/our-story'}
                 >
                   Discover Our Story
                 </Button>

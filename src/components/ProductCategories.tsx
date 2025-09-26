@@ -60,7 +60,7 @@ const ProductCategories = () => {
     <section id="shop" className="py-20 bg-white" aria-labelledby="shop-heading">
       <div className="container mx-auto px-6">
         <header className="text-center mb-16">
-          <h2 id="shop-heading" className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+          <h2 id="shop-heading" className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
             Shop By Category
           </h2>
         </header>
@@ -90,14 +90,14 @@ const ProductCategories = () => {
               </div>
               
               <div className="p-6">
-                <h3 className="text-xl font-lobster mb-3 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
+                <h3 className="text-xl font-cormorant-light mb-3 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
                   {category.name}
                 </h3>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                <p className="text-gray-600 mb-6 text-sm leading-relaxed font-madefor-medium">
                   {category.description}
                 </p>
                 <Button 
-                  className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-6 py-3 rounded-full font-lobster tracking-wide text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
+                  className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-6 py-3 rounded-full font-arial tracking-wide text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
                   onClick={() => navigate(`/collections/${category.id}`)}
                 >
                   Explore Collection

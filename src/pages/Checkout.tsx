@@ -97,7 +97,7 @@ export default function Checkout() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center">
               <ShoppingCart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h1 className="text-3xl font-lobster text-gray-800 mb-4">Your Cart is Empty</h1>
+              <h1 className="text-3xl font-cormorant-light text-gray-900 mb-4">Your Cart is Empty</h1>
               <p className="text-gray-600 mb-8">Add some beautiful crystals to your cart before checking out.</p>
               <Link to="/shop">
                 <Button className="bg-[#b094b2] hover:bg-[#b094b2]/80">
@@ -251,7 +251,7 @@ export default function Checkout() {
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Cart
               </Link>
-              <h1 className="text-4xl font-lobster text-gray-800 mb-2">Checkout</h1>
+              <h1 className="text-4xl font-cormorant-light text-gray-900 mb-2">Checkout</h1>
               <p className="text-gray-600">Complete your crystal journey</p>
             </div>
 
@@ -260,7 +260,7 @@ export default function Checkout() {
               <div className="lg:col-span-2">
                 <Card className="shadow-lg">
                   <CardHeader>
-                    <CardTitle className="text-2xl font-lobster text-gray-800">Shipping Information</CardTitle>
+                    <CardTitle className="text-2xl font-cormorant-light text-gray-900">Shipping Information</CardTitle>
                     <CardDescription>Enter your delivery details</CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -399,7 +399,7 @@ export default function Checkout() {
               <div className="lg:col-span-1">
                 <Card className="shadow-lg sticky top-8">
                   <CardHeader>
-                    <CardTitle className="text-xl font-lobster text-gray-800">Order Summary</CardTitle>
+                    <CardTitle className="text-xl font-cormorant-light text-gray-900">Order Summary</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">

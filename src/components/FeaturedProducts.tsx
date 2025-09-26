@@ -15,10 +15,10 @@ const FeaturedProducts = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
               Featured Products
             </h2>
-            <p className="text-lg text-gray-600 font-lobster">
+            <p className="text-lg text-gray-600 font-madefor-medium">
               Loading our most loved crystals and healing stones...
             </p>
           </div>
@@ -35,10 +35,10 @@ const FeaturedProducts = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
               Featured Products
             </h2>
-            <p className="text-lg text-gray-600 font-lobster">
+            <p className="text-lg text-gray-600 font-madefor-medium">
               Unable to load featured products. Please try again later.
             </p>
           </div>
@@ -51,10 +51,10 @@ const FeaturedProducts = () => {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
             Featured Products
           </h2>
-          <p className="text-lg text-gray-600 font-lobster">
+          <p className="text-lg text-gray-600 font-madefor-medium">
             Discover our most loved crystals and healing stones
           </p>
         </div>
@@ -99,7 +99,7 @@ const FeaturedProducts = () => {
               </div>
               
               <div className="p-6">
-                <h3 className="text-lg font-lobster mb-2 text-gray-800">
+                <h3 className="text-lg font-cormorant-light mb-2 text-gray-800">
                   {product.name}
                 </h3>
                 <p className="text-sm text-gray-600 mb-3">
@@ -124,7 +124,7 @@ const FeaturedProducts = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xl font-lobster text-gray-800">
+                    <span className="text-xl font-madefor-medium text-gray-800">
                       ₹{product.price}
                     </span>
                     {product.originalPrice && (
@@ -135,7 +135,7 @@ const FeaturedProducts = () => {
                   </div>
                   <Button 
                     size="sm" 
-                    className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-none font-lobster"
+                    className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-none font-arial"
                     onClick={() => addItem({
                       id: product.id,
                       name: product.name,
@@ -152,9 +152,10 @@ const FeaturedProducts = () => {
         </div>
         
         <div className="text-center mt-12">
-          <Button 
+          <Button
             variant="outline" 
-            className="border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-3 rounded-none font-lobster tracking-wide"
+            className="border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-3 rounded-none font-arial tracking-wide"
+            onClick={() => window.location.href = '/shop'}
           >
             View All Products
           </Button>

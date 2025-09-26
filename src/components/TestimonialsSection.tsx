@@ -56,11 +56,11 @@ const TestimonialsSection = () => {
     <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-lobster font-normal mb-8 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-cormorant-light mb-8 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
             What Our Customers Say
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto rounded-full mb-8"></div>
-          <p className="text-xl text-gray-600 font-lobster">
+          <p className="text-xl text-gray-600 font-madefor-medium">
             Join thousands of satisfied customers who have transformed their lives with our crystals
           </p>
         </div>
@@ -76,7 +76,7 @@ const TestimonialsSection = () => {
                 ))}
               </div>
               
-              <p className="text-gray-700 mb-8 leading-relaxed text-lg font-lobster">
+              <p className="text-gray-700 mb-8 leading-relaxed text-lg font-lato-light">
                 "{testimonial.text}"
               </p>
               
@@ -90,8 +90,8 @@ const TestimonialsSection = () => {
                   <div className="absolute inset-0 w-14 h-14 rounded-full bg-gradient-to-r from-[#b094b2]/30 to-[#d1bccd]/30 blur-sm"></div>
                 </div>
                 <div>
-                  <h4 className="font-lobster text-gray-800 text-lg">{testimonial.name}</h4>
-                  <p className="text-gray-600 font-lobster">{testimonial.location}</p>
+                  <h4 className="font-cormorant-light text-gray-800 text-lg">{testimonial.name}</h4>
+                  <p className="text-gray-600 font-madefor-medium">{testimonial.location}</p>
                 </div>
               </div>
             </div>
@@ -101,16 +101,16 @@ const TestimonialsSection = () => {
         <div className="text-center mt-12">
           <div className="flex items-center justify-center space-x-8 text-gray-600">
             <div className="text-center">
-              <div className="text-3xl font-lobster text-gray-800">10,000+</div>
-              <div className="text-sm font-lobster">Happy Customers</div>
+              <div className="text-3xl font-cormorant-light text-gray-800">10,000+</div>
+              <div className="text-sm font-madefor-medium">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-lobster text-gray-800">4.9/5</div>
-              <div className="text-sm font-lobster">Average Rating</div>
+              <div className="text-3xl font-cormorant-light text-gray-800">4.9/5</div>
+              <div className="text-sm font-madefor-medium">Average Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-lobster text-gray-800">50+</div>
-              <div className="text-sm font-lobster">Countries Served</div>
+              <div className="text-3xl font-cormorant-light text-gray-800">50+</div>
+              <div className="text-sm font-madefor-medium">Countries Served</div>
             </div>
           </div>
         </div>

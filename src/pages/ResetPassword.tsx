@@ -74,7 +74,7 @@ const ResetPassword = () => {
             <div className="max-w-md mx-auto">
               <Card className="shadow-xl border-0">
                 <CardHeader className="text-center pb-6">
-                  <CardTitle className="text-2xl font-playfair text-gray-800">
+                  <CardTitle className="text-2xl font-cormorant-light text-gray-900">
                     Password Reset Successful!
                   </CardTitle>
                   <CardDescription>
@@ -106,7 +106,7 @@ const ResetPassword = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-playfair font-bold text-gray-800 mb-2">
+              <h1 className="text-3xl font-cormorant-light text-gray-900 mb-2">
                 Reset Your Password
               </h1>
               <p className="text-gray-600">
@@ -116,7 +116,7 @@ const ResetPassword = () => {
 
             <Card className="shadow-xl border-0">
               <CardHeader className="text-center pb-6">
-                <CardTitle className="text-2xl font-playfair text-gray-800">
+                <CardTitle className="text-2xl font-cormorant-light text-gray-900">
                   New Password
                 </CardTitle>
                 <CardDescription>

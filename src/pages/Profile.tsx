@@ -228,7 +228,7 @@ const Profile = () => {
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <div className="mb-8 text-center">
-              <h1 className="text-5xl font-lobster text-gray-800 mb-3">My Profile</h1>
+              <h1 className="text-5xl font-cormorant-light text-gray-900 mb-3">My Profile</h1>
               <p className="text-gray-600 text-lg">Manage your account settings and preferences</p>
               <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto mt-4 rounded-full"></div>
             </div>
@@ -326,7 +326,7 @@ const Profile = () => {
                       <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
                         <div className="flex items-center justify-between">
                           <div>
-                            <CardTitle className="text-2xl font-lobster text-gray-800">Profile Information</CardTitle>
+                            <CardTitle className="text-2xl font-cormorant-light text-gray-900">Profile Information</CardTitle>
                             <CardDescription>Manage your personal information and preferences</CardDescription>
                           </div>
                           {!isEditing ? (
@@ -468,7 +468,7 @@ const Profile = () => {
                       <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
                         <div className="flex items-center justify-between">
                           <div>
-                            <CardTitle className="text-2xl font-lobster text-gray-800">Order History</CardTitle>
+                            <CardTitle className="text-2xl font-cormorant-light text-gray-900">Order History</CardTitle>
                             <CardDescription>Track your past and current orders</CardDescription>
                           </div>
                           <Button 
@@ -538,7 +538,7 @@ const Profile = () => {
                   <TabsContent value="wishlist">
                     <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
                       <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
-                        <CardTitle className="text-2xl font-lobster text-gray-800">Wishlist</CardTitle>
+                        <CardTitle className="text-2xl font-cormorant-light text-gray-900">Wishlist</CardTitle>
                         <CardDescription>Your favorite crystals and spiritual items</CardDescription>
                       </CardHeader>
                       <CardContent className="p-6">
@@ -590,7 +590,7 @@ const Profile = () => {
                   <TabsContent value="settings">
                     <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
                       <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
-                        <CardTitle className="text-2xl font-lobster text-gray-800">Account Settings</CardTitle>
+                        <CardTitle className="text-2xl font-cormorant-light text-gray-900">Account Settings</CardTitle>
                         <CardDescription>Manage your account preferences and security</CardDescription>
                       </CardHeader>
                       <CardContent className="p-6">

@@ -156,16 +156,16 @@ const OurStory = () => {
                 Our Story
               </Badge>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 md:mb-8 bg-gradient-to-r from-gray-800 via-[#b094b2] to-gray-800 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-cormorant-light mb-6 md:mb-8 bg-gradient-to-r from-gray-900 via-[#8a6b8d] to-gray-900 bg-clip-text text-transparent leading-tight">
               The Journey of Adhyatma
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed mb-8 md:mb-12 max-w-4xl mx-auto px-4">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed mb-8 md:mb-12 max-w-4xl mx-auto px-4 font-lato-light">
               Born from a deep reverence for the earth's gifts and a commitment to ethical practices, 
               Adhyatma has grown into a trusted source for healing crystals worldwide.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
               <Button 
-                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-xl hover:scale-105 transform w-full sm:w-auto"
+                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white rounded-full font-arial tracking-wide transition-all duration-300 hover:shadow-xl hover:scale-105 transform w-full sm:w-auto"
                 onClick={() => {
                   const shopSection = document.getElementById('shop');
                   if (shopSection) {
@@ -178,7 +178,7 @@ const OurStory = () => {
               </Button>
               <Button 
                 variant="outline"
-                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg border-2 border-[#b094b2] text-[#b094b2] hover:bg-[#b094b2] hover:text-white rounded-full font-medium tracking-wide transition-all duration-300 w-full sm:w-auto"
+                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg border-2 border-[#b094b2] text-[#b094b2] hover:bg-[#b094b2] hover:text-white rounded-full font-arial tracking-wide transition-all duration-300 w-full sm:w-auto"
               >
                 Watch Our Story
               </Button>
@@ -193,10 +193,10 @@ const OurStory = () => {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               <div className="scroll-animate" ref={missionRef}>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-6 md:mb-8 text-gray-800 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-6 md:mb-8 text-gray-900 leading-tight">
                   Our Mission
                 </h2>
-                <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed">
+                <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed font-lato-light">
                   <p>
                     At <span className="font-semibold text-[#b094b2]">Adhyatma</span>, we believe that crystals are more than beautiful objects – 
                     they are powerful tools for healing, growth, and transformation. Our mission is to make these 
@@ -238,10 +238,10 @@ const OurStory = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={valuesRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-4 sm:mb-6 text-gray-800 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
                 Our Values
               </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
                 These core principles guide everything we do, from sourcing crystals to serving our customers.
               </p>
             </div>
@@ -252,8 +252,8 @@ const OurStory = () => {
                     <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r ${value.color} rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300`}>
                       <value.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                     </div>
-                    <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-800">{value.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{value.description}</p>
+                    <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900 font-cormorant-light">{value.title}</h3>
+                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-lato-light">{value.description}</p>
                   </div>
                 </div>
               ))}
@@ -267,10 +267,10 @@ const OurStory = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={timelineRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-4 sm:mb-6 text-gray-800 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
                 Our Journey
               </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
                 From humble beginnings to a global community of crystal lovers.
               </p>
             </div>
@@ -283,9 +283,9 @@ const OurStory = () => {
                         <Badge className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white px-3 sm:px-4 py-1 text-sm sm:text-lg w-fit">
                           {milestone.year}
                         </Badge>
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{milestone.title}</h3>
+                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-cormorant-light">{milestone.title}</h3>
                       </div>
-                      <p className="text-gray-600 leading-relaxed text-base sm:text-lg">{milestone.description}</p>
+                      <p className="text-gray-600 leading-relaxed text-base sm:text-lg font-lato-light">{milestone.description}</p>
                     </div>
                   </div>
                   <div className="lg:w-1/2 scroll-animate" ref={timelineRef}>
@@ -307,10 +307,10 @@ const OurStory = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={teamRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-4 sm:mb-6 text-gray-800 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
                 Meet Our Team
               </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
                 The passionate individuals behind Adhyatma's mission.
               </p>
             </div>
@@ -326,9 +326,9 @@ const OurStory = () => {
                       />
                       <div className="absolute inset-0 w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-r from-[#b094b2]/30 to-[#d1bccd]/30 mx-auto blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">{member.name}</h3>
-                    <p className="text-[#b094b2] font-semibold mb-3 sm:mb-4 text-sm sm:text-base">{member.role}</p>
-                    <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">{member.bio}</p>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-900 font-cormorant-light">{member.name}</h3>
+                    <p className="text-[#b094b2] font-semibold mb-3 sm:mb-4 text-sm sm:text-base font-madefor-medium">{member.role}</p>
+                    <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base font-lato-light">{member.bio}</p>
                     <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
                       {member.specialties.map((specialty, specIndex) => (
                         <Badge key={specIndex} variant="outline" className="text-xs px-2 py-1">
@@ -349,10 +349,10 @@ const OurStory = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={testimonialsRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-4 sm:mb-6 text-gray-800 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
                 What Our Community Says
               </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
                 Hear from the amazing people who have joined us on this journey.
               </p>
             </div>
@@ -366,12 +366,12 @@ const OurStory = () => {
                         <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-700 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+                    <p className="text-gray-700 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base font-lato-light">
                       "{testimonial.text}"
                     </p>
                     <div>
-                      <h4 className="font-bold text-gray-800 text-base sm:text-lg">{testimonial.author}</h4>
-                      <p className="text-gray-600 text-sm sm:text-base">{testimonial.location}</p>
+                      <h4 className="font-bold text-gray-900 text-base sm:text-lg font-cormorant-light">{testimonial.author}</h4>
+                      <p className="text-gray-600 text-sm sm:text-base font-lato-light">{testimonial.location}</p>
                     </div>
                   </div>
                 </div>
@@ -385,16 +385,16 @@ const OurStory = () => {
       <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center scroll-animate" ref={ctaRef}>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-6 sm:mb-8 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-6 sm:mb-8 leading-tight">
               Join Our Community
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12 leading-relaxed px-4">
+            <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12 leading-relaxed px-4 font-lato-light">
               Be part of a global community dedicated to healing, growth, and positive change. 
               Discover the perfect crystals for your journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4">
               <Button 
-                className="px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl bg-gradient-to-r from-white to-gray-100 text-gray-900 hover:from-gray-100 hover:to-gray-200 rounded-full font-medium tracking-wide transition-all duration-500 hover:shadow-2xl hover:scale-105 transform w-full sm:w-auto"
+                className="px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl bg-gradient-to-r from-white to-gray-100 text-gray-900 hover:from-gray-100 hover:to-gray-200 rounded-full font-arial tracking-wide transition-all duration-500 hover:shadow-2xl hover:scale-105 transform w-full sm:w-auto"
                 onClick={() => {
                   const shopSection = document.getElementById('shop');
                   if (shopSection) {
@@ -407,7 +407,8 @@ const OurStory = () => {
               </Button>
               <Button 
                 variant="outline"
-                className="px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 rounded-full font-medium tracking-wide backdrop-blur-sm w-full sm:w-auto"
+                className="px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 rounded-full font-arial tracking-wide backdrop-blur-sm w-full sm:w-auto"
+                onClick={() => window.location.href = '/shop'}
               >
                 Learn About Crystals
               </Button>
@@ -416,7 +417,7 @@ const OurStory = () => {
         </div>
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

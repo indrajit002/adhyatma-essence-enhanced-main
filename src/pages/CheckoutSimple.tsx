@@ -122,7 +122,7 @@ export default function CheckoutSimple() {
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center">
-              <h1 className="text-3xl font-lobster text-gray-800 mb-4">Your Cart is Empty</h1>
+              <h1 className="text-3xl font-cormorant-light text-gray-900 mb-4">Your Cart is Empty</h1>
               <p className="text-gray-600 mb-8">Add some items to your cart first.</p>
             </div>
           </div>
@@ -139,13 +139,13 @@ export default function CheckoutSimple() {
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl font-lobster text-gray-800 mb-8 text-center">Simple Checkout</h1>
+            <h1 className="text-4xl font-cormorant-light text-gray-900 mb-8 text-center">Simple Checkout</h1>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Simple Form */}
               <Card className="shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-lobster text-gray-800">Shipping Information</CardTitle>
+                  <CardTitle className="text-2xl font-cormorant-light text-gray-900">Shipping Information</CardTitle>
                   <CardDescription>Enter your delivery details</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -260,7 +260,7 @@ export default function CheckoutSimple() {
               {/* Order Summary */}
               <Card className="shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-xl font-lobster text-gray-800">Order Summary</CardTitle>
+                  <CardTitle className="text-xl font-cormorant-light text-gray-900">Order Summary</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">

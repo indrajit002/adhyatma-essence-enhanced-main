@@ -51,7 +51,7 @@ const Header = () => {
               />
               <div className="absolute inset-0 bg-gradient-lilac rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-2xl font-lobster font-normal text-[#6b4c6f]">
+            <span className="text-2xl font-cormorant-light text-[#4a3c4d]">
               Adhyatma
             </span>
           </Link>
@@ -61,7 +61,7 @@ const Header = () => {
               <Link
                 key={link.label}
                 to={link.href}
-                className="relative text-[#b094b2] hover:text-[#d1bccd] transition-all duration-300 font-lobster text-sm tracking-wide group"
+                className="relative text-[#b094b2] hover:text-[#d1bccd] transition-all duration-300 font-madefor-medium text-sm tracking-wide group"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
@@ -76,7 +76,7 @@ const Header = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 transition-all duration-300 font-lobster"
+                    className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 transition-all duration-300 font-madefor-medium"
                   >
                     <User className="w-4 h-4 mr-2" />
                     {user.first_name}
@@ -86,7 +86,7 @@ const Header = () => {
                   variant="ghost" 
                   size="sm" 
                   onClick={signOut}
-                  className="text-[#b094b2] hover:text-red-500 hover:bg-red-50 transition-all duration-300 font-lobster"
+                  className="text-[#b094b2] hover:text-red-500 hover:bg-red-50 transition-all duration-300 font-madefor-medium"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -150,7 +150,7 @@ const Header = () => {
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="block py-3 text-[#b094b2] hover:text-[#d1bccd] transition-colors duration-200 font-lobster"
+                  className="block py-3 text-[#b094b2] hover:text-[#d1bccd] transition-colors duration-200 font-madefor-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
