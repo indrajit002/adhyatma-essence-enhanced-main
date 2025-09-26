@@ -293,7 +293,7 @@ export default function CheckoutSimple() {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
