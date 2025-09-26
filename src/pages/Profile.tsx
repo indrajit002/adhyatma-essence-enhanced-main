@@ -186,10 +186,20 @@ const Profile = () => {
 
   const handleSignOut = async () => {
     try {
+      console.log('🚪 Profile: Starting signout process...');
       await signOut();
-      // Page will refresh automatically after signOut, no need to navigate
+      console.log('✅ Profile: Signout successful, navigating to home...');
+      // Navigate to home page after signout
+      navigate('/', { replace: true });
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error('❌ Profile: Error signing out:', error);
+      // Even if signout fails, try to navigate to home
+      try {
+        navigate('/', { replace: true });
+      } catch (navError) {
+        console.error('❌ Navigation also failed:', navError);
+        window.location.href = '/';
+      }
     }
   };
 

@@ -48,12 +48,21 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [error, setError] = useState<string | null>(null);
   const [initialized, setInitialized] = useState(false);
   const [isProcessingProfile, setIsProcessingProfile] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   const getProfile = useCallback(async (userId: string) => {
     if (isProcessingProfile) {
+      console.log('⚠️ Profile fetch already in progress, skipping...');
       return;
     }
     
+    // Check if we already have the profile for this user
+    if (user && user.id === userId && status === 'authenticated') {
+      console.log('✅ Profile already loaded for user:', userId);
+      return;
+    }
+    
+    console.log('🔄 Starting profile fetch for user:', userId);
     setIsProcessingProfile(true);
     
     try {
@@ -95,6 +104,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               };
               setUser(tempProfile);
               setStatus('authenticated');
+              console.log('✅ Temporary profile created and user authenticated:', tempProfile.first_name);
               return;
             }
             
@@ -126,18 +136,21 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           };
           setUser(tempProfile);
           setStatus('authenticated');
+          console.log('✅ Fallback temporary profile created and user authenticated:', tempProfile.first_name);
           return;
         }
         
-        // If we can't get auth user, sign out
-        await supabase.auth.signOut();
+        // If we can't get auth user, clear state without triggering signout
         setUser(null);
+        setSession(null);
         setStatus('unauthenticated');
+        setError('Unable to fetch user profile');
         return;
       }
       
       setUser(profile as Profile);
       setStatus('authenticated');
+      console.log('✅ Profile loaded and user authenticated:', profile.first_name);
     } catch (error) {
       console.error("❌ Profile fetch exception:", error);
       
@@ -160,10 +173,11 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.error("❌ Failed to get auth user:", authError);
       }
       
-      // Only sign out if we can't create a temporary profile
-      await supabase.auth.signOut();
+      // Only clear state if we can't create a temporary profile
       setUser(null);
+      setSession(null);
       setStatus('unauthenticated');
+      setError('Unable to fetch user profile');
     } finally {
       setIsProcessingProfile(false);
     }
@@ -231,26 +245,36 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
-        console.log('🔄 Auth state change:', event, newSession?.user?.id);
-        setSession(newSession);
+        console.log('🔄 Auth state change:', event, newSession?.user?.id, 'isSigningOut:', isSigningOut);
         
-        if (event === 'SIGNED_IN' && newSession?.user) {
+        if (event === 'SIGNED_IN' && newSession?.user && !isSigningOut) {
           // This handles both SIGNED_IN and SIGNED_UP events
-          console.log('✅ User signed up/in, fetching profile...');
+          console.log('✅ User signed up/in, updating state...');
+          setSession(newSession);
           setStatus('loading'); // Set to loading while we fetch the profile
-          setSession(newSession); // Ensure session is set immediately
+          setError(null);
           await getProfile(newSession.user.id);
         } else if (event === 'SIGNED_OUT') {
-          console.log('❌ User signed out');
-          setUser(null);
-          setSession(null);
-          setStatus('unauthenticated');
+          console.log('❌ User signed out via auth state change');
+          // Only clear state if it's not already cleared (avoid double clearing)
+          if (user || session) {
+            setUser(null);
+            setSession(null);
+            setStatus('unauthenticated');
+            setError(null);
+            setIsProcessingProfile(false);
+          }
         } else if (event === 'TOKEN_REFRESHED' && newSession?.user) {
-          console.log('🔄 Token refreshed, checking profile...');
+          console.log('🔄 Token refreshed, updating session...');
+          setSession(newSession);
           // Only refresh profile if we don't already have user data
           if (!user || user.id !== newSession.user.id) {
             await getProfile(newSession.user.id);
           }
+        } else if (event === 'PASSWORD_RECOVERY') {
+          console.log('🔄 Password recovery initiated');
+        } else {
+          console.log('🔄 Unhandled auth event:', event);
         }
       }
     );
@@ -258,24 +282,44 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return () => {
       subscription?.unsubscribe();
     };
-  }, [getProfile, user]);
+  }, [getProfile]);
 
   const signIn = async (email: string, password: string) => {
     try {
       console.log('🔐 Attempting to sign in...');
+      setStatus('loading');
+      setError(null);
+      
       const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       
       if (signInError) {
         console.error("❌ Sign in error:", signInError);
         setError(transformErrorMessage(signInError, 'signin'));
+        setStatus('unauthenticated');
         throw signInError;
       }
       
       console.log('✅ Sign in successful, data:', data);
-      // The onAuthStateChange listener will handle the state update
+      
+      // Set session immediately
+      if (data.session) {
+        setSession(data.session);
+        console.log('✅ Session updated immediately after sign in');
+        console.log('✅ Session user ID:', data.session.user.id);
+      }
+      
+      // Fetch profile to get user data
+      if (data.user) {
+        console.log('✅ Fetching profile for user:', data.user.id);
+        await getProfile(data.user.id);
+        console.log('✅ Profile fetch completed');
+      }
+      
       return data;
     } catch (error) {
       console.error("❌ Sign in exception:", error);
+      setStatus('unauthenticated');
+      setError(transformErrorMessage(error as Error, 'signin'));
       throw error;
     }
   };
@@ -359,22 +403,50 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signOut = async () => {
     try {
-      console.log('🚪 Attempting to sign out...');
+      console.log('🚪 Auth Context: Attempting to sign out...');
+      console.log('🚪 Auth Context: Current user:', user?.id);
+      console.log('🚪 Auth Context: Current session:', !!session);
+      
+      // Set signing out flag to prevent re-authentication
+      setIsSigningOut(true);
+      
+      // Call Supabase signout FIRST while session is still valid
+      console.log('🚪 Auth Context: Calling supabase.auth.signOut()...');
       const { error } = await supabase.auth.signOut();
+      
       if (error) {
-        console.error("❌ Sign out error:", error);
+        console.error("❌ Auth Context: Sign out error:", error);
         setError(transformErrorMessage(error, 'signout'));
+        // Clear state even if signout fails
+        setUser(null);
+        setSession(null);
+        setStatus('unauthenticated');
+        setError(null);
+        setIsProcessingProfile(false);
+        setIsSigningOut(false);
         return;
       }
       
-      console.log('✅ Sign out successful, refreshing page...');
-      // Refresh the page after successful sign out
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
+      console.log('✅ Auth Context: Sign out successful');
+      
+      // Clear state AFTER successful signout
+      setUser(null);
+      setSession(null);
+      setStatus('unauthenticated');
+      setError(null);
+      setIsProcessingProfile(false);
+      setIsSigningOut(false);
+      
     } catch (error) {
-      console.error("❌ Sign out exception:", error);
+      console.error("❌ Auth Context: Sign out exception:", error);
       setError(transformErrorMessage(error as Error, 'signout'));
+      // Clear state even on exception
+      setUser(null);
+      setSession(null);
+      setStatus('unauthenticated');
+      setError(null);
+      setIsProcessingProfile(false);
+      setIsSigningOut(false);
     }
   };
 

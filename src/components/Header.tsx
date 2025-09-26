@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 // 1. Import useLocation from react-router-dom
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, User, Menu, X, LogOut, Heart } from 'lucide-react';
 import logoImage from '@/assets/logo.png';
@@ -14,8 +14,33 @@ const Header = () => {
   const { state, toggleCart } = useCart();
   const { user, signOut } = useAuth();
   const { wishlistCount } = useWishlist();
+  const navigate = useNavigate();
   // 2. Get the current location using the hook
   const location = useLocation();
+
+  const handleSignOut = async () => {
+    console.log('🚪 Header: handleSignOut called');
+    console.log('🚪 Header: signOut function:', typeof signOut);
+    
+    try {
+      console.log('🚪 Header: Starting signout process...');
+      const result = await signOut();
+      console.log('✅ Header: Signout result:', result);
+      console.log('✅ Header: Signout successful, navigating to home...');
+      // Navigate to home page after signout
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('❌ Header: Error signing out:', error);
+      console.error('❌ Header: Error details:', error);
+      // Even if signout fails, try to navigate to home
+      try {
+        navigate('/', { replace: true });
+      } catch (navError) {
+        console.error('❌ Navigation also failed:', navError);
+        window.location.href = '/';
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,7 +110,10 @@ const Header = () => {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  onClick={signOut}
+                  onClick={(e) => {
+                    console.log('🚪 Button clicked!', e);
+                    handleSignOut();
+                  }}
                   className="text-mystic hover:text-red-600 hover:bg-red-50 transition-all duration-300 font-madefor-medium font-bold"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
@@ -170,7 +198,10 @@ const Header = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    onClick={signOut}
+                    onClick={(e) => {
+                      console.log('🚪 Mobile Button clicked!', e);
+                      handleSignOut();
+                    }}
                      className="text-mystic hover:text-red-600 hover:bg-red-50 flex-1 font-bold justify-start"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
