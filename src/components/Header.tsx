@@ -41,8 +41,8 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto px-6">
-        <nav className="flex items-center justify-between py-6">
-          <Link to="/" className="flex items-center gap-4 group cursor-pointer">
+        <nav className="flex items-center justify-center py-6 relative">
+          <Link to="/" className="absolute left-0 flex items-center gap-4 group cursor-pointer">
             <div className="relative">
               <img 
                 src={logoImage} 
@@ -69,7 +69,7 @@ const Header = () => {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="absolute right-0 hidden md:flex items-center gap-4">
             {user ? (
               <div className="flex items-center gap-4">
                 <Link to="/profile">
@@ -137,7 +137,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden text-[#8a6b8d]"
+            className="absolute right-0 md:hidden text-[#8a6b8d]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
