@@ -51,7 +51,7 @@ const Header = () => {
               />
               <div className="absolute inset-0 bg-gradient-lilac rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-2xl font-lobster font-normal bg-gradient-to-r from-[#b094b2] to-[#d1bccd] bg-clip-text text-transparent">
+            <span className="text-2xl font-lobster font-normal text-[#6b4c6f]">
               Adhyatma
             </span>
           </Link>

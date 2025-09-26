@@ -49,15 +49,15 @@ const HeroSection = () => {
         {/* Text content centered below the SVG */}
         <div className="space-y-8">
           <div className="space-y-6">
-            <h1 className="text-6xl md:text-8xl font-lobster font-normal bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent leading-tight">
+            <h1 className="text-6xl md:text-8xl font-lobster font-normal text-[#6b4c6f] leading-tight">
               ADHYATMA
             </h1>
             
-            <p className="text-2xl md:text-3xl text-[#b094b2] font-lobster tracking-wide">
+            <p className="text-2xl md:text-3xl text-[#6b4c6f] font-lobster tracking-wide">
               Sacred Stones for Modern Soul
             </p>
             
-            <h2 className="text-xl md:text-2xl text-[#b094b2] font-lobster tracking-wider">
+            <h2 className="text-xl md:text-2xl text-[#6b4c6f] font-lobster tracking-wider">
               Crystal Store
             </h2>
           </div>

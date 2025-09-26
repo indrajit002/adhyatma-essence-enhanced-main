@@ -26,7 +26,7 @@ const Footer = () => {
                 alt="Adhyatma Logo" 
                 className="w-8 h-8 object-contain" 
               />
-              <span className="text-xl font-lobster font-normal bg-gradient-to-r from-[#b094b2] to-[#d1bccd] bg-clip-text text-transparent">
+              <span className="text-xl font-lobster font-normal text-[#6b4c6f]">
                 Adhyatma
               </span>
             </div>
