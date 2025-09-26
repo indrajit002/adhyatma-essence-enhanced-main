@@ -16,12 +16,12 @@ const Index = () => {
     <div className="min-h-screen">
       <main>
         <HeroSection />
-        <ShippingBanner />
         <MissionSection />
         <ProductCategories />
         <FeaturedProducts />
         <AboutPreview />
         <CoreValues />
+        <ShippingBanner />
         <TestimonialsSection />
         <CallToAction 
           title="Ready to Begin Your Crystal Journey?"
