@@ -65,9 +65,9 @@ const ProductCategories = () => {
           </h2>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" role="list">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8" role="list">
           {categories.map((category) => (
-            <article key={category.id} className="group cursor-pointer bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100" role="listitem">
+            <article key={category.id} className="group cursor-pointer bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 mobile-card mobile-touch" role="listitem">
               <div className="relative overflow-hidden">
                 <img
                   src={category.image}
@@ -96,8 +96,8 @@ const ProductCategories = () => {
                 <p className="text-gray-600 mb-4 md:mb-6 text-xs md:text-sm leading-relaxed font-madefor-medium">
                   {category.description}
                 </p>
-                <Button 
-                  className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-arial tracking-wide text-xs md:text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
+                <Button
+                  className="mobile-button-primary bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white font-arial tracking-wide transition-all duration-300 hover:shadow-lg hover:scale-105 transform mobile-touch"
                   onClick={() => navigate(`/collections/${category.id}`)}
                 >
                   Explore Collection

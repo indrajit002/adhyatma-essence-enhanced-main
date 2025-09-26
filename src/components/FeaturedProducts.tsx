@@ -15,7 +15,7 @@ const FeaturedProducts = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-mystic bg-clip-text text-transparent">
               Featured Products
             </h2>
             <p className="text-lg text-gray-600 font-madefor-medium">
@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
             </p>
           </div>
           <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b094b2]"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mystic"></div>
           </div>
         </div>
       </section>
@@ -35,7 +35,7 @@ const FeaturedProducts = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-mystic bg-clip-text text-transparent">
               Featured Products
             </h2>
             <p className="text-lg text-gray-600 font-madefor-medium">
@@ -51,7 +51,7 @@ const FeaturedProducts = () => {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-cormorant-light mb-4 bg-gradient-mystic bg-clip-text text-transparent">
             Featured Products
           </h2>
           <p className="text-lg text-gray-600 font-madefor-medium">
@@ -59,9 +59,9 @@ const FeaturedProducts = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {featuredProducts.map((product) => (
-            <div key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100 overflow-hidden">
+            <div key={product.id} className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100 overflow-hidden mobile-card">
               <div className="relative overflow-hidden">
                 <img
                   src={product.image}
@@ -133,9 +133,9 @@ const FeaturedProducts = () => {
                       </span>
                     )}
                   </div>
-                  <Button 
-                    size="sm" 
-                    className="bg-gray-800 hover:bg-gray-700 text-white px-3 md:px-4 py-2 rounded-none font-arial text-xs md:text-sm w-full sm:w-auto"
+                  <Button
+                    size="sm"
+                    className="mobile-button-primary bg-gray-800 hover:bg-gray-700 text-white rounded-full font-arial mobile-touch"
                     onClick={() => addItem({
                       id: product.id,
                       name: product.name,

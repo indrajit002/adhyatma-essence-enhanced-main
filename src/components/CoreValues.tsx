@@ -50,16 +50,16 @@ const CoreValues = () => {
           {values.map((value, index) => (
             <div
               key={value.title}
-              className="text-center group bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 hover:border-[#d1bccd]"
+              className="text-center group bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 hover:border-lilac"
             >
               <div className="relative mb-8 mx-auto w-20 h-20">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative w-full h-full bg-gradient-to-r from-[#b094b2]/20 to-[#d1bccd]/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                  <value.icon className="w-10 h-10 text-[#b094b2] group-hover:text-[#b094b2]/80 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-mystic rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative w-full h-full bg-gradient-mystic/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                  <value.icon className="w-10 h-10 text-mystic group-hover:text-mystic/80 transition-colors duration-300" />
                 </div>
               </div>
               
-              <h3 className="text-xl font-cormorant-light mb-4 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
+              <h3 className="text-xl font-cormorant-light mb-4 text-gray-800 group-hover:text-mystic transition-colors duration-300">
                 {value.title}
               </h3>
               <p className="text-gray-600 leading-relaxed">

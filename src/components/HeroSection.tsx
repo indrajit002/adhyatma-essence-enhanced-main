@@ -24,9 +24,9 @@ const HeroSection = () => {
     >
       {/* Enhanced Background with Pastel Layers */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]" />
+        <div className="absolute inset-0 bg-gradient-ethereal" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-white/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#b094b2]/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-glow" />
       </div>
 
       {/* Enhanced Floating Elements - Pastel Theme */}
@@ -38,40 +38,40 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-20 container mx-auto px-4 text-center max-w-5xl">
+      <div className="relative z-20 container mx-auto px-4 sm:px-6 text-center max-w-5xl">
         {/* Animated Crystal Logo at the top */}
-        <div className="mb-16">
+        <div className="mb-8 sm:mb-12 md:mb-16">
           <div className="relative inline-block">
             <AnimatedCrystalLogo />
           </div>
         </div>
         
         {/* Text content centered below the SVG */}
-        <div className="space-y-8">
-          <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-cormorant-light text-[#4a3c4d] leading-tight">
+        <div className="space-y-6 sm:space-y-8">
+          <div className="space-y-4 sm:space-y-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-cormorant-light text-foreground leading-tight">
               ADHYATMA
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#6b4c6f] font-madefor-medium tracking-wide px-4">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-muted-foreground font-madefor-medium tracking-wide px-2 sm:px-4">
               Sacred Stones for Modern Soul
             </p>
             
-            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#6b4c6f] font-madefor-medium tracking-wider">
+            <h2 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-muted-foreground font-madefor-medium tracking-wider">
               Crystal Store
             </h2>
           </div>
           
-          <div className="mt-16 space-y-6">
+          <div className="mt-8 sm:mt-12 md:mt-16 space-y-4 sm:space-y-6">
             <Button 
-              className="px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 text-base sm:text-lg md:text-xl bg-gradient-mystic hover:bg-gradient-rose text-white rounded-full font-arial tracking-wide transition-all duration-500 hover:shadow-glow hover:scale-105 transform"
+              className="w-full sm:w-auto px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 lg:py-6 text-sm sm:text-base md:text-lg lg:text-xl bg-gradient-mystic hover:bg-gradient-rose text-white rounded-full font-arial tracking-wide transition-all duration-500 hover:shadow-glow hover:scale-105 transform shadow-lg"
               onClick={handleScrollToShop}
               aria-label="Shop our collection of healing crystals"
             >
               SHOP NOW
             </Button>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 md:space-x-8 text-xs sm:text-sm text-[#b094b2] px-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4 md:space-x-6 lg:space-x-8 text-xs sm:text-sm text-mystic px-2 sm:px-4">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-mint rounded-full animate-pulse" />
                 <span>Ethically Sourced</span>

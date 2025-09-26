@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,8 +18,17 @@ const SignIn = () => {
   const location = useLocation(); 
   const from = location.state?.from?.pathname || '/profile';
   const [showPassword, setShowPassword] = useState(false);
-  const { signIn, isLoading, error, clearError } = useAuth();
+  const { signIn, isLoading, error, clearError, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+
+  // Check if user is already authenticated and redirect
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      console.log('✅ User already authenticated, redirecting...');
+      const from = location.state?.from?.pathname || '/profile';
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, user, navigate, location.state?.from?.pathname]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -69,10 +78,10 @@ const SignIn = () => {
     try {
       await signIn(formData.email, formData.password);
       setShowSuccess(true);
-      // Navigate after showing success message
+      
+      // Show success message briefly, then refresh the page
       setTimeout(() => {
-        const from = location.state?.from?.pathname || '/';
-        navigate(from, { replace: true });
+        window.location.reload();
       }, 1500);
     } catch (error) {
       // Error is handled by the context and will persist until next submission
@@ -80,7 +89,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
+    <div className="min-h-screen bg-gradient-ethereal">
       
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,7 +97,7 @@ const SignIn = () => {
             <div className="text-center mb-8">
               <Link 
                 to="/" 
-                className="inline-flex items-center text-[#b094b2] hover:text-[#b094b2]/80 mb-6"
+                className="inline-flex items-center text-mystic hover:text-mystic/80 mb-6"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Home
@@ -116,7 +125,7 @@ const SignIn = () => {
                   <AlertMessage
                     type="success"
                     title="Welcome Back!"
-                    message="You have successfully signed in. Redirecting you now..."
+                    message="You have successfully signed in. Refreshing the page..."
                     onClose={() => setShowSuccess(false)}
                   />
                 )}
@@ -147,7 +156,7 @@ const SignIn = () => {
                         placeholder="Enter your email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
+                        className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-mystic focus:ring-mystic ${
                           fieldErrors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                         }`}
                         required
@@ -176,7 +185,7 @@ const SignIn = () => {
                         placeholder="Enter your password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
+                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-mystic focus:ring-mystic ${
                           fieldErrors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                         }`}
                         required
@@ -204,7 +213,7 @@ const SignIn = () => {
                       <input
                         id="remember"
                         type="checkbox"
-                        className="h-4 w-4 text-[#b094b2] focus:ring-[#b094b2] border-gray-300 rounded"
+                        className="h-4 w-4 text-mystic focus:ring-mystic border-gray-300 rounded"
                       />
                       <Label htmlFor="remember" className="ml-2 text-sm text-gray-600">
                         Remember me
@@ -212,7 +221,7 @@ const SignIn = () => {
                     </div>
                     <Link 
                       to="/forgot-password" 
-                      className="text-sm text-[#b094b2] hover:text-[#b094b2]/80"
+                      className="text-sm text-mystic hover:text-mystic/80"
                     >
                       Forgot password?
                     </Link>
@@ -220,7 +229,7 @@ const SignIn = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+                    className="w-full bg-mystic hover:bg-mystic/80 text-white py-3 rounded-lg font-medium disabled:opacity-50"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Logging In...' : 'Login'}
@@ -232,7 +241,7 @@ const SignIn = () => {
                     Don't have an account?{' '}
                     <Link 
                       to="/signup" 
-                      className="text-[#b094b2] hover:text-[#b094b2]/80 font-medium"
+                      className="text-mystic hover:text-mystic/80 font-medium"
                     >
                       Sign up here
                     </Link>

@@ -187,7 +187,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       await signOut();
-      navigate('/');
+      // Page will refresh automatically after signOut, no need to navigate
     } catch (error) {
       console.error('Error signing out:', error);
     }

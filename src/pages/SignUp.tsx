@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,8 +20,23 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [signupStatus, setSignupStatus] = useState<'idle' | 'creating-user' | 'creating-profile' | 'success' | 'error'>('idle');
-  const { signUp, isLoading, error, clearError } = useAuth();
+  const { signUp, isLoading, error, clearError, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
+
+  // Monitor authentication state changes after signup
+  useEffect(() => {
+    if (signupStatus === 'success' && isAuthenticated && user) {
+      console.log('✅ Authentication state updated after signup, redirecting to profile...');
+      setTimeout(() => {
+        try {
+          navigate('/profile', { replace: true });
+        } catch (navError) {
+          console.error('❌ Navigation failed:', navError);
+          window.location.href = '/profile';
+        }
+      }, 500);
+    }
+  }, [isAuthenticated, user, signupStatus, navigate]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -105,16 +120,29 @@ const SignUp = () => {
       
       setSignupStatus('success');
       
-      // Show success state briefly before redirecting (reduced delay)
-      setTimeout(() => {
-        try {
-          navigate('/confirm-email', { state: { email: formData.email }, replace: true });
-        } catch (navError) {
-          console.error('❌ Navigation failed:', navError);
-          // Fallback: try window.location
-          window.location.href = '/confirm-email';
-        }
-      }, 800); // Reduced from 1500ms to 800ms
+      // Check if user is authenticated after signup
+      if (isAuthenticated && user) {
+        console.log('✅ User is authenticated after signup, redirecting to profile...');
+        setTimeout(() => {
+          try {
+            navigate('/profile', { replace: true });
+          } catch (navError) {
+            console.error('❌ Navigation failed:', navError);
+            window.location.href = '/profile';
+          }
+        }, 1000);
+      } else {
+        // Show success state briefly before redirecting to email confirmation
+        setTimeout(() => {
+          try {
+            navigate('/confirm-email', { state: { email: formData.email }, replace: true });
+          } catch (navError) {
+            console.error('❌ Navigation failed:', navError);
+            // Fallback: try window.location
+            window.location.href = '/confirm-email';
+          }
+        }, 1000);
+      }
 
     } catch (error) {
       console.error('❌ Sign up failed:', error);

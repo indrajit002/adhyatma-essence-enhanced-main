@@ -68,11 +68,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         // If profile doesn't exist, create it from auth user data
         if (profileError.code === 'PGRST116') {
+          console.log('⚠️ Profile not found, creating new profile...');
           
           // Get the current user from auth
           const { data: { user: authUser } } = await supabase.auth.getUser();
           
           if (authUser) {
+            console.log('✅ Creating profile for user:', authUser.id);
             const { error: createError } = await supabase
               .from('profiles')
               .insert({
@@ -104,6 +106,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               .single();
               
             if (newProfile) {
+              console.log('✅ Profile created and fetched successfully');
               setUser(newProfile as Profile);
               setStatus('authenticated');
               return;
@@ -168,7 +171,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     let isMounted = true;
-    let timeoutId: NodeJS.Timeout;
+    const timeoutId: NodeJS.Timeout = setTimeout(() => {
+      if (isMounted) {
+        setStatus('unauthenticated');
+        setInitialized(true);
+      }
+    }, 10000); // 10 second timeout
     
     const getInitialSession = async () => {
       try {
@@ -206,13 +214,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
     };
 
-    // Add a timeout to prevent infinite loading
-    timeoutId = setTimeout(() => {
-      if (isMounted) {
-        setStatus('unauthenticated');
-        setInitialized(true);
-      }
-    }, 10000); // 10 second timeout
 
     getInitialSession().finally(() => {
       if (isMounted) {
@@ -230,16 +231,22 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
+        console.log('🔄 Auth state change:', event, newSession?.user?.id);
         setSession(newSession);
         
         if (event === 'SIGNED_IN' && newSession?.user) {
+          // This handles both SIGNED_IN and SIGNED_UP events
+          console.log('✅ User signed up/in, fetching profile...');
           setStatus('loading'); // Set to loading while we fetch the profile
+          setSession(newSession); // Ensure session is set immediately
           await getProfile(newSession.user.id);
         } else if (event === 'SIGNED_OUT') {
+          console.log('❌ User signed out');
           setUser(null);
           setSession(null);
           setStatus('unauthenticated');
         } else if (event === 'TOKEN_REFRESHED' && newSession?.user) {
+          console.log('🔄 Token refreshed, checking profile...');
           // Only refresh profile if we don't already have user data
           if (!user || user.id !== newSession.user.id) {
             await getProfile(newSession.user.id);
@@ -255,6 +262,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signIn = async (email: string, password: string) => {
     try {
+      console.log('🔐 Attempting to sign in...');
       const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       
       if (signInError) {
@@ -263,6 +271,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw signInError;
       }
       
+      console.log('✅ Sign in successful, data:', data);
+      // The onAuthStateChange listener will handle the state update
       return data;
     } catch (error) {
       console.error("❌ Sign in exception:", error);
@@ -315,6 +325,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // If auth user is created, try to create their profile (non-blocking)
       if (data.user) {
+        console.log('✅ User created, setting up profile...');
         
         // Create profile asynchronously without blocking the main flow
         (async () => {
@@ -330,6 +341,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             
             if (profileError) {
               console.error("⚠️ Failed to create profile for new user:", profileError);
+            } else {
+              console.log('✅ Profile created successfully');
             }
           } catch (profileError) {
             console.error("⚠️ Profile creation exception:", profileError);
@@ -345,9 +358,23 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      setError(transformErrorMessage(error, 'signout'));
+    try {
+      console.log('🚪 Attempting to sign out...');
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error("❌ Sign out error:", error);
+        setError(transformErrorMessage(error, 'signout'));
+        return;
+      }
+      
+      console.log('✅ Sign out successful, refreshing page...');
+      // Refresh the page after successful sign out
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.error("❌ Sign out exception:", error);
+      setError(transformErrorMessage(error as Error, 'signout'));
     }
   };
 
@@ -425,6 +452,18 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     updateUser,
     clearError,
   };
+
+  // Debug logging for authentication state
+  useEffect(() => {
+    console.log('🔍 Auth state changed:', {
+      status,
+      isAuthenticated: status === 'authenticated',
+      hasUser: !!user,
+      hasSession: !!session,
+      userId: user?.id,
+      userEmail: user?.email
+    });
+  }, [status, user, session]);
 
   return (
     <AuthContext.Provider value={value}>
