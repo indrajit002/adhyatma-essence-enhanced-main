@@ -55,7 +55,6 @@ export default function CheckoutSimple() {
     
     // Prevent multiple submissions
     if (isSubmittingRef.current) {
-      console.log('🚫 Order submission already in progress, ignoring duplicate');
       return;
     }
     
@@ -72,7 +71,6 @@ export default function CheckoutSimple() {
     isSubmittingRef.current = true;
     
     try {
-      console.log('🛒 Starting order creation...');
       
       const orderData = {
         items: cart.map(item => ({
@@ -93,12 +91,8 @@ export default function CheckoutSimple() {
           zipCode: formData.zipCode,
         },
       };
-
-      console.log('📦 Order data:', orderData);
       
       const order = await OrderService.createOrder(orderData, user.id);
-      
-      console.log('✅ Order created successfully:', order);
       
       clearCart();
       toast({

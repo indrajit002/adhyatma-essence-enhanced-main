@@ -21,20 +21,8 @@ export class EmailService {
    */
   static async sendOrderConfirmation(data: OrderEmailData): Promise<boolean> {
     try {
-      console.log('📧 ===== ORDER CONFIRMATION EMAIL =====');
-      console.log('📧 To:', data.customerEmail);
-      console.log('📧 Subject: Your Adhyatma Order Confirmation');
-      console.log('📧 Order ID:', data.orderId);
-      console.log('📧 Customer:', data.customerName);
-      console.log('📧 Total:', `₹${data.totalAmount.toFixed(2)}`);
-      console.log('📧 Items:', data.items.length);
-      console.log('📧 ======================================');
-      
       // Generate email content
       const emailContent = this.generateEmailContent(data);
-      console.log('📧 Email Content:');
-      console.log(emailContent);
-      console.log('📧 ======================================');
       
       // In a real implementation, you would send the email here
       // For now, we'll simulate success

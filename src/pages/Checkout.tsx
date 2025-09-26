@@ -115,15 +115,10 @@ export default function Checkout() {
   // --- FORM HANDLERS ---
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log(`Input changed: ${name} = "${value}"`);
-    setFormData(prev => {
-      const newData = {
-        ...prev,
-        [name]: value
-      };
-      console.log('New form data:', newData);
-      return newData;
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
     
     // Clear error when user starts typing
     if (errors[name]) {
@@ -269,16 +264,6 @@ export default function Checkout() {
                     <CardDescription>Enter your delivery details</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    {/* Debug button - remove in production */}
-                    <div className="mb-4 p-2 bg-blue-50 border border-blue-200 rounded">
-                      <button 
-                        type="button" 
-                        onClick={() => console.log('Current form data:', formData)}
-                        className="text-sm text-blue-600 hover:text-blue-800"
-                      >
-                        Debug: Log Form Data
-                      </button>
-                    </div>
                     
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

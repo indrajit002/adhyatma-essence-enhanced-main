@@ -10,7 +10,6 @@ export class OrderService {
    */
   static async createOrder(orderData: CreateOrderRequest, userId: string): Promise<Order> {
     try {
-      console.log('🛒 Creating order for user:', userId);
       
       // Generate a unique order ID
       const orderId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -28,7 +27,6 @@ export class OrderService {
 
       // Try to save to Supabase first
       try {
-        console.log('💾 Saving order to Supabase...');
         
         // Create the order in the orders table
         const { data: orderData, error: orderError } = await supabase
@@ -48,7 +46,6 @@ export class OrderService {
           throw new Error(`Order creation failed: ${orderError.message}`);
         }
 
-        console.log('✅ Order created in Supabase:', orderData);
 
         // Create order items
         const orderItems = order.items.map(item => ({
@@ -66,8 +63,6 @@ export class OrderService {
         if (itemsError) {
           console.error('❌ Failed to create order items:', itemsError);
           // Don't throw here, order is already created
-        } else {
-          console.log('✅ Order items created:', itemsData);
         }
 
         // Update the order object with the database ID
@@ -75,9 +70,7 @@ export class OrderService {
 
         // Send confirmation email
         try {
-          console.log('📧 Sending order confirmation email...');
           await this.sendOrderConfirmationEmail(orderData.id, userId, order);
-          console.log('✅ Order confirmation email sent successfully');
         } catch (emailError) {
           console.error('⚠️ Failed to send confirmation email:', emailError);
           // Don't throw here, order is still created successfully
@@ -85,14 +78,12 @@ export class OrderService {
 
       } catch (dbError) {
         console.error('❌ Database error:', dbError);
-        console.log('🔄 Saving order locally as backup');
         
         // Save to localStorage as fallback
         const existingOrders = this.getLocalOrders();
         const updatedOrders = [...existingOrders, order];
         localStorage.setItem('crystal-orders', JSON.stringify(updatedOrders));
         
-        console.log('✅ Order saved locally:', order);
         return order;
       }
 
@@ -101,7 +92,6 @@ export class OrderService {
       const updatedOrders = [...existingOrders, order];
       localStorage.setItem('crystal-orders', JSON.stringify(updatedOrders));
       
-      console.log('✅ Order created successfully:', order);
       return order;
     } catch (error) {
       console.error('❌ Error creating order:', error);
@@ -117,7 +107,6 @@ export class OrderService {
     
     // Check if there's already a pending request for this user
     if (this.pendingRequests.has(requestKey)) {
-      console.log('🔄 Request already in progress, waiting for existing request...');
       return this.pendingRequests.get(requestKey)!;
     }
     
@@ -174,7 +163,6 @@ export class OrderService {
             updatedAt: order.created_at
           }));
 
-          console.log('✅ Orders fetched from Supabase:', transformedOrders);
           return transformedOrders;
         }
       } catch (dbError) {
@@ -184,7 +172,6 @@ export class OrderService {
       // Fallback to localStorage
       const localOrders = this.getLocalOrders();
       const userOrders = localOrders.filter(order => order.userId === userId);
-      console.log('📦 Orders fetched from localStorage:', userOrders);
       return userOrders;
     } catch (error) {
       console.error('❌ Error fetching orders:', error);
@@ -272,7 +259,6 @@ export class OrderService {
           console.error('❌ Failed to update order in Supabase:', error);
           throw error;
         } else {
-          console.log('✅ Order status updated in Supabase');
           return true;
         }
       } catch (dbError) {
@@ -287,7 +273,6 @@ export class OrderService {
         localOrders[orderIndex].status = status;
         localOrders[orderIndex].updatedAt = new Date().toISOString();
         localStorage.setItem('crystal-orders', JSON.stringify(localOrders));
-        console.log('✅ Order status updated locally');
         return true;
       }
 
@@ -334,7 +319,7 @@ export class OrderService {
       const emailSent = await EmailService.sendOrderConfirmation(emailData);
       
       if (emailSent) {
-        console.log('✅ Order confirmation email sent successfully to:', profile.email);
+        // Email sent successfully
       } else {
         console.error('❌ Failed to send order confirmation email');
       }

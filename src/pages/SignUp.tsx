@@ -81,20 +81,11 @@ const SignUp = () => {
     const isChrome = userAgent.includes('Chrome') && !userAgent.includes('Edge');
     const isIncognito = window.navigator.storage && window.navigator.storage.estimate ? true : false;
     
-    console.log("🌐 Browser Info:", {
-      userAgent: userAgent,
-      isChrome: isChrome,
-      isIncognito: isIncognito,
-      timestamp: new Date().toISOString()
-    });
-    
     if (!validateForm()) {
       return;
     }
 
     try {
-      console.log("🚀 Starting signup process...");
-      console.log("⏰ Timestamp:", Date.now());
       setSignupStatus('creating-user');
       
       // Add timeout protection for Chrome
@@ -112,33 +103,21 @@ const SignUp = () => {
       
       const result = await Promise.race([signupPromise, timeoutPromise]);
       
-      console.log("✅ Signup completed successfully:", result);
-      console.log("⏰ Completion timestamp:", Date.now());
       setSignupStatus('success');
       
       // Show success state briefly before redirecting (reduced delay)
       setTimeout(() => {
-        console.log("🔄 Navigating to confirm email page...");
-        console.log("⏰ Navigation timestamp:", Date.now());
         try {
           navigate('/confirm-email', { state: { email: formData.email }, replace: true });
-          console.log("✅ Navigation triggered");
         } catch (navError) {
-          console.error("❌ Navigation failed:", navError);
+          console.error('❌ Navigation failed:', navError);
           // Fallback: try window.location
-          console.log("🔄 Trying window.location fallback...");
           window.location.href = '/confirm-email';
         }
       }, 800); // Reduced from 1500ms to 800ms
 
     } catch (error) {
-      console.error("❌ Sign up failed:", error);
-      console.error("❌ Error details:", {
-        name: error.name,
-        message: error.message,
-        stack: error.stack,
-        timestamp: Date.now()
-      });
+      console.error('❌ Sign up failed:', error);
       setSignupStatus('error');
     }
   };

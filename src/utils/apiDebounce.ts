@@ -23,7 +23,6 @@ class ApiDebounceManager {
 
     // If there's already a pending request, return it
     if (this.pendingRequests.has(key)) {
-      console.log(`🔄 API call already in progress for key: ${key}`);
       return this.pendingRequests.get(key)!;
     }
 
@@ -31,7 +30,6 @@ class ApiDebounceManager {
     const requestPromise = new Promise<T>((resolve, reject) => {
       const timeoutId = setTimeout(async () => {
         try {
-          console.log(`🚀 Executing API call for key: ${key}`);
           const result = await apiCall();
           resolve(result);
         } catch (error) {
@@ -59,7 +57,6 @@ class ApiDebounceManager {
       this.requestTimeouts.delete(key);
     }
     this.pendingRequests.delete(key);
-    console.log(`❌ Cancelled API call for key: ${key}`);
   }
 
   /**
@@ -69,7 +66,6 @@ class ApiDebounceManager {
     this.requestTimeouts.forEach(timeout => clearTimeout(timeout));
     this.requestTimeouts.clear();
     this.pendingRequests.clear();
-    console.log('🧹 Cleared all pending API requests');
   }
 
   /**

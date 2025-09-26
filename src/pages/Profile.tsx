@@ -72,7 +72,6 @@ const Profile = () => {
         setLoadingOrders(true);
         
         try {
-          console.log('🛒 Fetching orders for user:', user.id);
           
           // Use debounced API call
           const userOrders = await ApiDebounceManager.debounce(
@@ -91,7 +90,6 @@ const Profile = () => {
           
           setOrders(transformedOrders);
           setOrdersLoaded(true);
-          console.log('✅ Orders fetched successfully:', transformedOrders);
         } catch (error) {
           console.error("❌ Error fetching orders:", error);
         } finally {
@@ -115,7 +113,6 @@ const Profile = () => {
   const refreshOrders = React.useCallback(async () => {
     if (!user || isFetchingOrdersRef.current) return;
     
-    console.log('🔄 Refreshing orders...');
     isFetchingOrdersRef.current = true;
     setOrdersLoaded(false);
     setOrders([]);
@@ -140,7 +137,6 @@ const Profile = () => {
       
       setOrders(transformedOrders);
       setOrdersLoaded(true);
-      console.log('✅ Orders refreshed successfully:', transformedOrders);
     } catch (error) {
       console.error("❌ Error refreshing orders:", error);
     } finally {

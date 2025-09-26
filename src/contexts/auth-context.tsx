@@ -51,11 +51,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const getProfile = useCallback(async (userId: string) => {
     if (isProcessingProfile) {
-      console.log("⏳ Already processing profile, skipping...");
       return;
     }
     
-    console.log("👤 Fetching profile for user:", userId);
     setIsProcessingProfile(true);
     
     try {
@@ -70,7 +68,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         // If profile doesn't exist, create it from auth user data
         if (profileError.code === 'PGRST116') {
-          console.log("👤 Profile not found, creating new profile...");
           
           // Get the current user from auth
           const { data: { user: authUser } } = await supabase.auth.getUser();
@@ -87,8 +84,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
             if (createError) {
               console.error("❌ Failed to create missing profile:", createError);
-              console.log("🔄 Profiles table might not exist. Please create it in Supabase.");
-              console.log("🔄 Creating temporary profile from auth data...");
               const tempProfile: Profile = {
                 id: authUser.id,
                 first_name: authUser.user_metadata?.first_name || '',
@@ -109,7 +104,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               .single();
               
             if (newProfile) {
-              console.log("✅ Profile created and fetched successfully:", newProfile);
               setUser(newProfile as Profile);
               setStatus('authenticated');
               return;
@@ -118,7 +112,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
         
         // If we can't fetch or create profile, create a temporary one from auth data
-        console.log("🔄 Creating temporary profile from auth data...");
         const { data: { user: authUser } } = await supabase.auth.getUser();
         if (authUser) {
           const tempProfile: Profile = {
@@ -140,7 +133,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         return;
       }
       
-      console.log("✅ Profile fetched successfully:", profile);
       setUser(profile as Profile);
       setStatus('authenticated');
     } catch (error) {
@@ -150,7 +142,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       try {
         const { data: { user: authUser } } = await supabase.auth.getUser();
         if (authUser) {
-          console.log("🔄 Creating temporary profile from auth data after error...");
           const tempProfile: Profile = {
             id: authUser.id,
             first_name: authUser.user_metadata?.first_name || '',
@@ -181,11 +172,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     
     const getInitialSession = async () => {
       try {
-        console.log("🔍 Checking for existing session...");
         
         // Check if Supabase is properly configured
         if (!supabase || !supabase.auth) {
-          console.log("⚠️ Supabase not configured, skipping authentication");
           if (isMounted) {
             setStatus('unauthenticated');
             setInitialized(true);
@@ -203,13 +192,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           return;
         }
 
-        console.log("📋 Session check result:", initialSession ? "Session found" : "No session");
-
         if (initialSession?.user && isMounted) {
-          console.log("👤 User found, fetching profile...");
           await getProfile(initialSession.user.id);
         } else if (isMounted) {
-          console.log("🚪 No user, setting unauthenticated");
           setStatus('unauthenticated');
         }
       } catch (err) {
@@ -223,7 +208,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // Add a timeout to prevent infinite loading
     timeoutId = setTimeout(() => {
-      console.log("⏰ Authentication timeout, setting unauthenticated");
       if (isMounted) {
         setStatus('unauthenticated');
         setInitialized(true);
@@ -246,20 +230,16 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, newSession) => {
-        console.log("🔄 Auth state change:", event, newSession?.user?.id);
         setSession(newSession);
         
         if (event === 'SIGNED_IN' && newSession?.user) {
-          console.log("🔐 User signed in, fetching profile...");
           setStatus('loading'); // Set to loading while we fetch the profile
           await getProfile(newSession.user.id);
         } else if (event === 'SIGNED_OUT') {
-          console.log("🚪 User signed out");
           setUser(null);
           setSession(null);
           setStatus('unauthenticated');
         } else if (event === 'TOKEN_REFRESHED' && newSession?.user) {
-          console.log("🔄 Token refreshed, ensuring profile is loaded...");
           // Only refresh profile if we don't already have user data
           if (!user || user.id !== newSession.user.id) {
             await getProfile(newSession.user.id);
@@ -274,7 +254,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, [getProfile]);
 
   const signIn = async (email: string, password: string) => {
-    console.log("🔐 Starting sign in process for:", email);
     try {
       const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       
@@ -284,7 +263,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw signInError;
       }
       
-      console.log("✅ Sign in successful:", data);
       return data;
     } catch (error) {
       console.error("❌ Sign in exception:", error);
@@ -293,19 +271,12 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const signUp = async (userData: { first_name: string; last_name: string; email: string; password: string }) => {
-    console.log("🔐 Starting sign up process for:", userData.email);
-    console.log("🌐 Browser context:", {
-      userAgent: navigator.userAgent,
-      isChrome: navigator.userAgent.includes('Chrome'),
-      timestamp: Date.now()
-    });
     
     try {
       // Add Chrome-specific timeout and retry logic
       const signUpWithRetry = async (retries = 3) => {
         for (let i = 0; i < retries; i++) {
           try {
-            console.log(`🔄 Signup attempt ${i + 1}/${retries}`);
             const { data, error: signUpError } = await supabase.auth.signUp({
               email: userData.email,
               password: userData.password,
@@ -342,11 +313,8 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         throw signUpError;
       }
 
-      console.log("✅ Auth user created successfully:", data);
-
       // If auth user is created, try to create their profile (non-blocking)
       if (data.user) {
-        console.log("👤 Creating profile for user:", data.user.id);
         
         // Create profile asynchronously without blocking the main flow
         (async () => {
@@ -362,18 +330,13 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             
             if (profileError) {
               console.error("⚠️ Failed to create profile for new user:", profileError);
-              console.log("🔄 User can still sign in, profile will be created on first login");
-            } else {
-              console.log("✅ Profile created successfully");
             }
           } catch (profileError) {
             console.error("⚠️ Profile creation exception:", profileError);
-            console.log("🔄 User can still sign in, profile will be created on first login");
           }
         })();
       }
 
-      console.log("✅ Signup process completed successfully");
       return data;
     } catch (error) {
       console.error("❌ Sign up exception:", error);
@@ -404,7 +367,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (updateError) {
         console.error("❌ Failed to update profile in Supabase:", updateError);
-        console.log("🔄 Profiles table might not exist. Profile updated locally only.");
         
         // Update the local user state with the new data
         const updatedUser = { ...oldUser, ...userData, updated_at: new Date().toISOString() };
@@ -414,11 +376,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       if (data) {
         setUser(data as Profile);
-        console.log("✅ Profile updated successfully in Supabase:", data);
       }
     } catch (error) {
       console.error("❌ Profile update exception:", error);
-      console.log("🔄 Profiles table might not exist. Profile updated locally only.");
       
       // Update the local user state with the new data
       const updatedUser = { ...oldUser, ...userData, updated_at: new Date().toISOString() };
