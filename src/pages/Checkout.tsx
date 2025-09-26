@@ -439,7 +439,7 @@ export default function Checkout() {
         </div>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
