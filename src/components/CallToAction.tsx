@@ -21,14 +21,14 @@ const CallToAction = ({
   const isPrimary = variant === 'primary';
   
   return (
-    <section className={`py-24 relative overflow-hidden ${isPrimary ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900' : 'bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]'}`}>
+    <section className={`py-24 relative overflow-hidden ${isPrimary ? 'bg-gradient-to-br from-gray-900 via-[#8a6b8d] to-gray-900' : 'bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]'}`}>
       {/* Background Elements */}
       <div className="absolute inset-0" aria-hidden="true">
         <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl opacity-20 ${
-          isPrimary ? 'bg-purple-500' : 'bg-[#b094b2]'
+          isPrimary ? 'bg-[#b094b2]' : 'bg-[#b094b2]'
         }`} />
         <div className={`absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl opacity-20 ${
-          isPrimary ? 'bg-pink-500' : 'bg-[#d1bccd]'
+          isPrimary ? 'bg-[#d1bccd]' : 'bg-[#d1bccd]'
         }`} />
       </div>
       
@@ -40,7 +40,7 @@ const CallToAction = ({
             {title}
           </h2>
           <div className={`w-24 h-1 mx-auto rounded-full mb-8 ${
-            isPrimary ? 'bg-gradient-to-r from-purple-400 to-pink-400' : 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd]'
+            isPrimary ? 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd]' : 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd]'
           }`}></div>
           <p className={`text-xl mb-12 leading-relaxed font-madefor-medium ${
             isPrimary ? 'text-gray-300' : 'text-gray-600'
@@ -53,7 +53,7 @@ const CallToAction = ({
               className={`px-12 py-6 text-xl rounded-full font-arial tracking-wide transition-all duration-500 hover:scale-105 transform ${
                 isPrimary 
                   ? 'bg-gradient-to-r from-white to-gray-100 text-gray-900 hover:from-gray-100 hover:to-gray-200 shadow-2xl' 
-                  : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-2xl'
+                  : 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#8a6b8d] hover:to-[#a085a3] text-white shadow-2xl'
               }`}
               onClick={() => {
                 const targetElement = document.querySelector(buttonLink);
@@ -79,7 +79,7 @@ const CallToAction = ({
           
           {isPrimary && (
             <div className="mt-12 flex items-center justify-center space-x-3 text-gray-300">
-              <Sparkles className="w-6 h-6 text-purple-400" />
+              <Sparkles className="w-6 h-6 text-[#b094b2]" />
               <span className="text-lg font-madefor-medium">Trusted by 10,000+ crystal lovers worldwide</span>
             </div>
           )}
