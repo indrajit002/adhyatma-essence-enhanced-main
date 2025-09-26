@@ -203,8 +203,8 @@ const CollectionDetail = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {collection.benefits.map((benefit, index) => (
-                <div key={index} className="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div key={index} className="text-center p-4 bg-gradient-to-br from-[#d1bccd] to-[#d1bccd] rounded-xl">
+                  <div className="w-12 h-12 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] rounded-full flex items-center justify-center mx-auto mb-3">
                     <Star className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold text-gray-800">{benefit}</h3>
@@ -229,7 +229,7 @@ const CollectionDetail = () => {
                   placeholder="Search products..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-3 rounded-full border-gray-200 focus:border-purple-500 focus:ring-purple-500"
+                  className="pl-10 pr-4 py-3 rounded-full border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2]"
                 />
               </div>
               
@@ -239,7 +239,7 @@ const CollectionDetail = () => {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="appearance-none bg-white border border-gray-200 rounded-full px-4 py-3 pr-8 focus:border-purple-500 focus:ring-purple-500"
+                    className="appearance-none bg-white border border-gray-200 rounded-full px-4 py-3 pr-8 focus:border-[#b094b2] focus:ring-[#b094b2]"
                   >
                     <option value="name">Sort by Name</option>
                     <option value="price-low">Price: Low to High</option>
@@ -317,7 +317,7 @@ const CollectionDetail = () => {
                   />
                   {product.featured && (
                     <div className="absolute top-4 left-4">
-                      <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                      <Badge className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white">
                         Featured
                       </Badge>
                     </div>
@@ -345,7 +345,7 @@ const CollectionDetail = () => {
                 
                 <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
                       {product.name}
                     </h3>
                     <div className="flex items-center text-sm text-gray-500">
@@ -384,7 +384,7 @@ const CollectionDetail = () => {
                   </div>
                   
                   <Button
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-lg hover:scale-105 transform disabled:opacity-50"
+                    className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-6 py-3 rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-lg hover:scale-105 transform disabled:opacity-50"
                     disabled={!product.inStock}
                     onClick={() => {
                       if (product.inStock) {
@@ -418,7 +418,7 @@ const CollectionDetail = () => {
                   setSelectedColors([]);
                   setPriceRange([0, 500]);
                 }}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full"
+                className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-8 py-3 rounded-full"
               >
                 Clear Filters
               </Button>

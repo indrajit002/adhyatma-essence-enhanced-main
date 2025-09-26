@@ -4,7 +4,7 @@
  */
 
 class ApiDebounceManager {
-  private static pendingRequests = new Map<string, Promise<any>>();
+  private static pendingRequests = new Map<string, Promise<unknown>>();
   private static requestTimeouts = new Map<string, NodeJS.Timeout>();
 
   /**
@@ -23,7 +23,7 @@ class ApiDebounceManager {
 
     // If there's already a pending request, return it
     if (this.pendingRequests.has(key)) {
-      return this.pendingRequests.get(key)!;
+      return this.pendingRequests.get(key)! as Promise<T>;
     }
 
     // Create a new promise for this request

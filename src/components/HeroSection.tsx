@@ -24,9 +24,9 @@ const HeroSection = () => {
     >
       {/* Enhanced Background with Pastel Layers */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-pink-50 to-lilac-50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-white/30" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-100/20 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#b094b2]/20 via-transparent to-transparent" />
       </div>
 
       {/* Enhanced Floating Elements - Pastel Theme */}
@@ -49,15 +49,15 @@ const HeroSection = () => {
         {/* Text content centered below the SVG */}
         <div className="space-y-8">
           <div className="space-y-6">
-            <h1 className="text-6xl md:text-8xl font-lobster font-normal bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-6xl md:text-8xl font-lobster font-normal bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent leading-tight">
               ADHYATMA
             </h1>
             
-            <p className="text-2xl md:text-3xl text-purple-600 font-lobster tracking-wide">
+            <p className="text-2xl md:text-3xl text-[#b094b2] font-lobster tracking-wide">
               Sacred Stones for Modern Soul
             </p>
             
-            <h2 className="text-xl md:text-2xl text-purple-500 font-lobster tracking-wider">
+            <h2 className="text-xl md:text-2xl text-[#b094b2] font-lobster tracking-wider">
               Crystal Store
             </h2>
           </div>
@@ -71,7 +71,7 @@ const HeroSection = () => {
               SHOP NOW
             </Button>
             
-            <div className="flex items-center justify-center space-x-8 text-sm text-purple-500">
+            <div className="flex items-center justify-center space-x-8 text-sm text-[#b094b2]">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-mint rounded-full animate-pulse" />
                 <span>Ethically Sourced</span>

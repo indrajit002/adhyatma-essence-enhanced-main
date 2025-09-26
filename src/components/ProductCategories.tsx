@@ -60,7 +60,7 @@ const ProductCategories = () => {
     <section id="shop" className="py-20 bg-white" aria-labelledby="shop-heading">
       <div className="container mx-auto px-6">
         <header className="text-center mb-16">
-          <h2 id="shop-heading" className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+          <h2 id="shop-heading" className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
             Shop By Category
           </h2>
         </header>
@@ -79,10 +79,10 @@ const ProductCategories = () => {
                   decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#b094b2]/20 to-[#d1bccd]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
                   <div className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center backdrop-blur-sm">
-                    <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#b094b2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
                   </div>
@@ -90,14 +90,14 @@ const ProductCategories = () => {
               </div>
               
               <div className="p-6">
-                <h3 className="text-xl font-lobster mb-3 text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
+                <h3 className="text-xl font-lobster mb-3 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
                   {category.name}
                 </h3>
                 <p className="text-gray-600 mb-6 text-sm leading-relaxed">
                   {category.description}
                 </p>
                 <Button 
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-lobster tracking-wide text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
+                  className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-6 py-3 rounded-full font-lobster tracking-wide text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
                   onClick={() => navigate(`/collections/${category.id}`)}
                 >
                   Explore Collection

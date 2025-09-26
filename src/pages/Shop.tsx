@@ -85,12 +85,12 @@ const Shop = () => {
 
   if (productsLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <Header />
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center py-20">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#b094b2] mx-auto mb-4"></div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">Loading Products</h2>
               <p className="text-gray-600">Please wait while we fetch the latest products...</p>
             </div>
@@ -103,7 +103,7 @@ const Shop = () => {
 
   if (productsError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <Header />
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,7 +113,7 @@ const Shop = () => {
               </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Products</h2>
               <p className="text-gray-600 mb-4">{productsError}</p>
-              <Button onClick={() => window.location.reload()} className="bg-purple-600 hover:bg-purple-700">
+              <Button onClick={() => window.location.reload()} className="bg-[#b094b2] hover:bg-[#b094b2]/80">
                 Try Again
               </Button>
             </div>
@@ -129,10 +129,10 @@ const Shop = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-12 bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <section className="pt-32 pb-12 bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-gray-800 via-purple-800 to-gray-800 bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-gray-800 via-[#b094b2] to-gray-800 bg-clip-text text-transparent">
               Crystal Shop
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -148,12 +148,12 @@ const Shop = () => {
                   placeholder="Search crystals..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-3 rounded-full border-gray-200 focus:border-purple-500 focus:ring-purple-500 w-full"
+                  className="pl-10 pr-4 py-3 rounded-full border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] w-full"
                 />
               </div>
               <Button
                 variant="outline"
-                className="px-6 py-3 rounded-full border-gray-200 hover:border-purple-500 hover:text-purple-600 md:hidden w-full md:w-auto"
+                className="px-6 py-3 rounded-full border-gray-200 hover:border-[#b094b2] hover:text-[#b094b2] md:hidden w-full md:w-auto"
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <SlidersHorizontal className="w-4 h-4 mr-2" />
@@ -193,7 +193,7 @@ const Shop = () => {
                         onClick={() => toggleCategory(category.id)}
                         className={`w-full text-left px-4 py-2 rounded-lg transition-all duration-200 ${
                           selectedCategories.includes(category.id)
-                            ? 'bg-purple-100 text-purple-700 border border-purple-200'
+                            ? 'bg-[#d1bccd] text-[#b094b2] border border-[#b094b2]'
                             : 'hover:bg-gray-100 text-gray-600'
                         }`}
                       >
@@ -218,7 +218,7 @@ const Shop = () => {
                         onClick={() => toggleColor(color)}
                         className={`px-3 py-1 rounded-full text-sm transition-all duration-200 ${
                           selectedColors.includes(color)
-                            ? 'bg-purple-100 text-purple-700 border border-purple-200'
+                            ? 'bg-[#d1bccd] text-[#b094b2] border border-[#b094b2]'
                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                       >
@@ -285,7 +285,7 @@ const Shop = () => {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
-                      className="appearance-none bg-white border border-gray-200 rounded-lg px-3 sm:px-4 py-2 pr-8 focus:border-purple-500 focus:ring-purple-500 w-full sm:w-auto text-sm"
+                      className="appearance-none bg-white border border-gray-200 rounded-lg px-3 sm:px-4 py-2 pr-8 focus:border-[#b094b2] focus:ring-[#b094b2] w-full sm:w-auto text-sm"
                     >
                       <option value="name">Sort by Name</option>
                       <option value="price-low">Price: Low to High</option>
@@ -340,7 +340,7 @@ const Shop = () => {
                       />
                       {product.featured && (
                         <div className="absolute top-4 left-4">
-                          <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+                          <Badge className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white">
                             Featured
                           </Badge>
                         </div>
@@ -390,7 +390,7 @@ const Shop = () => {
                       
                       {/* Button - Fixed at Bottom */}
                       <Button
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium text-base disabled:opacity-50"
+                        className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80 text-white py-3 rounded-lg font-medium text-base disabled:opacity-50"
                         disabled={!product.inStock}
                         onClick={() => {
                           if (product.inStock) {
@@ -425,7 +425,7 @@ const Shop = () => {
                       setSelectedColors([]);
                       setPriceRange([0, 200]);
                     }}
-                    className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full"
+                    className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-8 py-3 rounded-full"
                   >
                     Clear Filters
                   </Button>

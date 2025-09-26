@@ -57,12 +57,12 @@ export default function OrderConfirmation() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <Header />
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#b094b2] mx-auto mb-4"></div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">Loading Order Details</h2>
               <p className="text-gray-600">Please wait while we fetch your order information...</p>
             </div>
@@ -75,7 +75,7 @@ export default function OrderConfirmation() {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <Header />
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,7 +84,7 @@ export default function OrderConfirmation() {
               <h1 className="text-3xl font-lobster text-gray-800 mb-4">Order Not Found</h1>
               <p className="text-gray-600 mb-8">The order you're looking for doesn't exist.</p>
               <Link to="/">
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-[#b094b2] hover:bg-[#b094b2]/80">
                   <Home className="w-4 h-4 mr-2" />
                   Go Home
                 </Button>
@@ -101,7 +101,7 @@ export default function OrderConfirmation() {
     switch (status) {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
       case 'confirmed': return 'bg-blue-100 text-blue-800';
-      case 'shipped': return 'bg-purple-100 text-purple-800';
+      case 'shipped': return 'bg-[#d1bccd] text-[#b094b2]';
       case 'delivered': return 'bg-green-100 text-green-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
@@ -120,7 +120,7 @@ export default function OrderConfirmation() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       <Header />
       
       <div className="pt-32 pb-20">
@@ -234,7 +234,7 @@ export default function OrderConfirmation() {
                       
                       <div className="space-y-3">
                         <Link to="/" className="w-full">
-                          <Button className="w-full bg-purple-600 hover:bg-purple-700">
+                          <Button className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80">
                             <Home className="w-4 h-4 mr-2" />
                             Continue Shopping
                           </Button>

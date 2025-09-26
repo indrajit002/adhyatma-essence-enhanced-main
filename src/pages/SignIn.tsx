@@ -80,7 +80,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,7 +88,7 @@ const SignIn = () => {
             <div className="text-center mb-8">
               <Link 
                 to="/" 
-                className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-6"
+                className="inline-flex items-center text-[#b094b2] hover:text-[#b094b2]/80 mb-6"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Home
@@ -147,7 +147,7 @@ const SignIn = () => {
                         placeholder="Enter your email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                        className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
                           fieldErrors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                         }`}
                         required
@@ -176,7 +176,7 @@ const SignIn = () => {
                         placeholder="Enter your password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
                           fieldErrors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''
                         }`}
                         required
@@ -204,7 +204,7 @@ const SignIn = () => {
                       <input
                         id="remember"
                         type="checkbox"
-                        className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-[#b094b2] focus:ring-[#b094b2] border-gray-300 rounded"
                       />
                       <Label htmlFor="remember" className="ml-2 text-sm text-gray-600">
                         Remember me
@@ -212,7 +212,7 @@ const SignIn = () => {
                     </div>
                     <Link 
                       to="/forgot-password" 
-                      className="text-sm text-purple-600 hover:text-purple-700"
+                      className="text-sm text-[#b094b2] hover:text-[#b094b2]/80"
                     >
                       Forgot password?
                     </Link>
@@ -220,7 +220,7 @@ const SignIn = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+                    className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80 text-white py-3 rounded-lg font-medium disabled:opacity-50"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Logging In...' : 'Login'}
@@ -232,7 +232,7 @@ const SignIn = () => {
                     Don't have an account?{' '}
                     <Link 
                       to="/signup" 
-                      className="text-purple-600 hover:text-purple-700 font-medium"
+                      className="text-[#b094b2] hover:text-[#b094b2]/80 font-medium"
                     >
                       Sign up here
                     </Link>

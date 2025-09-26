@@ -205,9 +205,9 @@ const Profile = () => {
   // Show loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd] flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#b094b2] mx-auto mb-4"></div>
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Loading Profile</h2>
           <p className="text-gray-600">Please wait...</p>
         </div>
@@ -222,7 +222,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
@@ -230,7 +230,7 @@ const Profile = () => {
             <div className="mb-8 text-center">
               <h1 className="text-5xl font-lobster text-gray-800 mb-3">My Profile</h1>
               <p className="text-gray-600 text-lg">Manage your account settings and preferences</p>
-              <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mt-4 rounded-full"></div>
+              <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto mt-4 rounded-full"></div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -239,15 +239,15 @@ const Profile = () => {
                 <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm">
                   <CardContent className="p-6">
                     <div className="text-center mb-8">
-                      <div className="w-20 h-20 bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg ring-4 ring-purple-100">
+                      <div className="w-20 h-20 bg-gradient-to-br from-[#b094b2] via-[#b094b2] to-[#d1bccd] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg ring-4 ring-[#d1bccd]">
                         <User className="w-10 h-10 text-white" />
                       </div>
                       <h3 className="text-lg font-semibold text-gray-800 mb-1">
                         {profileData.firstName} {profileData.lastName}
                       </h3>
                       <p className="text-gray-600 text-sm mb-3">{profileData.email}</p>
-                      <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded-full text-xs font-medium">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                      <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] text-[#b094b2] rounded-full text-xs font-medium">
+                        <div className="w-2 h-2 bg-[#b094b2] rounded-full mr-2"></div>
                         Member since {profileData.joinDate}
                       </div>
                     </div>
@@ -257,11 +257,11 @@ const Profile = () => {
                         onClick={() => setActiveTab('profile')}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-left group ${
                           activeTab === 'profile'
-                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg transform scale-105'
-                            : 'text-gray-700 hover:bg-purple-50 hover:text-purple-600 hover:transform hover:scale-105'
+                            ? 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white shadow-lg transform scale-105'
+                            : 'text-gray-700 hover:bg-[#d1bccd] hover:text-[#b094b2] hover:transform hover:scale-105'
                         }`}
                       >
-                        <User className={`w-5 h-5 ${activeTab === 'profile' ? 'text-white' : 'text-gray-600 group-hover:text-purple-600'}`} />
+                        <User className={`w-5 h-5 ${activeTab === 'profile' ? 'text-white' : 'text-gray-600 group-hover:text-[#b094b2]'}`} />
                         <span className="font-medium">Profile</span>
                         {activeTab === 'profile' && (
                           <div className="ml-auto w-2 h-2 bg-white rounded-full"></div>
@@ -272,11 +272,11 @@ const Profile = () => {
                         onClick={() => setActiveTab('orders')}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-left group ${
                           activeTab === 'orders'
-                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg transform scale-105'
-                            : 'text-gray-700 hover:bg-purple-50 hover:text-purple-600 hover:transform hover:scale-105'
+                            ? 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white shadow-lg transform scale-105'
+                            : 'text-gray-700 hover:bg-[#d1bccd] hover:text-[#b094b2] hover:transform hover:scale-105'
                         }`}
                       >
-                        <Package className={`w-5 h-5 ${activeTab === 'orders' ? 'text-white' : 'text-gray-600 group-hover:text-purple-600'}`} />
+                        <Package className={`w-5 h-5 ${activeTab === 'orders' ? 'text-white' : 'text-gray-600 group-hover:text-[#b094b2]'}`} />
                         <span className="font-medium">Orders</span>
                         {activeTab === 'orders' && (
                           <div className="ml-auto w-2 h-2 bg-white rounded-full"></div>
@@ -287,11 +287,11 @@ const Profile = () => {
                         onClick={() => setActiveTab('wishlist')}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-left group ${
                           activeTab === 'wishlist'
-                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg transform scale-105'
-                            : 'text-gray-700 hover:bg-purple-50 hover:text-purple-600 hover:transform hover:scale-105'
+                            ? 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white shadow-lg transform scale-105'
+                            : 'text-gray-700 hover:bg-[#d1bccd] hover:text-[#b094b2] hover:transform hover:scale-105'
                         }`}
                       >
-                        <Heart className={`w-5 h-5 ${activeTab === 'wishlist' ? 'text-white' : 'text-gray-600 group-hover:text-purple-600'}`} />
+                        <Heart className={`w-5 h-5 ${activeTab === 'wishlist' ? 'text-white' : 'text-gray-600 group-hover:text-[#b094b2]'}`} />
                         <span className="font-medium">Wishlist</span>
                         {activeTab === 'wishlist' && (
                           <div className="ml-auto w-2 h-2 bg-white rounded-full"></div>
@@ -302,11 +302,11 @@ const Profile = () => {
                         onClick={() => setActiveTab('settings')}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 text-left group ${
                           activeTab === 'settings'
-                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg transform scale-105'
-                            : 'text-gray-700 hover:bg-purple-50 hover:text-purple-600 hover:transform hover:scale-105'
+                            ? 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white shadow-lg transform scale-105'
+                            : 'text-gray-700 hover:bg-[#d1bccd] hover:text-[#b094b2] hover:transform hover:scale-105'
                         }`}
                       >
-                        <Settings className={`w-5 h-5 ${activeTab === 'settings' ? 'text-white' : 'text-gray-600 group-hover:text-purple-600'}`} />
+                        <Settings className={`w-5 h-5 ${activeTab === 'settings' ? 'text-white' : 'text-gray-600 group-hover:text-[#b094b2]'}`} />
                         <span className="font-medium">Settings</span>
                         {activeTab === 'settings' && (
                           <div className="ml-auto w-2 h-2 bg-white rounded-full"></div>
@@ -323,7 +323,7 @@ const Profile = () => {
                   {/* Profile Tab */}
                   <TabsContent value="profile">
                     <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-                      <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-t-lg">
+                      <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
                         <div className="flex items-center justify-between">
                           <div>
                             <CardTitle className="text-2xl font-lobster text-gray-800">Profile Information</CardTitle>
@@ -332,7 +332,7 @@ const Profile = () => {
                           {!isEditing ? (
                             <Button 
                               onClick={() => setIsEditing(true)} 
-                              className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700"
+                              className="flex items-center gap-2 bg-[#b094b2] hover:bg-[#b094b2]/80"
                             >
                               <Edit className="w-4 h-4" />
                               Edit Profile
@@ -341,7 +341,7 @@ const Profile = () => {
                             <div className="flex gap-2">
                               <Button 
                                 onClick={handleSave} 
-                                className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+                                className="flex items-center gap-2 bg-[#b094b2] hover:bg-[#b094b2]/80"
                               >
                                 <Save className="w-4 h-4" />
                                 Save Changes
@@ -368,7 +368,7 @@ const Profile = () => {
                               value={profileData.firstName}
                               onChange={handleInputChange}
                               disabled={!isEditing}
-                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-purple-500 focus:ring-purple-500'}`}
+                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-[#b094b2] focus:ring-[#b094b2]'}`}
                             />
                           </div>
                           <div className="space-y-2">
@@ -379,7 +379,7 @@ const Profile = () => {
                               value={profileData.lastName}
                               onChange={handleInputChange}
                               disabled={!isEditing}
-                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-purple-500 focus:ring-purple-500'}`}
+                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-[#b094b2] focus:ring-[#b094b2]'}`}
                             />
                           </div>
                           <div className="space-y-2">
@@ -401,7 +401,7 @@ const Profile = () => {
                               value={profileData.phone}
                               onChange={handleInputChange}
                               disabled={!isEditing}
-                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-purple-500 focus:ring-purple-500'}`}
+                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-[#b094b2] focus:ring-[#b094b2]'}`}
                             />
                           </div>
                           <div className="md:col-span-2 space-y-2">
@@ -412,7 +412,7 @@ const Profile = () => {
                               value={profileData.address}
                               onChange={handleInputChange}
                               disabled={!isEditing}
-                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-purple-500 focus:ring-purple-500'}`}
+                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-[#b094b2] focus:ring-[#b094b2]'}`}
                               placeholder="Enter your street address"
                             />
                           </div>
@@ -424,7 +424,7 @@ const Profile = () => {
                               value={profileData.city}
                               onChange={handleInputChange}
                               disabled={!isEditing}
-                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-purple-500 focus:ring-purple-500'}`}
+                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-[#b094b2] focus:ring-[#b094b2]'}`}
                             />
                           </div>
                           <div className="space-y-2">
@@ -435,7 +435,7 @@ const Profile = () => {
                               value={profileData.state}
                               onChange={handleInputChange}
                               disabled={!isEditing}
-                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-purple-500 focus:ring-purple-500'}`}
+                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-[#b094b2] focus:ring-[#b094b2]'}`}
                             />
                           </div>
                           <div className="space-y-2">
@@ -446,7 +446,7 @@ const Profile = () => {
                               value={profileData.zipCode}
                               onChange={handleInputChange}
                               disabled={!isEditing}
-                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-purple-500 focus:ring-purple-500'}`}
+                              className={`mt-1 ${!isEditing ? 'bg-gray-50' : 'bg-white border-gray-300 focus:border-[#b094b2] focus:ring-[#b094b2]'}`}
                             />
                           </div>
                           <div className="space-y-2">
@@ -465,7 +465,7 @@ const Profile = () => {
                   {/* Orders Tab */}
                   <TabsContent value="orders">
                     <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-                      <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-t-lg">
+                      <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
                         <div className="flex items-center justify-between">
                           <div>
                             <CardTitle className="text-2xl font-lobster text-gray-800">Order History</CardTitle>
@@ -476,7 +476,7 @@ const Profile = () => {
                             disabled={loadingOrders || isFetchingOrdersRef.current}
                             variant="outline"
                             size="sm"
-                            className="border-purple-200 text-purple-700 hover:bg-purple-50"
+                            className="border-[#b094b2] text-[#b094b2] hover:bg-[#d1bccd]"
                           >
                             {loadingOrders ? 'Loading...' : 'Refresh'}
                           </Button>
@@ -485,18 +485,18 @@ const Profile = () => {
                       <CardContent className="p-6">
                         {loadingOrders ? (
                           <div className="text-center py-12">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b094b2] mx-auto mb-4"></div>
                             <p className="text-gray-600">Loading your order history...</p>
                           </div>
                         ) : orders.length === 0 ? (
                           <div className="text-center py-12">
-                            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                              <Package className="w-10 h-10 text-purple-500" />
+                            <div className="w-20 h-20 bg-gradient-to-br from-[#d1bccd] to-[#d1bccd] rounded-full flex items-center justify-center mx-auto mb-6">
+                              <Package className="w-10 h-10 text-[#b094b2]" />
                             </div>
                             <h3 className="text-xl font-semibold text-gray-800 mb-2">No Orders Yet</h3>
                             <p className="text-gray-600 mb-6">You haven't placed any orders yet. Start your crystal journey!</p>
                             <Link to="/shop">
-                              <Button className="bg-purple-600 hover:bg-purple-700 px-6 py-2">
+                              <Button className="bg-[#b094b2] hover:bg-[#b094b2]/80 px-6 py-2">
                                 Start Shopping
                               </Button>
                             </Link>
@@ -507,8 +507,8 @@ const Profile = () => {
                               <div key={order.id} className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-200 bg-white">
                                 <div className="flex items-center justify-between mb-4">
                                   <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center">
-                                      <Package className="w-5 h-5 text-purple-600" />
+                                    <div className="w-10 h-10 bg-gradient-to-br from-[#d1bccd] to-[#d1bccd] rounded-full flex items-center justify-center">
+                                      <Package className="w-5 h-5 text-[#b094b2]" />
                                     </div>
                                     <div>
                                       <h3 className="font-semibold text-gray-800">Order #{order.id.substring(0, 8).toUpperCase()}</h3>
@@ -520,9 +520,9 @@ const Profile = () => {
                                 <div className="flex items-center justify-between">
                                   <div className="text-sm text-gray-600">
                                     <span>Total Amount: </span>
-                                    <span className="font-semibold text-lg text-purple-600">₹{order.total_amount.toFixed(2)}</span>
+                                    <span className="font-semibold text-lg text-[#b094b2]">₹{order.total_amount.toFixed(2)}</span>
                                   </div>
-                                  <Button variant="outline" size="sm" className="border-purple-200 text-purple-700 hover:bg-purple-50">
+                                  <Button variant="outline" size="sm" className="border-[#b094b2] text-[#b094b2] hover:bg-[#d1bccd]">
                                     View Details
                                   </Button>
                                 </div>
@@ -537,20 +537,20 @@ const Profile = () => {
                   {/* Wishlist Tab */}
                   <TabsContent value="wishlist">
                     <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-                      <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-t-lg">
+                      <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
                         <CardTitle className="text-2xl font-lobster text-gray-800">Wishlist</CardTitle>
                         <CardDescription>Your favorite crystals and spiritual items</CardDescription>
                       </CardHeader>
                       <CardContent className="p-6">
                         {wishlistItems.length === 0 ? (
                           <div className="text-center py-12">
-                            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                              <Heart className="w-10 h-10 text-purple-500" />
+                            <div className="w-20 h-20 bg-gradient-to-br from-[#d1bccd] to-[#d1bccd] rounded-full flex items-center justify-center mx-auto mb-6">
+                              <Heart className="w-10 h-10 text-[#b094b2]" />
                             </div>
                             <h3 className="text-xl font-semibold text-gray-800 mb-2">Your Wishlist is Empty</h3>
                             <p className="text-gray-600 mb-6">Start adding your favorite crystals to your wishlist!</p>
                             <Link to="/shop">
-                              <Button className="bg-purple-600 hover:bg-purple-700 px-6 py-2">
+                              <Button className="bg-[#b094b2] hover:bg-[#b094b2]/80 px-6 py-2">
                                 Browse Products
                               </Button>
                             </Link>
@@ -567,10 +567,10 @@ const Profile = () => {
                                   />
                                   <div className="flex-1">
                                     <h3 className="font-semibold text-gray-800 mb-1">{item.name}</h3>
-                                    <p className="text-xl font-bold text-purple-600">₹{item.price.toFixed(2)}</p>
+                                    <p className="text-xl font-bold text-[#b094b2]">₹{item.price.toFixed(2)}</p>
                                   </div>
                                   <div className="flex flex-col gap-2">
-                                    <Button size="sm" className="bg-purple-600 hover:bg-purple-700 text-white">
+                                    <Button size="sm" className="bg-[#b094b2] hover:bg-[#b094b2]/80 text-white">
                                       Add to Cart
                                     </Button>
                                     <Button size="sm" variant="outline" className="border-red-200 text-red-600 hover:bg-red-50">
@@ -589,7 +589,7 @@ const Profile = () => {
                   {/* Settings Tab */}
                   <TabsContent value="settings">
                     <Card className="shadow-lg border-0 bg-white/80 backdrop-blur-sm">
-                      <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-t-lg">
+                      <CardHeader className="bg-gradient-to-r from-[#d1bccd] to-[#d1bccd] rounded-t-lg">
                         <CardTitle className="text-2xl font-lobster text-gray-800">Account Settings</CardTitle>
                         <CardDescription>Manage your account preferences and security</CardDescription>
                       </CardHeader>
@@ -640,7 +640,7 @@ const Profile = () => {
                           </div>
 
                           {/* Sign Out */}
-                          <div className="bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-xl border border-red-100">
+                          <div className="bg-gradient-to-r from-red-50 to-[#d1bccd] p-6 rounded-xl border border-red-100">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">

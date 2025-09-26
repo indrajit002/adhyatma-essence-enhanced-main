@@ -53,13 +53,13 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-purple-50">
+    <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-lobster font-normal mb-8 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-lobster font-normal mb-8 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
             What Our Customers Say
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-gray-600 font-lobster">
             Join thousands of satisfied customers who have transformed their lives with our crystals
           </p>
@@ -68,7 +68,7 @@ const TestimonialsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
             <div key={testimonial.id} className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 group">
-              <Quote className="w-10 h-10 text-purple-200 absolute top-6 right-6 group-hover:text-purple-300 transition-colors duration-300" />
+              <Quote className="w-10 h-10 text-[#d1bccd] absolute top-6 right-6 group-hover:text-[#b094b2] transition-colors duration-300" />
               
               <div className="flex items-center mb-6">
                 {[...Array(testimonial.rating)].map((_, i) => (
@@ -85,9 +85,9 @@ const TestimonialsSection = () => {
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-14 h-14 rounded-full object-cover mr-4 border-2 border-purple-100"
+                    className="w-14 h-14 rounded-full object-cover mr-4 border-2 border-[#d1bccd]"
                   />
-                  <div className="absolute inset-0 w-14 h-14 rounded-full bg-gradient-to-r from-purple-200/30 to-pink-200/30 blur-sm"></div>
+                  <div className="absolute inset-0 w-14 h-14 rounded-full bg-gradient-to-r from-[#b094b2]/30 to-[#d1bccd]/30 blur-sm"></div>
                 </div>
                 <div>
                   <h4 className="font-lobster text-gray-800 text-lg">{testimonial.name}</h4>

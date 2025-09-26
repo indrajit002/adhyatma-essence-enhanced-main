@@ -34,7 +34,7 @@ const AboutPreview = () => {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-6 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-6 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
               Our Story
             </h2>
             <p className="text-lg text-gray-600 mb-6 leading-relaxed font-lobster">

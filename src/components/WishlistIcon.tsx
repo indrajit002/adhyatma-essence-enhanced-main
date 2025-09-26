@@ -37,7 +37,7 @@ const WishlistIcon: React.FC<WishlistIconProps> = ({
       onClick={handleClick}
       className={cn(
         'flex items-center gap-1 transition-colors duration-200 hover:scale-110',
-        'focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 rounded-full p-1',
+        'focus:outline-none focus:ring-2 focus:ring-[#b094b2] focus:ring-offset-2 rounded-full p-1',
         className
       )}
       aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}

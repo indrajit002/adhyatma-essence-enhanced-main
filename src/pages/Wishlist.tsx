@@ -27,7 +27,7 @@ const Wishlist: React.FC = () => {
 
   if (wishlistCount === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <Heart className="h-24 w-24 text-gray-300 mx-auto mb-6" />
@@ -38,7 +38,7 @@ const Wishlist: React.FC = () => {
             </p>
             <div className="space-x-4">
               <Link to="/shop">
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-[#b094b2] hover:bg-[#b094b2]/80">
                   <ShoppingBag className="h-4 w-4 mr-2" />
                   Browse Products
                 </Button>
@@ -57,7 +57,7 @@ const Wishlist: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -113,7 +113,7 @@ const Wishlist: React.FC = () => {
 
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xl font-bold text-purple-600">${product.price}</span>
+                    <span className="text-xl font-bold text-[#b094b2]">${product.price}</span>
                     {product.originalPrice && (
                       <span className="text-sm text-gray-500 line-through">${product.originalPrice}</span>
                     )}
@@ -125,7 +125,7 @@ const Wishlist: React.FC = () => {
                   {product.benefits.slice(0, 3).map((benefit, index) => (
                     <span
                       key={index}
-                      className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full"
+                      className="px-2 py-1 bg-[#d1bccd] text-[#b094b2] text-xs rounded-full"
                     >
                       {benefit}
                     </span>
@@ -135,7 +135,7 @@ const Wishlist: React.FC = () => {
 
               <CardFooter className="p-4 pt-0">
                 <Button 
-                  className="w-full bg-purple-600 hover:bg-purple-700"
+                  className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80"
                   onClick={() => handleAddToCart(product)}
                 >
                   <ShoppingBag className="h-4 w-4 mr-2" />

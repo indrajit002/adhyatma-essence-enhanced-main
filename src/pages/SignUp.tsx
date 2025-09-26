@@ -123,14 +123,14 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-md mx-auto">
             <div className="text-center mb-8">
               <Link 
                 to="/" 
-                className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-6"
+                className="inline-flex items-center text-[#b094b2] hover:text-[#b094b2]/80 mb-6"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Home
@@ -159,12 +159,12 @@ const SignUp = () => {
                   <div className="mb-6 p-4 rounded-lg border-2 border-dashed">
                     {signupStatus === 'creating-user' && (
                       <div className="space-y-3">
-                        <div className="flex items-center justify-center space-x-3 text-purple-600">
+                        <div className="flex items-center justify-center space-x-3 text-[#b094b2]">
                           <Loader2 className="w-5 h-5 animate-spin" />
                           <span className="font-medium">Creating your account...</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div className="bg-purple-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
+                          <div className="bg-[#b094b2] h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
                         </div>
                         <p className="text-xs text-gray-500 text-center">Setting up your profile and preferences...</p>
                       </div>
@@ -220,7 +220,7 @@ const SignUp = () => {
                           value={formData.first_name}
                           onChange={handleInputChange}
                           disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
-                          className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                          className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
                             errors.first_name ? 'border-red-500' : ''
                           } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                           required
@@ -245,7 +245,7 @@ const SignUp = () => {
                           value={formData.last_name}
                           onChange={handleInputChange}
                           disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
-                          className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                          className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
                             errors.last_name ? 'border-red-500' : ''
                           } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                           required
@@ -271,7 +271,7 @@ const SignUp = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
-                        className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                        className={`pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
                           errors.email ? 'border-red-500' : ''
                         } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                         required
@@ -296,7 +296,7 @@ const SignUp = () => {
                         value={formData.password}
                         onChange={handleInputChange}
                         disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
-                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
                           errors.password ? 'border-red-500' : ''
                         } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                         required
@@ -328,7 +328,7 @@ const SignUp = () => {
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                         disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
-                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500 ${
+                        className={`pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2] ${
                           errors.confirmPassword ? 'border-red-500' : ''
                         } ${signupStatus === 'creating-user' || signupStatus === 'success' ? 'bg-gray-50' : ''}`}
                         required
@@ -351,18 +351,18 @@ const SignUp = () => {
                       id="terms"
                       type="checkbox"
                       disabled={signupStatus === 'creating-user' || signupStatus === 'success'}
-                      className={`h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded ${
+                      className={`h-4 w-4 text-[#b094b2] focus:ring-[#b094b2] border-gray-300 rounded ${
                         signupStatus === 'creating-user' || signupStatus === 'success' ? 'opacity-50' : ''
                       }`}
                       required
                     />
                     <Label htmlFor="terms" className="ml-2 text-sm text-gray-600">
                       I agree to the{' '}
-                      <Link to="/terms" className="text-purple-600 hover:text-purple-700">
+                      <Link to="/terms" className="text-[#b094b2] hover:text-[#b094b2]/80">
                         Terms of Service
                       </Link>{' '}
                       and{' '}
-                      <Link to="/privacy" className="text-purple-600 hover:text-purple-700">
+                      <Link to="/privacy" className="text-[#b094b2] hover:text-[#b094b2]/80">
                         Privacy Policy
                       </Link>
                     </Label>
@@ -372,10 +372,10 @@ const SignUp = () => {
                     type="submit"
                     className={`w-full py-3 rounded-lg font-medium transition-all duration-300 ${
                       signupStatus === 'creating-user' 
-                        ? 'bg-purple-500 cursor-not-allowed' 
+                        ? 'bg-[#b094b2] cursor-not-allowed' 
                         : signupStatus === 'success'
                         ? 'bg-green-600 hover:bg-green-700'
-                        : 'bg-purple-600 hover:bg-purple-700'
+                        : 'bg-[#b094b2] hover:bg-[#b094b2]/80'
                     } text-white disabled:opacity-50`}
                     disabled={isLoading || signupStatus === 'creating-user' || signupStatus === 'success'}
                   >
@@ -399,7 +399,7 @@ const SignUp = () => {
                     Already have an account?{' '}
                     <Link 
                       to="/signin" 
-                      className="text-purple-600 hover:text-purple-700 font-medium"
+                      className="text-[#b094b2] hover:text-[#b094b2]/80 font-medium"
                     >
                       Login here
                     </Link>

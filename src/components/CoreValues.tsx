@@ -30,13 +30,13 @@ const CoreValues = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-white via-purple-50 to-pink-50">
+    <section className="py-24 bg-gradient-to-br from-white via-[#d1bccd] to-[#d1bccd]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-lobster font-normal mb-8 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+          <h2 className="text-5xl md:text-6xl font-lobster font-normal mb-8 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
             Core Values
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-600 to-pink-600 mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-gray-600 max-w-5xl mx-auto leading-relaxed font-lobster">
             Adhyatma is a crystal store born from a deep reverence for energy, intention, 
             and the quiet power of nature. We offer thoughtfully chosen stones that inspire 
@@ -50,16 +50,16 @@ const CoreValues = () => {
           {values.map((value, index) => (
             <div
               key={value.title}
-              className="text-center group bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 hover:border-purple-200"
+              className="text-center group bg-white/60 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 hover:border-[#d1bccd]"
             >
               <div className="relative mb-8 mx-auto w-20 h-20">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative w-full h-full bg-gradient-to-r from-purple-100 to-pink-100 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                  <value.icon className="w-10 h-10 text-purple-600 group-hover:text-purple-700 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative w-full h-full bg-gradient-to-r from-[#b094b2]/20 to-[#d1bccd]/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                  <value.icon className="w-10 h-10 text-[#b094b2] group-hover:text-[#b094b2]/80 transition-colors duration-300" />
                 </div>
               </div>
               
-              <h3 className="text-xl font-lobster mb-4 text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
+              <h3 className="text-xl font-lobster mb-4 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
                 {value.title}
               </h3>
               <p className="text-gray-600 leading-relaxed">

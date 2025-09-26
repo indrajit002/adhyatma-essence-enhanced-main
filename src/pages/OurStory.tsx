@@ -36,7 +36,7 @@ const OurStory = () => {
       icon: Heart,
       title: 'Ethical Sourcing',
       description: 'We work directly with miners and suppliers who share our commitment to fair labor practices and environmental responsibility.',
-      color: 'from-red-500 to-pink-500'
+      color: 'from-red-500 to-[#d1bccd]'
     },
     {
       icon: Leaf,
@@ -54,7 +54,7 @@ const OurStory = () => {
       icon: Award,
       title: 'Quality Assurance',
       description: 'Each crystal undergoes careful inspection and energetic cleansing before reaching our customers.',
-      color: 'from-purple-500 to-violet-500'
+      color: 'from-[#b094b2] to-violet-500'
     }
   ];
 
@@ -147,16 +147,16 @@ const OurStory = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 bg-gradient-to-br from-purple-50 via-white to-pink-50 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-100/20 via-transparent to-pink-100/20" />
+      <section className="relative pt-32 pb-24 bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd] overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#b094b2]/20 via-transparent to-[#d1bccd]/20" />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-5xl mx-auto text-center scroll-animate" ref={heroRef}>
             <div className="mb-8">
-              <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 text-lg mb-6 inline-block">
+              <Badge className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white px-6 py-2 text-lg mb-6 inline-block">
                 Our Story
               </Badge>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 md:mb-8 bg-gradient-to-r from-gray-800 via-purple-800 to-gray-800 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 md:mb-8 bg-gradient-to-r from-gray-800 via-[#b094b2] to-gray-800 bg-clip-text text-transparent leading-tight">
               The Journey of Adhyatma
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed mb-8 md:mb-12 max-w-4xl mx-auto px-4">
@@ -165,7 +165,7 @@ const OurStory = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
               <Button 
-                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-xl hover:scale-105 transform w-full sm:w-auto"
+                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-xl hover:scale-105 transform w-full sm:w-auto"
                 onClick={() => {
                   const shopSection = document.getElementById('shop');
                   if (shopSection) {
@@ -178,7 +178,7 @@ const OurStory = () => {
               </Button>
               <Button 
                 variant="outline"
-                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-full font-medium tracking-wide transition-all duration-300 w-full sm:w-auto"
+                className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg border-2 border-[#b094b2] text-[#b094b2] hover:bg-[#b094b2] hover:text-white rounded-full font-medium tracking-wide transition-all duration-300 w-full sm:w-auto"
               >
                 Watch Our Story
               </Button>
@@ -198,7 +198,7 @@ const OurStory = () => {
                 </h2>
                 <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed">
                   <p>
-                    At <span className="font-semibold text-purple-600">Adhyatma</span>, we believe that crystals are more than beautiful objects – 
+                    At <span className="font-semibold text-[#b094b2]">Adhyatma</span>, we believe that crystals are more than beautiful objects – 
                     they are powerful tools for healing, growth, and transformation. Our mission is to make these 
                     ancient gifts accessible to everyone while maintaining the highest standards of ethical sourcing 
                     and environmental responsibility.
@@ -234,7 +234,7 @@ const OurStory = () => {
       </section>
 
       {/* Our Values */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-purple-50">
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={valuesRef}>
@@ -280,7 +280,7 @@ const OurStory = () => {
                   <div className="lg:w-1/2 scroll-animate" ref={timelineRef}>
                     <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full">
                       <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2 sm:gap-4">
-                        <Badge className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-3 sm:px-4 py-1 text-sm sm:text-lg w-fit">
+                        <Badge className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white px-3 sm:px-4 py-1 text-sm sm:text-lg w-fit">
                           {milestone.year}
                         </Badge>
                         <h3 className="text-xl sm:text-2xl font-bold text-gray-800">{milestone.title}</h3>
@@ -303,7 +303,7 @@ const OurStory = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={teamRef}>
@@ -324,10 +324,10 @@ const OurStory = () => {
                         alt={member.name} 
                         className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full object-cover mx-auto shadow-lg group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute inset-0 w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-r from-purple-200/30 to-pink-200/30 mx-auto blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute inset-0 w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-r from-[#b094b2]/30 to-[#d1bccd]/30 mx-auto blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">{member.name}</h3>
-                    <p className="text-purple-600 font-semibold mb-3 sm:mb-4 text-sm sm:text-base">{member.role}</p>
+                    <p className="text-[#b094b2] font-semibold mb-3 sm:mb-4 text-sm sm:text-base">{member.role}</p>
                     <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">{member.bio}</p>
                     <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
                       {member.specialties.map((specialty, specIndex) => (
@@ -359,8 +359,8 @@ const OurStory = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="scroll-animate" ref={testimonialsRef}>
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 relative h-full">
-                    <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-purple-200 absolute top-4 right-4 sm:top-6 sm:right-6" />
+                  <div className="bg-gradient-to-br from-[#d1bccd] to-[#d1bccd] rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 relative h-full">
+                    <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#d1bccd] absolute top-4 right-4 sm:top-6 sm:right-6" />
                     <div className="flex items-center mb-3 sm:mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />

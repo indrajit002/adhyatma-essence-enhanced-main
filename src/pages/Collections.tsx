@@ -112,7 +112,7 @@ const Collections = () => {
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center py-20">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#b094b2] mx-auto mb-4"></div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">Loading Collections</h2>
               <p className="text-gray-600">Please wait while we fetch the latest collections...</p>
             </div>
@@ -135,7 +135,7 @@ const Collections = () => {
               </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Collections</h2>
               <p className="text-gray-600 mb-4">{error}</p>
-              <Button onClick={() => window.location.reload()} className="bg-purple-600 hover:bg-purple-700">
+              <Button onClick={() => window.location.reload()} className="bg-[#b094b2] hover:bg-[#b094b2]/80">
                 Try Again
               </Button>
             </div>
@@ -151,10 +151,10 @@ const Collections = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-purple-50 via-white to-pink-50 py-20">
+      <section className="bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd] py-20">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-gray-800 via-purple-800 to-gray-800 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-6xl font-playfair font-bold mb-6 bg-gradient-to-r from-gray-800 via-[#b094b2] to-gray-800 bg-clip-text text-transparent">
               Crystal Collections
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -170,12 +170,12 @@ const Collections = () => {
                   placeholder="Search collections..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-3 rounded-full border-gray-200 focus:border-purple-500 focus:ring-purple-500"
+                  className="pl-10 pr-4 py-3 rounded-full border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2]"
                 />
               </div>
               <Button
                 variant="outline"
-                className="px-6 py-3 rounded-full border-gray-200 hover:border-purple-500 hover:text-purple-600"
+                className="px-6 py-3 rounded-full border-gray-200 hover:border-[#b094b2] hover:text-[#b094b2]"
               >
                 <Filter className="w-4 h-4 mr-2" />
                 Filter
@@ -197,8 +197,8 @@ const Collections = () => {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`px-6 py-2 rounded-full transition-all duration-300 ${
                   selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                    : 'border-gray-200 hover:border-purple-500 hover:text-purple-600'
+                    ? 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white shadow-lg'
+                    : 'border-gray-200 hover:border-[#b094b2] hover:text-[#b094b2]'
                 }`}
               >
                 {category.name} ({category.count})
@@ -255,7 +255,7 @@ const Collections = () => {
                   />
                   {collection.featured && (
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full">
+                      <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white rounded-full">
                         Featured
                       </span>
                     </div>
@@ -264,7 +264,7 @@ const Collections = () => {
                 </div>
                 
                 <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                  <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
+                  <h3 className="text-2xl font-bold mb-3 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
                     {collection.name}
                   </h3>
                   <p className="text-gray-600 mb-4 leading-relaxed">
@@ -287,7 +287,7 @@ const Collections = () => {
                   </div>
                   
                   <Button
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
+                    className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-6 py-3 rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
                     onClick={() => window.location.href = `/collections/${collection.id}`}
                   >
                     Explore Collection
@@ -309,7 +309,7 @@ const Collections = () => {
                   setSearchTerm('');
                   setSelectedCategory('all');
                 }}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3 rounded-full"
+                className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-8 py-3 rounded-full"
               >
                 Clear Filters
               </Button>

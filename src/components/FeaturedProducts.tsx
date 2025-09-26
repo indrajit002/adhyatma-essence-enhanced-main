@@ -15,7 +15,7 @@ const FeaturedProducts = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
               Featured Products
             </h2>
             <p className="text-lg text-gray-600 font-lobster">
@@ -23,7 +23,7 @@ const FeaturedProducts = () => {
             </p>
           </div>
           <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b094b2]"></div>
           </div>
         </div>
       </section>
@@ -35,7 +35,7 @@ const FeaturedProducts = () => {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
               Featured Products
             </h2>
             <p className="text-lg text-gray-600 font-lobster">
@@ -51,7 +51,7 @@ const FeaturedProducts = () => {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-lobster font-normal mb-4 bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent">
             Featured Products
           </h2>
           <p className="text-lg text-gray-600 font-lobster">
@@ -74,14 +74,14 @@ const FeaturedProducts = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 text-xs font-bold rounded-full backdrop-blur-sm bg-purple-500/90 text-white">
+                  <span className="px-3 py-1 text-xs font-bold rounded-full backdrop-blur-sm bg-[#b094b2]/90 text-white">
                     Featured
                   </span>
                 </div>
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
                   <Button 
                     size="icon" 
-                    className="w-12 h-12 bg-white/95 hover:bg-white text-purple-600 rounded-full shadow-lg backdrop-blur-sm"
+                    className="w-12 h-12 bg-white/95 hover:bg-white text-[#b094b2] rounded-full shadow-lg backdrop-blur-sm"
                     aria-label={`Add ${product.name} to cart`}
                     onClick={() => addItem({
                       id: product.id,

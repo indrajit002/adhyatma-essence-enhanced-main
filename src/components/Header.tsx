@@ -36,7 +36,7 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-xl shadow-soft border-b border-purple-100'
+          ? 'bg-white/95 backdrop-blur-xl shadow-soft border-b border-[#d1bccd]'
           : 'bg-transparent'
       }`}
     >
@@ -51,7 +51,7 @@ const Header = () => {
               />
               <div className="absolute inset-0 bg-gradient-lilac rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-2xl font-lobster font-normal bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-lobster font-normal bg-gradient-to-r from-[#b094b2] to-[#d1bccd] bg-clip-text text-transparent">
               Adhyatma
             </span>
           </Link>
@@ -61,7 +61,7 @@ const Header = () => {
               <Link
                 key={link.label}
                 to={link.href}
-                className="relative text-purple-600 hover:text-pink-500 transition-all duration-300 font-lobster text-sm tracking-wide group"
+                className="relative text-[#b094b2] hover:text-[#d1bccd] transition-all duration-300 font-lobster text-sm tracking-wide group"
               >
                 {link.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-rose group-hover:w-full transition-all duration-300" />
@@ -76,7 +76,7 @@ const Header = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 transition-all duration-300 font-lobster"
+                    className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 transition-all duration-300 font-lobster"
                   >
                     <User className="w-4 h-4 mr-2" />
                     {user.first_name}
@@ -86,7 +86,7 @@ const Header = () => {
                   variant="ghost" 
                   size="sm" 
                   onClick={signOut}
-                  className="text-purple-600 hover:text-rose-500 hover:bg-rose-50 transition-all duration-300 font-lobster"
+                  className="text-[#b094b2] hover:text-red-500 hover:bg-red-50 transition-all duration-300 font-lobster"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sign Out
@@ -98,7 +98,7 @@ const Header = () => {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 transition-all duration-300 font-medium"
+                    className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 transition-all duration-300 font-medium"
                 >
                   <User className="w-4 h-4 mr-2" />
                   Login
@@ -109,7 +109,7 @@ const Header = () => {
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 relative transition-all duration-300 group"
+                className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 relative transition-all duration-300 group"
               >
                 <Heart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
                 {wishlistCount > 0 && (
@@ -122,7 +122,7 @@ const Header = () => {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="text-purple-600 hover:text-pink-500 hover:bg-purple-50 relative transition-all duration-300 group"
+              className="text-[#b094b2] hover:text-[#d1bccd] hover:bg-[#d1bccd]/20 relative transition-all duration-300 group"
               onClick={toggleCart}
             >
               <ShoppingCart className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
@@ -137,7 +137,7 @@ const Header = () => {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden text-purple-600"
+            className="md:hidden text-[#b094b2]"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -145,12 +145,12 @@ const Header = () => {
         </nav>
 
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-purple-200">
+           <div className="md:hidden py-4 border-t border-[#d1bccd]">
             {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
-                  className="block py-3 text-purple-600 hover:text-pink-500 transition-colors duration-200 font-lobster"
+                  className="block py-3 text-[#b094b2] hover:text-[#d1bccd] transition-colors duration-200 font-lobster"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
@@ -160,7 +160,7 @@ const Header = () => {
               {user ? (
                 <div className="flex gap-4 w-full">
                   <Link to="/profile" className="flex-1">
-                    <Button variant="ghost" size="sm" className="text-purple-600 w-full">
+                     <Button variant="ghost" size="sm" className="text-[#b094b2] w-full">
                       <User className="w-4 h-4 mr-2" />
                       {user.first_name}
                     </Button>
@@ -169,7 +169,7 @@ const Header = () => {
                     variant="ghost" 
                     size="sm" 
                     onClick={signOut}
-                    className="text-purple-600 hover:text-rose-500 hover:bg-rose-50 flex-1"
+                     className="text-[#b094b2] hover:text-red-500 hover:bg-red-50 flex-1"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -178,7 +178,7 @@ const Header = () => {
               ) : (
                 // Also add the 'state' prop to the mobile Login link
                 <Link to="/signin" state={{ from: location }} className="flex-1">
-                    <Button variant="ghost" size="sm" className="text-purple-600 w-full">
+                     <Button variant="ghost" size="sm" className="text-[#b094b2] w-full">
                       <User className="w-4 h-4 mr-2" />
                       Login
                     </Button>

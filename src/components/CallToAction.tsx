@@ -21,26 +21,26 @@ const CallToAction = ({
   const isPrimary = variant === 'primary';
   
   return (
-    <section className={`py-24 relative overflow-hidden ${isPrimary ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900' : 'bg-gradient-to-br from-gray-50 via-white to-purple-50'}`}>
+    <section className={`py-24 relative overflow-hidden ${isPrimary ? 'bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900' : 'bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]'}`}>
       {/* Background Elements */}
       <div className="absolute inset-0" aria-hidden="true">
         <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl opacity-20 ${
-          isPrimary ? 'bg-purple-500' : 'bg-purple-200'
+          isPrimary ? 'bg-purple-500' : 'bg-[#b094b2]'
         }`} />
         <div className={`absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl opacity-20 ${
-          isPrimary ? 'bg-pink-500' : 'bg-pink-200'
+          isPrimary ? 'bg-pink-500' : 'bg-[#d1bccd]'
         }`} />
       </div>
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <h2 className={`text-5xl md:text-6xl font-lobster mb-8 ${
-            isPrimary ? 'text-white' : 'bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 bg-clip-text text-transparent'
+            isPrimary ? 'text-white' : 'bg-gradient-to-r from-[#b094b2] via-[#d1bccd] to-[#b094b2] bg-clip-text text-transparent'
           }`}>
             {title}
           </h2>
           <div className={`w-24 h-1 mx-auto rounded-full mb-8 ${
-            isPrimary ? 'bg-gradient-to-r from-purple-400 to-pink-400' : 'bg-gradient-to-r from-purple-600 to-pink-600'
+            isPrimary ? 'bg-gradient-to-r from-purple-400 to-pink-400' : 'bg-gradient-to-r from-[#b094b2] to-[#d1bccd]'
           }`}></div>
           <p className={`text-xl mb-12 leading-relaxed font-lobster ${
             isPrimary ? 'text-gray-300' : 'text-gray-600'

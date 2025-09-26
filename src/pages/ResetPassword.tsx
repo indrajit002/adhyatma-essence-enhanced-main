@@ -67,7 +67,7 @@ const ResetPassword = () => {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,7 +100,7 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,7 +148,7 @@ const ResetPassword = () => {
                         placeholder="Enter new password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500"
+                        className="pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2]"
                         required
                       />
                       <button
@@ -174,7 +174,7 @@ const ResetPassword = () => {
                         placeholder="Confirm new password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500"
+                        className="pl-10 pr-12 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2]"
                         required
                       />
                       <button
@@ -189,7 +189,7 @@ const ResetPassword = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+                    className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80 text-white py-3 rounded-lg font-medium disabled:opacity-50"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Updating...' : 'Update Password'}

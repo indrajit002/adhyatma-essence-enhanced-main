@@ -39,7 +39,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       
       <div className="pt-32 pb-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,7 +47,7 @@ const ForgotPassword = () => {
             <div className="text-center mb-8">
               <Link 
                 to="/signin" 
-                className="inline-flex items-center text-purple-600 hover:text-purple-700 mb-6"
+                className="inline-flex items-center text-[#b094b2] hover:text-[#b094b2]/80 mb-6"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Sign In
@@ -103,7 +103,7 @@ const ForgotPassword = () => {
                         placeholder="Enter your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-purple-500 focus:ring-purple-500"
+                        className="pl-10 pr-4 py-3 rounded-lg border-gray-200 focus:border-[#b094b2] focus:ring-[#b094b2]"
                         required
                       />
                     </div>
@@ -111,7 +111,7 @@ const ForgotPassword = () => {
 
                   <Button
                     type="submit"
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-medium disabled:opacity-50"
+                    className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80 text-white py-3 rounded-lg font-medium disabled:opacity-50"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Sending...' : 'Send Reset Link'}
@@ -123,7 +123,7 @@ const ForgotPassword = () => {
                     Remember your password?{' '}
                     <Link 
                       to="/signin" 
-                      className="text-purple-600 hover:text-purple-700 font-medium"
+                      className="text-[#b094b2] hover:text-[#b094b2]/80 font-medium"
                     >
                       Sign in here
                     </Link>

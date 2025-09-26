@@ -4,11 +4,11 @@ const AnimatedCrystalLogo = () => {
   return (
     <div className="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center mx-auto">
       {/* Background glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-200/40 to-pink-200/40 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#b094b2]/40 to-[#d1bccd]/40 rounded-full blur-3xl animate-pulse" />
       
       {/* Additional floating glow effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-pink-200/30 to-purple-200/30 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-200/30 to-purple-200/30 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }} />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#d1bccd]/30 to-[#b094b2]/30 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#b094b2]/30 to-[#d1bccd]/30 rounded-full blur-xl animate-float" style={{ animationDelay: '4s' }} />
       
       {/* Logo Container */}
       <div className="relative z-10 w-full h-full animate-crystal-pulse">
@@ -28,8 +28,8 @@ const AnimatedCrystalLogo = () => {
           <div
             key={i}
             className={`absolute w-1.5 h-1.5 rounded-full animate-particle-float ${
-              i % 3 === 0 ? 'bg-purple-400/60' : 
-              i % 3 === 1 ? 'bg-pink-400/60' : 
+              i % 3 === 0 ? 'bg-[#b094b2]/60' : 
+              i % 3 === 1 ? 'bg-[#d1bccd]/60' : 
               'bg-indigo-400/60'
             }`}
             style={{
@@ -47,7 +47,7 @@ const AnimatedCrystalLogo = () => {
         {[...Array(2)].map((_, i) => (
           <div
             key={`wave-${i}`}
-            className="absolute inset-0 border border-purple-300/20 rounded-full animate-ping"
+            className="absolute inset-0 border border-[#b094b2]/20 rounded-full animate-ping"
             style={{
               animationDelay: `${i * 3}s`,
               animationDuration: '8s',

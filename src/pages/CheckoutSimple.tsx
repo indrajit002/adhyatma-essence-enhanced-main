@@ -117,7 +117,7 @@ export default function CheckoutSimple() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <Header />
         <div className="pt-32 pb-20">
           <div className="container mx-auto px-4">
@@ -133,7 +133,7 @@ export default function CheckoutSimple() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
       <Header />
       
       <div className="pt-32 pb-20">
@@ -238,7 +238,7 @@ export default function CheckoutSimple() {
 
                     <Button
                       type="submit"
-                      className="w-full bg-purple-600 hover:bg-purple-700"
+                      className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
