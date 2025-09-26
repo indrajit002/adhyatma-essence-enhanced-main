@@ -59,8 +59,8 @@ const ContactInfo = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
-          <div className="bg-white p-8 rounded-lg shadow-sm max-w-2xl mx-auto">
+        <div className="mt-16 text-center  ">
+          <div className="bg-white p-8 rounded-lg shadow-sm max-w-2xl mx-auto border 1px black ">
             <h3 className="text-2xl font-cormorant-light text-gray-800 mb-4">
               Have a Question?
             </h3>
@@ -68,14 +68,14 @@ const ContactInfo = () => {
               Our crystal experts are here to help you find the perfect stones for your needs. 
               Whether you're new to crystals or a seasoned collector, we're happy to guide you.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="tel:+919395913538" 
-                className="inline-flex items-center justify-center px-6 py-3 bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-300 rounded-none font-arial"
-              >
-                <Phone className="w-4 h-4 mr-2" />
-                Call Now
-              </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center ">
+              {/* <a  */}
+                {/* href="tel:+919395913538"  */}
+                {/* className="inline-flex items-center justify-center px-6 py-3 bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-300 rounded-none font-arial" */}
+              {/* > */}
+                {/* <Phone className="w-4 h-4 mr-2" //> */}
+                {/* Call Now */}
+              {/* </a> */}
               <a 
                 href="mailto:Info@mysite.com" 
                 className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors duration-300 rounded-none font-arial"
