@@ -17,9 +17,9 @@ const Footer = () => {
   return (
     <footer className="bg-gray-50 pt-16 pb-8">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="sm:col-span-2 lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <img 
                 src={logoImage} 
@@ -30,7 +30,7 @@ const Footer = () => {
                 Adhyatma
               </span>
             </div>
-            <p className="text-gray-600 mb-6 text-sm leading-relaxed font-madefor-medium">
+            <p className="text-gray-600 mb-6 text-sm leading-relaxed font-madefor-medium max-w-md">
               Sacred stones for modern souls. Ethically sourced crystals for healing, 
               mindfulness, and spiritual growth.
             </p>
@@ -69,14 +69,14 @@ const Footer = () => {
 
         <div className="border-t border-gray-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600">
-            <p>© 2035 by Vesii. Build on Wix Studio</p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="hover:text-gray-800">Terms & Conditions</a>
-              <a href="#" className="hover:text-gray-800">Privacy Policy</a>
-              <a href="#" className="hover:text-gray-800">Shipping Policy</a>
-              <a href="#" className="hover:text-gray-800">Refund Policy</a>
-              <a href="#" className="hover:text-gray-800">FAQ</a>
-              <a href="#" className="hover:text-gray-800">Accessibility Statement</a>
+            <p className="text-center md:text-left">© 2035 by Vesii. Build on Wix Studio</p>
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 md:gap-4">
+              <a href="#" className="hover:text-gray-800 transition-colors duration-200">Terms & Conditions</a>
+              <a href="#" className="hover:text-gray-800 transition-colors duration-200">Privacy Policy</a>
+              <a href="#" className="hover:text-gray-800 transition-colors duration-200">Shipping Policy</a>
+              <a href="#" className="hover:text-gray-800 transition-colors duration-200">Refund Policy</a>
+              <a href="#" className="hover:text-gray-800 transition-colors duration-200">FAQ</a>
+              <a href="#" className="hover:text-gray-800 transition-colors duration-200">Accessibility Statement</a>
             </div>
           </div>
         </div>

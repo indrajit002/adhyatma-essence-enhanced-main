@@ -41,17 +41,17 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto px-6">
-        <nav className="flex items-center justify-center py-6 relative">
-          <Link to="/" className="absolute left-0 flex items-center gap-4 group cursor-pointer">
+        <nav className="flex items-center justify-center py-4 md:py-6 relative">
+          <Link to="/" className="absolute left-0 flex items-center gap-2 md:gap-4 group cursor-pointer">
             <div className="relative">
               <img 
                 src={logoImage} 
                 alt="Adhyatma Logo" 
-                className="w-10 h-10 group-hover:scale-110 transition-transform duration-300 object-contain" 
+                className="w-8 h-8 md:w-10 md:h-10 group-hover:scale-110 transition-transform duration-300 object-contain" 
               />
               <div className="absolute inset-0 bg-gradient-lilac rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
-            <span className="text-2xl font-cormorant-light text-[#8a6b8d] font-bold">
+            <span className="text-lg md:text-2xl font-cormorant-light text-[#8a6b8d] font-bold">
               Adhyatma
             </span>
           </Link>
@@ -145,22 +145,24 @@ const Header = () => {
         </nav>
 
         {isMobileMenuOpen && (
-           <div className="md:hidden py-4 border-t border-[#d1bccd]">
-            {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.href}
-                  className="block py-3 text-[#8a6b8d] hover:text-[#6b4c6f] transition-colors duration-200 font-madefor-medium font-bold"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-            ))}
-            <div className="flex gap-4 mt-4">
+           <div className="md:hidden py-4 border-t border-[#d1bccd] bg-white/95 backdrop-blur-xl">
+            <div className="space-y-2 mb-6">
+              {navLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    className="block py-3 px-4 text-[#8a6b8d] hover:text-[#6b4c6f] hover:bg-[#d1bccd]/10 transition-colors duration-200 font-madefor-medium font-bold rounded-lg"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+              ))}
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 mt-4 px-4">
               {user ? (
-                <div className="flex gap-4 w-full">
+                <div className="flex flex-col sm:flex-row gap-3 w-full">
                   <Link to="/profile" className="flex-1">
-                     <Button variant="ghost" size="sm" className="text-[#8a6b8d] w-full font-bold">
+                     <Button variant="ghost" size="sm" className="text-[#8a6b8d] w-full font-bold justify-start">
                       <User className="w-4 h-4 mr-2" />
                       {user.first_name}
                     </Button>
@@ -169,7 +171,7 @@ const Header = () => {
                     variant="ghost" 
                     size="sm" 
                     onClick={signOut}
-                     className="text-[#8a6b8d] hover:text-red-600 hover:bg-red-50 flex-1 font-bold"
+                     className="text-[#8a6b8d] hover:text-red-600 hover:bg-red-50 flex-1 font-bold justify-start"
                   >
                     <LogOut className="w-4 h-4 mr-2" />
                     Sign Out
@@ -178,39 +180,41 @@ const Header = () => {
               ) : (
                 // Also add the 'state' prop to the mobile Login link
                 <Link to="/signin" state={{ from: location }} className="flex-1">
-                     <Button variant="ghost" size="sm" className="text-[#8a6b8d] w-full font-bold">
+                     <Button variant="ghost" size="sm" className="text-[#8a6b8d] w-full font-bold justify-start">
                       <User className="w-4 h-4 mr-2" />
                       Login
                     </Button>
                 </Link>
               )}
-              <Link to="/wishlist">
+              <div className="flex gap-2">
+                <Link to="/wishlist">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="text-[#8a6b8d] hover:text-[#6b4c6f] hover:bg-[#d1bccd]/10 relative"
+                  >
+                    <Heart className="w-5 h-5" />
+                    {wishlistCount > 0 && (
+                      <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-rose text-xs text-white rounded-full flex items-center justify-center">
+                        {wishlistCount}
+                      </span>
+                    )}
+                  </Button>
+                </Link>
                 <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="text-gray-700 relative"
+                  className="text-[#8a6b8d] hover:text-[#6b4c6f] hover:bg-[#d1bccd]/10 relative"
+                  onClick={toggleCart}
                 >
-                  <Heart className="w-5 h-5" />
-                  {wishlistCount > 0 && (
-                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-gray-800 text-xs text-white rounded-full flex items-center justify-center">
-                      {wishlistCount}
+                  <ShoppingCart className="w-5 h-5" />
+                  {state.totalItems > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-rose text-xs text-white rounded-full flex items-center justify-center">
+                      {state.totalItems}
                     </span>
                   )}
                 </Button>
-              </Link>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="text-gray-700 relative"
-                onClick={toggleCart}
-              >
-                <ShoppingCart className="w-5 h-5" />
-                {state.totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-gray-800 text-xs text-white rounded-full flex items-center justify-center">
-                    {state.totalItems}
-                  </span>
-                )}
-              </Button>
+              </div>
             </div>
           </div>
         )}

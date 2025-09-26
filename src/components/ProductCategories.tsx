@@ -65,14 +65,14 @@ const ProductCategories = () => {
           </h2>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" role="list">
           {categories.map((category) => (
             <article key={category.id} className="group cursor-pointer bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100" role="listitem">
               <div className="relative overflow-hidden">
                 <img
                   src={category.image}
                   alt={`${category.name} - ${category.description}`}
-                  className="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110"
+                  className="w-full h-48 sm:h-56 md:h-64 object-cover transition-all duration-500 group-hover:scale-110"
                   loading="lazy"
                   width="400"
                   height="256"
@@ -89,15 +89,15 @@ const ProductCategories = () => {
                 </div>
               </div>
               
-              <div className="p-6">
-                <h3 className="text-xl font-cormorant-light mb-3 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
+              <div className="p-4 md:p-6">
+                <h3 className="text-lg md:text-xl font-cormorant-light mb-3 text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
                   {category.name}
                 </h3>
-                <p className="text-gray-600 mb-6 text-sm leading-relaxed font-madefor-medium">
+                <p className="text-gray-600 mb-4 md:mb-6 text-xs md:text-sm leading-relaxed font-madefor-medium">
                   {category.description}
                 </p>
                 <Button 
-                  className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-6 py-3 rounded-full font-arial tracking-wide text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
+                  className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-arial tracking-wide text-xs md:text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
                   onClick={() => navigate(`/collections/${category.id}`)}
                 >
                   Explore Collection

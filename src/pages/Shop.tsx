@@ -132,10 +132,10 @@ const Shop = () => {
       <section className="pt-32 pb-12 bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-cormorant-light mb-6 bg-gradient-to-r from-gray-900 via-[#8a6b8d] to-gray-900 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-cormorant-light mb-4 md:mb-6 bg-gradient-to-r from-gray-900 via-[#8a6b8d] to-gray-900 bg-clip-text text-transparent">
               Crystal Shop
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 md:mb-8 max-w-2xl mx-auto px-4">
               Discover our carefully curated collection of healing crystals, each chosen for their unique energy and beauty.
             </p>
             
@@ -170,7 +170,7 @@ const Shop = () => {
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Sidebar Filters */}
             <div className={`lg:w-1/4 ${showFilters ? 'block' : 'hidden lg:block'}`}>
-              <div className="bg-white rounded-2xl p-6 shadow-lg sticky top-24">
+              <div className="bg-white rounded-2xl p-4 md:p-6 shadow-lg sticky top-24 max-h-[80vh] overflow-y-auto">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold text-gray-800">Filters</h3>
                   <Button
@@ -316,7 +316,7 @@ const Shop = () => {
               </div>
 
               {/* Products Grid/List */}
-              <div className={`grid gap-6 ${
+              <div className={`grid gap-4 md:gap-6 ${
                 viewMode === 'grid' 
                   ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3' 
                   : 'grid-cols-1'
@@ -330,7 +330,7 @@ const Shop = () => {
                   >
                     {/* Image Container - Fixed Height */}
                     <div className={`relative overflow-hidden ${
-                      viewMode === 'list' ? 'w-1/3 h-48' : 'h-64'
+                      viewMode === 'list' ? 'w-1/3 h-48 sm:h-56' : 'h-48 sm:h-56 md:h-64'
                     }`}>
                       <img
                         src={product.image}
@@ -355,10 +355,10 @@ const Shop = () => {
                     </div>
                     
                     {/* Content Container - Flexible Height */}
-                    <div className={`p-6 flex flex-col flex-grow ${viewMode === 'list' ? 'flex-1' : ''}`}>
+                    <div className={`p-4 md:p-6 flex flex-col flex-grow ${viewMode === 'list' ? 'flex-1' : ''}`}>
                       {/* Header with Title and Rating */}
                       <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-xl font-bold text-gray-800 flex-1 pr-2">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-800 flex-1 pr-2">
                           {product.name}
                         </h3>
                         <div className="flex items-center text-sm text-gray-500 flex-shrink-0">
@@ -376,9 +376,9 @@ const Shop = () => {
                       {/* Price Section - Fixed at Bottom */}
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="text-2xl font-bold text-gray-800">₹{product.price}</span>
+                          <span className="text-xl md:text-2xl font-bold text-gray-800">₹{product.price}</span>
                           {product.originalPrice && (
-                            <span className="text-lg text-gray-500 line-through">₹{product.originalPrice}</span>
+                            <span className="text-base md:text-lg text-gray-500 line-through">₹{product.originalPrice}</span>
                           )}
                         </div>
                         {product.originalPrice && (
@@ -390,7 +390,7 @@ const Shop = () => {
                       
                       {/* Button - Fixed at Bottom */}
                       <Button
-                        className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80 text-white py-3 rounded-lg font-medium text-base disabled:opacity-50"
+                        className="w-full bg-[#b094b2] hover:bg-[#b094b2]/80 text-white py-2 md:py-3 rounded-lg font-medium text-sm md:text-base disabled:opacity-50"
                         disabled={!product.inStock}
                         onClick={() => {
                           if (product.inStock) {

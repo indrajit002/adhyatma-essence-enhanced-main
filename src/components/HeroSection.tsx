@@ -49,29 +49,29 @@ const HeroSection = () => {
         {/* Text content centered below the SVG */}
         <div className="space-y-8">
           <div className="space-y-6">
-            <h1 className="text-6xl md:text-8xl font-cormorant-light text-[#4a3c4d] leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-cormorant-light text-[#4a3c4d] leading-tight">
               ADHYATMA
             </h1>
             
-            <p className="text-2xl md:text-3xl text-[#6b4c6f] font-madefor-medium tracking-wide">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-[#6b4c6f] font-madefor-medium tracking-wide px-4">
               Sacred Stones for Modern Soul
             </p>
             
-            <h2 className="text-xl md:text-2xl text-[#6b4c6f] font-madefor-medium tracking-wider">
+            <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#6b4c6f] font-madefor-medium tracking-wider">
               Crystal Store
             </h2>
           </div>
           
           <div className="mt-16 space-y-6">
             <Button 
-              className="px-12 py-6 text-xl bg-gradient-mystic hover:bg-gradient-rose text-white rounded-full font-arial tracking-wide transition-all duration-500 hover:shadow-glow hover:scale-105 transform"
+              className="px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 text-base sm:text-lg md:text-xl bg-gradient-mystic hover:bg-gradient-rose text-white rounded-full font-arial tracking-wide transition-all duration-500 hover:shadow-glow hover:scale-105 transform"
               onClick={handleScrollToShop}
               aria-label="Shop our collection of healing crystals"
             >
               SHOP NOW
             </Button>
             
-            <div className="flex items-center justify-center space-x-8 text-sm text-[#b094b2]">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 md:space-x-8 text-xs sm:text-sm text-[#b094b2] px-4">
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-mint rounded-full animate-pulse" />
                 <span>Ethically Sourced</span>

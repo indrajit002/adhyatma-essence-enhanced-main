@@ -56,18 +56,18 @@ const TestimonialsSection = () => {
     <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]">
       <div className="container mx-auto px-6">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-cormorant-light mb-8 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-cormorant-light mb-6 md:mb-8 bg-gradient-to-r from-[#8a6b8d] via-[#a085a3] to-[#8a6b8d] bg-clip-text text-transparent">
             What Our Customers Say
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto rounded-full mb-8"></div>
-          <p className="text-xl text-gray-600 font-madefor-medium">
+          <div className="w-24 h-1 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] mx-auto rounded-full mb-6 md:mb-8"></div>
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 font-madefor-medium px-4">
             Join thousands of satisfied customers who have transformed their lives with our crystals
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 group">
+            <div key={testimonial.id} className="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/20 group">
               <Quote className="w-10 h-10 text-[#d1bccd] absolute top-6 right-6 group-hover:text-[#b094b2] transition-colors duration-300" />
               
               <div className="flex items-center mb-6">
@@ -76,7 +76,7 @@ const TestimonialsSection = () => {
                 ))}
               </div>
               
-              <p className="text-gray-700 mb-8 leading-relaxed text-lg font-lato-light">
+              <p className="text-gray-700 mb-6 md:mb-8 leading-relaxed text-sm sm:text-base md:text-lg font-lato-light">
                 "{testimonial.text}"
               </p>
               
@@ -90,27 +90,27 @@ const TestimonialsSection = () => {
                   <div className="absolute inset-0 w-14 h-14 rounded-full bg-gradient-to-r from-[#b094b2]/30 to-[#d1bccd]/30 blur-sm"></div>
                 </div>
                 <div>
-                  <h4 className="font-cormorant-light text-gray-800 text-lg">{testimonial.name}</h4>
-                  <p className="text-gray-600 font-madefor-medium">{testimonial.location}</p>
+                  <h4 className="font-cormorant-light text-gray-800 text-base md:text-lg">{testimonial.name}</h4>
+                  <p className="text-gray-600 font-madefor-medium text-sm md:text-base">{testimonial.location}</p>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <div className="flex items-center justify-center space-x-8 text-gray-600">
+        <div className="text-center mt-8 md:mt-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 md:space-x-8 text-gray-600">
             <div className="text-center">
-              <div className="text-3xl font-cormorant-light text-gray-800">10,000+</div>
-              <div className="text-sm font-madefor-medium">Happy Customers</div>
+              <div className="text-2xl md:text-3xl font-cormorant-light text-gray-800">10,000+</div>
+              <div className="text-xs md:text-sm font-madefor-medium">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-cormorant-light text-gray-800">4.9/5</div>
-              <div className="text-sm font-madefor-medium">Average Rating</div>
+              <div className="text-2xl md:text-3xl font-cormorant-light text-gray-800">4.9/5</div>
+              <div className="text-xs md:text-sm font-madefor-medium">Average Rating</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-cormorant-light text-gray-800">50+</div>
-              <div className="text-sm font-madefor-medium">Countries Served</div>
+              <div className="text-2xl md:text-3xl font-cormorant-light text-gray-800">50+</div>
+              <div className="text-xs md:text-sm font-madefor-medium">Countries Served</div>
             </div>
           </div>
         </div>

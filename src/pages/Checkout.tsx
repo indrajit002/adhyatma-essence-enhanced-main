@@ -251,22 +251,22 @@ export default function Checkout() {
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Cart
               </Link>
-              <h1 className="text-4xl font-cormorant-light text-gray-900 mb-2">Checkout</h1>
-              <p className="text-gray-600">Complete your crystal journey</p>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-cormorant-light text-gray-900 mb-2">Checkout</h1>
+              <p className="text-sm md:text-base text-gray-600">Complete your crystal journey</p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
               {/* Checkout Form */}
               <div className="lg:col-span-2">
                 <Card className="shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="text-2xl font-cormorant-light text-gray-900">Shipping Information</CardTitle>
-                    <CardDescription>Enter your delivery details</CardDescription>
+                  <CardHeader className="p-4 md:p-6">
+                    <CardTitle className="text-xl md:text-2xl font-cormorant-light text-gray-900">Shipping Information</CardTitle>
+                    <CardDescription className="text-sm md:text-base">Enter your delivery details</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-4 md:p-6">
                     
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                         <div>
                           <Label htmlFor="firstName">First Name *</Label>
                           <Input
@@ -330,7 +330,7 @@ export default function Checkout() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                         <div>
                           <Label htmlFor="city">City *</Label>
                           <Input
@@ -398,10 +398,10 @@ export default function Checkout() {
               {/* Order Summary */}
               <div className="lg:col-span-1">
                 <Card className="shadow-lg sticky top-8">
-                  <CardHeader>
-                    <CardTitle className="text-xl font-cormorant-light text-gray-900">Order Summary</CardTitle>
+                  <CardHeader className="p-4 md:p-6">
+                    <CardTitle className="text-lg md:text-xl font-cormorant-light text-gray-900">Order Summary</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-4 md:p-6">
                     <div className="space-y-4">
                       {cart.map((item) => (
                         <div key={item.id} className="flex items-center space-x-3">

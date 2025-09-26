@@ -59,14 +59,14 @@ const FeaturedProducts = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {featuredProducts.map((product) => (
             <div key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 group border border-gray-100 overflow-hidden">
               <div className="relative overflow-hidden">
                 <img
                   src={product.image}
                   alt={`${product.name} - ${product.description}`}
-                  className="w-full h-64 object-cover transition-all duration-500 group-hover:scale-110"
+                  className="w-full h-48 sm:h-56 md:h-64 object-cover transition-all duration-500 group-hover:scale-110"
                   loading="lazy"
                   width="300"
                   height="256"
@@ -98,11 +98,11 @@ const FeaturedProducts = () => {
                 </div>
               </div>
               
-              <div className="p-6">
-                <h3 className="text-lg font-cormorant-light mb-2 text-gray-800">
+              <div className="p-4 md:p-6">
+                <h3 className="text-base md:text-lg font-cormorant-light mb-2 text-gray-800">
                   {product.name}
                 </h3>
-                <p className="text-sm text-gray-600 mb-3">
+                <p className="text-xs md:text-sm text-gray-600 mb-3">
                   {product.description}
                 </p>
                 
@@ -122,9 +122,9 @@ const FeaturedProducts = () => {
                   </span>
                 </div>
                 
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xl font-madefor-medium text-gray-800">
+                    <span className="text-lg md:text-xl font-madefor-medium text-gray-800">
                       ₹{product.price}
                     </span>
                     {product.originalPrice && (
@@ -135,7 +135,7 @@ const FeaturedProducts = () => {
                   </div>
                   <Button 
                     size="sm" 
-                    className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-none font-arial"
+                    className="bg-gray-800 hover:bg-gray-700 text-white px-3 md:px-4 py-2 rounded-none font-arial text-xs md:text-sm w-full sm:w-auto"
                     onClick={() => addItem({
                       id: product.id,
                       name: product.name,
