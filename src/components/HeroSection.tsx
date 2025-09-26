@@ -90,17 +90,17 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <button 
-          onClick={handleScrollToShop}
-          className="flex flex-col items-center space-y-2 text-gray-400 animate-bounce hover:text-gray-600 transition-colors duration-300 cursor-pointer group"
-        >
-          <span className="text-sm font-lobster group-hover:text-gray-600">Explore</span>
-          <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center pt-2 group-hover:border-gray-400 transition-colors duration-300">
-            <div className="w-1 h-3 bg-gray-400 rounded-full group-hover:bg-gray-600 transition-colors duration-300" />
-          </div>
-        </button>
-      </div>
+      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"> */}
+        {/* <button  */}
+          {/* onClick={handleScrollToShop} */}
+          {/* className="flex flex-col items-center space-y-2 text-gray-400 animate-bounce hover:text-gray-600 transition-colors duration-300 cursor-pointer group" */}
+        {/* > */}
+          {/* <span className="text-sm font-lobster group-hover:text-gray-600">Explore</span> */}
+          {/* <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center pt-2 group-hover:border-gray-400 transition-colors duration-300"> */}
+            {/* <div className="w-1 h-3 bg-gray-400 rounded-full group-hover:bg-gray-600 transition-colors duration-300" /> */}
+          {/* </div> */}
+        {/* </button> */}
+      {/* </div> */}
     </section>
   );
 };
