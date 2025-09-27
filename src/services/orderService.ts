@@ -23,6 +23,7 @@ export class OrderService {
       
       const order: Order = {
         id: orderId,
+        orderNumber: orderId, // Use the generated orderId as orderNumber for now
         userId,
         items: orderData.items,
         totalAmount: orderData.totalAmount,
@@ -116,6 +117,7 @@ export class OrderService {
         .from('orders')
         .select(`
           *,
+          order_number,
           order_items (
             id,
             product_id,
@@ -135,6 +137,7 @@ export class OrderService {
         // Transform the data to match our Order interface
         const transformedOrders: Order[] = ordersData.map(order => ({
           id: order.id,
+          orderNumber: order.order_number,
           userId: order.user_id,
           items: order.order_items.map((item: OrderItem) => ({
             id: item.product_id,
@@ -170,6 +173,7 @@ export class OrderService {
         .from('orders')
         .select(`
           *,
+          order_number,
           order_items (
             id,
             product_id,
@@ -189,6 +193,7 @@ export class OrderService {
         // Transform the data to match our Order interface
         const transformedOrder: Order = {
           id: orderData.id,
+          orderNumber: orderData.order_number,
           userId: orderData.user_id,
           items: orderData.order_items.map((item: OrderItem) => ({
             id: item.product_id,

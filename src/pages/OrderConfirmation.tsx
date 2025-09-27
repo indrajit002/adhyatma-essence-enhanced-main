@@ -130,7 +130,7 @@ export default function OrderConfirmation() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Order Number</p>
-                  <p className="font-semibold font-mono text-gray-800">{order.id.substring(0, 18).toUpperCase()}</p>
+                  <p className="font-semibold font-mono text-gray-800">#{order.orderNumber}</p>
                 </div>
               </div>
               <div className="bg-white/70 backdrop-blur-sm border border-gray-200 rounded-xl p-4 flex items-center gap-4">

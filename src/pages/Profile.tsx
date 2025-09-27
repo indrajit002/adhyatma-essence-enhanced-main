@@ -17,6 +17,7 @@ import ApiDebounceManager from '@/utils/apiDebounce';
 // 2. Define a type for your order data
 type Order = {
   id: string;
+  orderNumber: string;
   created_at: string;
   status: 'Processing' | 'Shipped' | 'Delivered';
   total_amount: number;
@@ -84,6 +85,7 @@ const Profile = () => {
           // Transform orders to match the expected format
           const transformedOrders: Order[] = userOrders.map(order => ({
             id: order.id,
+            orderNumber: order.orderNumber,
             created_at: order.createdAt,
             status: order.status.charAt(0).toUpperCase() + order.status.slice(1) as 'Processing' | 'Shipped' | 'Delivered',
             total_amount: order.totalAmount
@@ -131,6 +133,7 @@ const Profile = () => {
       
       const transformedOrders: Order[] = userOrders.map(order => ({
         id: order.id,
+        orderNumber: order.orderNumber,
         created_at: order.createdAt,
         status: order.status.charAt(0).toUpperCase() + order.status.slice(1) as 'Processing' | 'Shipped' | 'Delivered',
         total_amount: order.totalAmount
@@ -522,7 +525,7 @@ const Profile = () => {
                                       <Package className="w-5 h-5 text-[#b094b2]" />
                                     </div>
                                     <div>
-                                      <h3 className="font-semibold text-gray-800">Order #{order.id.substring(0, 8).toUpperCase()}</h3>
+                                      <h3 className="font-semibold text-gray-800">Order #{order.orderNumber}</h3>
                                       <p className="text-sm text-gray-500">Placed on {new Date(order.created_at).toLocaleDateString()}</p>
                                     </div>
                                   </div>
