@@ -19,26 +19,13 @@ const Header = () => {
   const location = useLocation();
 
   const handleSignOut = async () => {
-    console.log('🚪 Header: handleSignOut called');
-    console.log('🚪 Header: signOut function:', typeof signOut);
-    
+    console.log('Header: handleSignOut called');
     try {
-      console.log('🚪 Header: Starting signout process...');
-      const result = await signOut();
-      console.log('✅ Header: Signout result:', result);
-      console.log('✅ Header: Signout successful, navigating to home...');
-      // Navigate to home page after signout
-      navigate('/', { replace: true });
+      console.log('Header: Starting signout process...');
+      await signOut();
+      console.log('✅ Header: Signout successful. AuthContext will handle state change.');
     } catch (error) {
       console.error('❌ Header: Error signing out:', error);
-      console.error('❌ Header: Error details:', error);
-      // Even if signout fails, try to navigate to home
-      try {
-        navigate('/', { replace: true });
-      } catch (navError) {
-        console.error('❌ Navigation also failed:', navError);
-        window.location.href = '/';
-      }
     }
   };
 

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { ShoppingCart, CreditCard } from 'lucide-react';
 import { useCart } from '@/hooks/useCart';
 import { useWishlist } from '@/hooks/useWishlist';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from '@/components/ui/sonner';
 import { useNavigate } from 'react-router-dom';
 import WishlistIcon from '@/components/WishlistIcon';
 import { Product } from '@/data/products';
@@ -14,7 +14,6 @@ type ProductCardProps = {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addItem } = useCart();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
@@ -25,8 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       image: product.image 
     });
     
-    toast({
-      title: 'Added to cart',
+    toast.success('Added to cart', {
       description: `${product.name} has been added to your cart.`,
     });
   };

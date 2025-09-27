@@ -301,20 +301,6 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       console.log('✅ Sign in successful, data:', data);
       
-      // Set session immediately
-      if (data.session) {
-        setSession(data.session);
-        console.log('✅ Session updated immediately after sign in');
-        console.log('✅ Session user ID:', data.session.user.id);
-      }
-      
-      // Fetch profile to get user data
-      if (data.user) {
-        console.log('✅ Fetching profile for user:', data.user.id);
-        await getProfile(data.user.id);
-        console.log('✅ Profile fetch completed');
-      }
-      
       return data;
     } catch (error) {
       console.error("❌ Sign in exception:", error);

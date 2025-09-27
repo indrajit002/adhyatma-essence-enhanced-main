@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from '@/components/ui/sonner';
 import { Check, Package, Home, ShoppingBag, Mail, Phone, MapPin } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -16,7 +16,6 @@ export default function OrderConfirmation() {
   const { orderId } = useParams<{ orderId: string }>();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { toast } = useToast();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -32,19 +31,15 @@ export default function OrderConfirmation() {
         if (orderData) {
           setOrder(orderData);
         } else {
-          toast({
-            title: "Order Not Found",
+          toast.error("Order Not Found", {
             description: "The order you're looking for doesn't exist.",
-            variant: "destructive",
           });
           navigate('/');
         }
       } catch (error) {
         console.error('Error fetching order:', error);
-        toast({
-          title: "Error",
+        toast.error("Error", {
           description: "Failed to load order details.",
-          variant: "destructive",
         });
         navigate('/');
       } finally {
@@ -53,7 +48,7 @@ export default function OrderConfirmation() {
     };
 
     fetchOrder();
-  }, [orderId, navigate, toast]);
+  }, [orderId, navigate]);
 
   if (loading) {
     return (

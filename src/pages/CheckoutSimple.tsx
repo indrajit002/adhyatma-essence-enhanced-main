@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from '@/components/ui/sonner';
 import { OrderService } from '@/services/orderService';
 import { Package } from 'lucide-react';
 import Header from '@/components/Header';
@@ -16,7 +16,6 @@ export default function CheckoutSimple() {
   const { state: cartState, clearCart } = useCart();
   const { items: cart, totalAmount } = cartState;
   const { user } = useAuth();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   // Simple form state
@@ -59,10 +58,8 @@ export default function CheckoutSimple() {
     }
     
     if (!user) {
-      toast({
-        title: "Authentication Required",
+      toast.error("Authentication Required", {
         description: "Please sign in to create an order.",
-        variant: "destructive",
       });
       return;
     }
@@ -95,19 +92,15 @@ export default function CheckoutSimple() {
       const order = await OrderService.createOrder(orderData, user.id);
       
       clearCart();
-      toast({
-        title: "Order Created!",
+      toast.success("Order Created!", {
         description: `Your order #${order.id} has been created successfully.`,
-        variant: "default",
       });
       
       navigate(`/order-confirmation/${order.id}`);
     } catch (error) {
       console.error('❌ Order creation failed:', error);
-      toast({
-        title: "Order Failed",
+      toast.error("Order Failed", {
         description: `Failed to create order: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);

@@ -1,17 +1,15 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from '@/components/ui/sonner';
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState('');
-  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast({
-        title: "Welcome to the Crystal Family! ✨",
+      toast.success("Welcome to the Crystal Family! ✨", {
         description: "You've successfully joined our newsletter.",
       });
       setEmail('');

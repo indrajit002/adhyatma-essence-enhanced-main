@@ -1,6 +1,5 @@
 // src/App.tsx
 
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -44,8 +43,7 @@ const App = () => (
             <CartProvider>
               <LenisProvider>
                 <BrowserRouter>
-                  {/* Toasters are placed outside Routes so they are not affected by navigation */}
-                  <Toaster />
+                  {/* Toaster is placed outside Routes so it is not affected by navigation */}
                   <Sonner />
                   
                   <Routes>

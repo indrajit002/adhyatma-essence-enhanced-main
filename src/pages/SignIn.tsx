@@ -14,7 +14,6 @@ const SignIn = () => {
     password: ''
   });
   const [fieldErrors, setFieldErrors] = useState<{[key: string]: string}>({});
-  const [showSuccess, setShowSuccess] = useState(false);
   const location = useLocation(); 
   const from = location.state?.from?.pathname || '/profile';
   const [showPassword, setShowPassword] = useState(false);
@@ -30,22 +29,13 @@ const SignIn = () => {
     }
   }, [isAuthenticated, user, navigate, location.state?.from?.pathname]);
 
-  // Monitor authentication state changes after login
+  // React to authentication state changes after login
   useEffect(() => {
-    if (showSuccess && isAuthenticated && user) {
-      console.log('✅ SignIn: Authentication state updated after login, redirecting...');
-      console.log('✅ SignIn: User:', user.first_name, 'Status:', isAuthenticated);
-      setTimeout(() => {
-        try {
-          navigate('/', { replace: true });
-        } catch (navError) {
-          console.error('❌ Navigation failed:', navError);
-          window.location.href = '/';
-        }
-      }, 500);
+    if (isAuthenticated) {
+      console.log('✅ Auth state is now authenticated. Redirecting...');
+      navigate(from, { replace: true });
     }
-  }, [isAuthenticated, user, showSuccess, navigate]);
-
+  }, [isAuthenticated, navigate, from]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -95,20 +85,7 @@ const SignIn = () => {
     try {
       console.log('🔐 SignIn: Starting login process...');
       await signIn(formData.email, formData.password);
-      console.log('✅ SignIn: Login successful, setting success state...');
-      setShowSuccess(true);
-      
-      // Wait for authentication state to update, then redirect
-      setTimeout(() => {
-        console.log('🔄 SignIn: Checking auth state after timeout...');
-        console.log('🔄 SignIn: isAuthenticated:', isAuthenticated, 'user:', !!user);
-        try {
-          navigate('/', { replace: true });
-        } catch (navError) {
-          console.error('❌ Navigation failed:', navError);
-          window.location.href = '/';
-        }
-      }, 1500);
+      // The success case is now handled by the useEffect above
     } catch (error) {
       // Error is handled by the context and will persist until next submission
       console.error('❌ Sign in failed:', error);
@@ -148,14 +125,6 @@ const SignIn = () => {
               </CardHeader>
               
               <CardContent>
-                {showSuccess && (
-                  <AlertMessage
-                    type="success"
-                    title="Welcome Back!"
-                    message="You have successfully signed in. Refreshing the page..."
-                    onClose={() => setShowSuccess(false)}
-                  />
-                )}
                 {error && (
                   <AlertMessage
                     type="error"
