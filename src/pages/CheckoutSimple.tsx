@@ -269,7 +269,7 @@ export default function CheckoutSimple() {
                       ) : (
                         <div className="flex items-center">
                           <Package className="w-4 h-4 mr-2" />
-                          Create Order
+                          order now
                         </div>
                       )}
                     </Button>
