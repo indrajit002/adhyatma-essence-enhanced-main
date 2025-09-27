@@ -21,6 +21,7 @@ export interface Order {
     zipCode: string;
   };
   status: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
+  paymentMethod: 'card' | 'cod';
   createdAt: string;
   updatedAt: string;
 }
@@ -37,4 +38,5 @@ export interface CreateOrderRequest {
     state: string;
     zipCode: string;
   };
+  paymentMethod: 'card' | 'cod';
 }

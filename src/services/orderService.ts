@@ -28,6 +28,7 @@ export class OrderService {
         totalAmount: orderData.totalAmount,
         shippingAddress: orderData.shippingAddress,
         status: 'pending',
+        paymentMethod: orderData.paymentMethod,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
@@ -40,6 +41,7 @@ export class OrderService {
           total_amount: order.totalAmount,
           status: 'Processing',
           shipping_address: order.shippingAddress,
+          payment_method: order.paymentMethod,
           created_at: order.createdAt
         }])
         .select()
@@ -144,6 +146,7 @@ export class OrderService {
           totalAmount: order.total_amount,
           shippingAddress: order.shipping_address,
           status: order.status.toLowerCase(),
+          paymentMethod: order.payment_method || 'card', // Default to 'card' for backward compatibility
           createdAt: order.created_at,
           updatedAt: order.created_at
         }));
@@ -197,6 +200,7 @@ export class OrderService {
           totalAmount: orderData.total_amount,
           shippingAddress: orderData.shipping_address,
           status: orderData.status.toLowerCase(),
+          paymentMethod: orderData.payment_method || 'card', // Default to 'card' for backward compatibility
           createdAt: orderData.created_at,
           updatedAt: orderData.created_at
         };

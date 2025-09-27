@@ -156,6 +156,10 @@ export default function OrderConfirmation() {
                         <span>{new Date(order.createdAt).toLocaleDateString()}</span>
                       </div>
                       <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Payment Method:</span>
+                        <span className="font-semibold uppercase">{order.paymentMethod}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
                         <span className="text-gray-600">Total Amount:</span>
                         <span className="text-lg font-semibold">₹{order.totalAmount.toFixed(2)}</span>
                       </div>

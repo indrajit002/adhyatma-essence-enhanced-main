@@ -20,6 +20,7 @@ type Order = {
   created_at: string;
   status: 'Processing' | 'Shipped' | 'Delivered';
   total_amount: number;
+  payment_method?: string;
   // You can add more fields here if you select them
 };
 
@@ -527,14 +528,17 @@ const Profile = () => {
                                   </div>
                                   <Badge className={`${getStatusColor(order.status)} px-3 py-1`}>{order.status}</Badge>
                                 </div>
-                                <div className="flex items-center justify-between">
-                                  <div className="text-sm text-gray-600">
-                                    <span>Total Amount: </span>
-                                    <span className="font-semibold text-lg text-[#b094b2]">₹{order.total_amount.toFixed(2)}</span>
+                                <div className="border-t pt-4 mt-4">
+                                  <div className="flex items-center justify-between">
+                                    <div>
+                                      <span className="text-sm text-gray-500">Total: </span>
+                                      <span className="font-semibold text-lg text-[#b094b2]">₹{order.total_amount.toFixed(2)}</span>
+                                    </div>
+                                    <div>
+                                      <span className="text-sm text-gray-500">Paid via: </span>
+                                      <Badge variant="outline" className="uppercase">{order.payment_method || 'Card'}</Badge>
+                                    </div>
                                   </div>
-                                  <Button variant="outline" size="sm" className="border-[#b094b2] text-[#b094b2] hover:bg-[#d1bccd]">
-                                    View Details
-                                  </Button>
                                 </div>
                               </div>
                             ))}
