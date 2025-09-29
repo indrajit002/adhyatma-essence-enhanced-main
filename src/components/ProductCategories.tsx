@@ -13,46 +13,82 @@ const ProductCategories = () => {
   
   const categories = [
     {
-      id: 'natural-crystals',
-      name: 'Natural Crystals',
-      image: naturalCrystals,
-      description: 'Pure, unpolished crystals straight from Earth',
-    },
-    {
-      id: 'healing-crystals',
-      name: 'Healing Crystals',
-      image: healingCrystals,
-      description: 'Energetically charged crystals for wellness',
-    },
-    {
-      id: 'crystal-bottles',
-      name: 'Crystal Bottles',
-      image: crystalBottles,
-      description: 'Infuse your water with crystal energy',
-    },
-    {
-      id: 'crystal-kits',
-      name: 'Crystal Kits & Sets',
-      image: crystalKits,
-      description: 'Curated collections for your practice',
-    },
-    {
-      id: 'crystal-bracelets',
-      name: 'Crystal Chips & Bracelets',
+      id: 'bracelet',
+      name: 'Bracelet',
       image: crystalBracelets,
-      description: 'Wearable crystal energy',
+      description: 'Beautiful crystal bracelets for daily wear',
     },
     {
-      id: 'tumbled-stones',
-      name: 'Tumbled Stones',
-      image: tumbledStones,
-      description: 'Smooth, polished pocket companions',
+      id: 'rudraksh',
+      name: 'Rudraksh',
+      image: naturalCrystals,
+      description: 'Sacred Rudraksh beads for spiritual practice',
     },
     {
-      id: 'crystal-trees',
-      name: 'Crystal Trees',
+      id: 'frames',
+      name: 'Frames',
+      image: crystalBottles,
+      description: 'Elegant crystal frames for sacred spaces',
+    },
+    {
+      id: 'anklet',
+      name: 'Anklet',
+      image: crystalBracelets,
+      description: 'Delicate crystal anklets for grounding energy',
+    },
+    {
+      id: 'pyramid',
+      name: 'Pyramid',
       image: crystalTrees,
-      description: 'Decorative energy enhancers',
+      description: 'Powerful crystal pyramids for energy work',
+    },
+    {
+      id: 'tower-and-tumbles',
+      name: 'Tower and Tumbles',
+      image: tumbledStones,
+      description: 'Crystal towers and tumbled stones for healing',
+    },
+    {
+      id: 'raw-stones',
+      name: 'Raw Stones',
+      image: naturalCrystals,
+      description: 'Natural, unpolished crystals in their pure form',
+    },
+    {
+      id: 'selenite-plates',
+      name: 'Selenite Plates',
+      image: crystalBottles,
+      description: 'Cleansing selenite plates for energy purification',
+    },
+    {
+      id: 'geode',
+      name: 'Geode',
+      image: naturalCrystals,
+      description: 'Stunning crystal geodes for home decor',
+    },
+    {
+      id: 'mala',
+      name: 'Mala',
+      image: crystalBracelets,
+      description: 'Sacred crystal malas for meditation and prayer',
+    },
+    {
+      id: 'hangers',
+      name: 'Hangers',
+      image: crystalTrees,
+      description: 'Crystal hangers for car and home protection',
+    },
+    {
+      id: 'tumble-set',
+      name: 'Tumble Set',
+      image: crystalKits,
+      description: 'Curated sets of tumbled crystals',
+    },
+    {
+      id: 'trees',
+      name: 'Trees',
+      image: crystalTrees,
+      description: 'Decorative crystal trees for positive energy',
     },
   ];
 
@@ -65,14 +101,14 @@ const ProductCategories = () => {
           </h2>
         </header>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8" role="list">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8" role="list">
           {categories.map((category) => (
             <article key={category.id} className="group cursor-pointer bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 mobile-card mobile-touch" role="listitem">
               <div className="relative overflow-hidden">
                 <img
                   src={category.image}
                   alt={`${category.name} - ${category.description}`}
-                  className="w-full h-48 sm:h-56 md:h-64 object-cover transition-all duration-500 group-hover:scale-110"
+                  className="w-full h-40 sm:h-48 md:h-52 object-cover transition-all duration-500 group-hover:scale-110"
                   loading="lazy"
                   width="400"
                   height="256"
