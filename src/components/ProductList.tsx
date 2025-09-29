@@ -7,8 +7,42 @@ import { Loader2, Edit, Trash2, Eye } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import ImagePreview from '@/components/ImagePreview';
 import SizeDisplay from '@/components/SizeDisplay';
-
 import { Product } from '@/data/products';
+
+// Database product interface (snake_case)
+interface DatabaseProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  original_price?: number;
+  image_url: string;
+  category: string;
+  rating: number;
+  reviewCount: number;
+  sizes: number[];
+  benefits: string[];
+  is_featured: boolean;
+  in_stock: boolean;
+  created_at: string;
+}
+
+// Convert database product to application product format
+const mapDatabaseProduct = (dbProduct: DatabaseProduct): Product => ({
+  id: dbProduct.id,
+  name: dbProduct.name,
+  price: dbProduct.price,
+  originalPrice: dbProduct.original_price || null,
+  image: dbProduct.image_url,
+  rating: dbProduct.rating,
+  reviewCount: dbProduct.reviewCount,
+  category: dbProduct.category as Product['category'],
+  sizes: dbProduct.sizes,
+  inStock: dbProduct.in_stock,
+  featured: dbProduct.is_featured,
+  description: dbProduct.description,
+  benefits: dbProduct.benefits,
+});
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -27,7 +61,8 @@ const ProductList: React.FC = () => {
         throw error;
       }
 
-      setProducts(data || []);
+      const mappedProducts = (data || []).map(mapDatabaseProduct);
+      setProducts(mappedProducts);
     } catch (err) {
       console.error('Error fetching products:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch products');
@@ -101,7 +136,7 @@ const ProductList: React.FC = () => {
         {products.map((product) => (
           <Card key={product.id} className="overflow-hidden">
             <ImagePreview
-              src={product.image_url}
+              src={product.image}
               alt={product.name}
               size="lg"
               className="w-full"
@@ -111,10 +146,10 @@ const ProductList: React.FC = () => {
               <div className="flex justify-between items-start">
                 <CardTitle className="text-lg line-clamp-2">{product.name}</CardTitle>
                 <div className="flex space-x-1">
-                  {product.is_featured && (
+                  {product.featured && (
                     <Badge variant="secondary" className="text-xs">Featured</Badge>
                   )}
-                  {!product.in_stock && (
+                  {!product.inStock && (
                     <Badge variant="destructive" className="text-xs">Out of Stock</Badge>
                   )}
                 </div>
@@ -130,9 +165,9 @@ const ProductList: React.FC = () => {
                   <span className="text-2xl font-bold text-[#b094b2]">
                     ₹{product.price.toFixed(2)}
                   </span>
-                  {product.original_price && (
+                  {product.originalPrice && (
                     <span className="text-sm text-gray-500 line-through">
-                      ₹{product.original_price.toFixed(2)}
+                      ₹{product.originalPrice.toFixed(2)}
                     </span>
                   )}
                 </div>
@@ -141,9 +176,14 @@ const ProductList: React.FC = () => {
                   <p><strong>Category:</strong> {product.category}</p>
                   <div className="flex items-center gap-2 mt-1">
                     <strong>Sizes:</strong>
-                    <SizeDisplay sizes={product.sizes} />
+                    <div className="flex flex-wrap gap-1">
+                      {product.sizes.map((size, index) => (
+                        <Badge key={index} variant="outline" className="text-xs">
+                          {size}mm
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
-                  <p><strong>Rating:</strong> {product.rating}/5 ({product.reviewCount} reviews)</p>
                 </div>
 
 

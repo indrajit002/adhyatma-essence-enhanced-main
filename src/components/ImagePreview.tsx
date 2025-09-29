@@ -22,8 +22,8 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
     lg: 'h-32 w-32'
   };
 
-  const isDataUrl = src.startsWith('data:');
-  const isExternalUrl = src.startsWith('http');
+  const isDataUrl = src?.startsWith('data:') || false;
+  const isExternalUrl = src?.startsWith('http') || false;
 
   return (
     <Card className={`overflow-hidden ${className}`}>

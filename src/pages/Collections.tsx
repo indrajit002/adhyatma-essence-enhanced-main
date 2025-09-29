@@ -1,87 +1,185 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, Filter, Grid, List } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useCollections, type Collection } from '@/hooks/useCollections';
+import { useProducts } from '@/hooks/useProducts';
 
 const Collections = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const { collections, loading, error } = useCollections();
+  const { products, loading: productsLoading, error: productsError } = useProducts();
 
-  const mockCollections = [
+  // Calculate dynamic product counts and price ranges for categories
+  const getCategoryProductCount = (categoryId: string) => {
+    if (categoryId === 'all') return products.length;
+    return products.filter(p => p.category === categoryId).length;
+  };
+
+  const getCategoryPriceRange = (categoryId: string) => {
+    if (categoryId === 'all') {
+      if (products.length === 0) return '₹0 - ₹0';
+      const prices = products.map(p => p.price);
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+      return `₹${minPrice} - ₹${maxPrice}`;
+    }
+    
+    const categoryProducts = products.filter(p => p.category === categoryId);
+    if (categoryProducts.length === 0) return '₹0 - ₹0';
+    
+    const prices = categoryProducts.map(p => p.price);
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+    
+    return `₹${minPrice} - ₹${maxPrice}`;
+  };
+
+  // Collections based on actual categories with internet images
+  const collections = [
     {
-      id: 'healing-crystals',
-      name: 'Healing Crystals',
-      description: 'Powerful stones for physical and emotional healing',
-      image: '/src/assets/healing-crystals.jpg',
-      productCount: 24,
+      id: 'all',
+      name: 'All Products',
+      description: 'Complete collection of all our crystal products',
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('all'),
       featured: true,
-      colors: ['Purple', 'Pink', 'Clear'],
-      priceRange: '₹15 - ₹120'
+      colors: ['Mixed'],
+      priceRange: getCategoryPriceRange('all')
     },
     {
-      id: 'natural-crystals',
-      name: 'Natural Crystals',
-      description: 'Raw, unpolished crystals in their natural form',
-      image: '/src/assets/natural-crystals.jpg',
-      productCount: 18,
+      id: 'bracelet',
+      name: 'Bracelet',
+      description: 'Elegant crystal bracelets for daily energy and style',
+      image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('bracelet'),
+      featured: true,
+      colors: ['Purple', 'Pink', 'Clear', 'Green'],
+      priceRange: getCategoryPriceRange('bracelet')
+    },
+    {
+      id: 'rudraksh',
+      name: 'Rudraksh',
+      description: 'Sacred Rudraksh beads for spiritual protection and meditation',
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('rudraksh'),
       featured: false,
-      colors: ['Green', 'Blue', 'White'],
-      priceRange: '₹25 - ₹200'
+      colors: ['Brown', 'Dark Brown'],
+      priceRange: getCategoryPriceRange('rudraksh')
     },
     {
-      id: 'tumbled-stones',
-      name: 'Tumbled Stones',
-      description: 'Smooth, polished stones perfect for meditation',
-      image: '/src/assets/tumbled-stones.jpg',
-      productCount: 32,
+      id: 'frames',
+      name: 'Frames',
+      description: 'Beautiful crystal frames for displaying sacred images',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('frames'),
+      featured: false,
+      colors: ['Gold', 'Silver', 'Wood'],
+      priceRange: getCategoryPriceRange('frames')
+    },
+    {
+      id: 'anklet',
+      name: 'Anklet',
+      description: 'Delicate crystal anklets for grounding and protection',
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('anklet'),
+      featured: false,
+      colors: ['Silver', 'Gold', 'Mixed'],
+      priceRange: getCategoryPriceRange('anklet')
+    },
+    {
+      id: 'pyramid',
+      name: 'Pyramid',
+      description: 'Powerful crystal pyramids for energy amplification',
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('pyramid'),
+      featured: true,
+      colors: ['Clear', 'Amethyst', 'Rose Quartz'],
+      priceRange: getCategoryPriceRange('pyramid')
+    },
+    {
+      id: 'tower-and-tumbles',
+      name: 'Tower and Tumbles',
+      description: 'Crystal towers and tumbled stones for energy work',
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('tower-and-tumbles'),
+      featured: false,
+      colors: ['Mixed', 'Rainbow'],
+      priceRange: getCategoryPriceRange('tower-and-tumbles')
+    },
+    {
+      id: 'raw-stones',
+      name: 'Raw Stones',
+      description: 'Natural, unpolished crystals in their pure form',
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('raw-stones'),
+      featured: true,
+      colors: ['Green', 'Blue', 'Purple', 'Clear'],
+      priceRange: getCategoryPriceRange('raw-stones')
+    },
+    {
+      id: 'selenite-plates',
+      name: 'Selenite Plates',
+      description: 'Cleansing selenite plates for crystal charging',
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('selenite-plates'),
+      featured: false,
+      colors: ['White', 'Clear'],
+      priceRange: getCategoryPriceRange('selenite-plates')
+    },
+    {
+      id: 'geode',
+      name: 'Geode',
+      description: 'Stunning crystal geodes for home decoration',
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('geode'),
+      featured: true,
+      colors: ['Purple', 'Pink', 'Clear', 'Mixed'],
+      priceRange: getCategoryPriceRange('geode')
+    },
+    {
+      id: 'mala',
+      name: 'Mala',
+      description: 'Sacred prayer beads for meditation and mindfulness',
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('mala'),
+      featured: false,
+      colors: ['Brown', 'Mixed', 'Wood'],
+      priceRange: getCategoryPriceRange('mala')
+    },
+    {
+      id: 'hangers',
+      name: 'Hangers',
+      description: 'Crystal hangers for car and home protection',
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('hangers'),
+      featured: false,
+      colors: ['Mixed', 'Clear'],
+      priceRange: getCategoryPriceRange('hangers')
+    },
+    {
+      id: 'tumble-set',
+      name: 'Tumble Set',
+      description: 'Curated sets of tumbled crystals for beginners',
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('tumble-set'),
       featured: true,
       colors: ['Mixed', 'Rainbow'],
-      priceRange: '₹8 - ₹45'
+      priceRange: getCategoryPriceRange('tumble-set')
     },
     {
-      id: 'crystal-trees',
-      name: 'Crystal Trees',
-      description: 'Beautiful decorative crystal formations',
-      image: '/src/assets/crystal-trees.jpg',
-      productCount: 12,
+      id: 'trees',
+      name: 'Trees',
+      description: 'Beautiful crystal trees for home decoration and energy',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop&crop=center',
+      productCount: getCategoryProductCount('trees'),
       featured: false,
-      colors: ['Green', 'Pink', 'Clear'],
-      priceRange: '₹35 - ₹150'
-    },
-    {
-      id: 'crystal-bracelets',
-      name: 'Crystal Bracelets',
-      description: 'Wearable crystal jewelry for daily energy',
-      image: '/src/assets/crystal-bracelets.jpg',
-      productCount: 28,
-      featured: true,
-      colors: ['Mixed', 'Purple', 'Rose'],
-      priceRange: '₹20 - ₹80'
-    },
-    {
-      id: 'crystal-kits',
-      name: 'Crystal Kits',
-      description: 'Curated sets for specific intentions',
-      image: '/src/assets/crystal-kits.jpg',
-      productCount: 15,
-      featured: false,
-      colors: ['Mixed'],
-      priceRange: '₹45 - ₹180'
-    },
-    {
-      id: 'crystal-bottles',
-      name: 'Crystal Bottles',
-      description: 'Infused water bottles with crystal energy',
-      image: '/src/assets/crystal-bottles.jpg',
-      productCount: 8,
-      featured: false,
-      colors: ['Clear', 'Blue', 'Pink'],
-      priceRange: '₹30 - ₹95'
+      colors: ['Green', 'Pink', 'Clear', 'Mixed'],
+      priceRange: getCategoryPriceRange('trees')
     }
   ];
 
@@ -97,7 +195,7 @@ const Collections = () => {
     const matchesSearch = collection.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          (collection.description && collection.description.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || 
-                           (selectedCategory === 'featured' && collection.is_featured) ||
+                           (selectedCategory === 'featured' && collection.featured) ||
                            (selectedCategory === 'healing' && collection.name.toLowerCase().includes('healing')) ||
                            (selectedCategory === 'jewelry' && collection.name.toLowerCase().includes('bracelet')) ||
                            (selectedCategory === 'decorative' && (collection.name.toLowerCase().includes('tree') || collection.name.toLowerCase().includes('bottle')));
@@ -105,7 +203,7 @@ const Collections = () => {
     return matchesSearch && matchesCategory;
   });
 
-  if (loading) {
+  if (productsLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -123,7 +221,7 @@ const Collections = () => {
     );
   }
 
-  if (error) {
+  if (productsError) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
@@ -134,7 +232,7 @@ const Collections = () => {
                 <Search className="w-8 h-8 text-red-600" />
               </div>
               <h2 className="text-xl font-semibold text-gray-800 mb-2">Error Loading Collections</h2>
-              <p className="text-gray-600 mb-4">{error}</p>
+              <p className="text-gray-600 mb-4">{productsError}</p>
               <Button onClick={() => window.location.reload()} className="bg-[#b094b2] hover:bg-[#b094b2]/80">
                 Try Again
               </Button>
@@ -288,7 +386,7 @@ const Collections = () => {
                   
                   <Button
                     className="w-full bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-4 md:px-6 py-2 md:py-3 rounded-full font-medium tracking-wide transition-all duration-300 hover:shadow-lg hover:scale-105 transform text-sm md:text-base"
-                    onClick={() => window.location.href = `/collections/${collection.id}`}
+                    onClick={() => navigate(`/collections/${collection.id}`)}
                   >
                     Explore Collection
                   </Button>

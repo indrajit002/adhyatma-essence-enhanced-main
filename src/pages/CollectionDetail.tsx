@@ -59,26 +59,51 @@ const CollectionDetail = () => {
     }
   };
 
-  const collection = collectionData[id as keyof typeof collectionData] || collectionData['healing-crystals'];
-
-  // Filter products by collection category
-  const getCollectionCategory = (collectionId: string) => {
-    const categoryMap: { [key: string]: string } = {
-      'healing-crystals': 'healing',
-      'natural-crystals': 'natural',
-      'tumbled-stones': 'tumbled',
-      'crystal-trees': 'decorative',
-      'crystal-bracelets': 'jewelry',
-      'crystal-kits': 'kits',
-      'crystal-bottles': 'accessories'
+  // Dynamic collection data based on category
+  const getCollectionData = (categoryId: string) => {
+    const categoryProducts = allProducts.filter(p => p.category === categoryId);
+    const prices = categoryProducts.map(p => p.price);
+    const minPrice = categoryProducts.length > 0 ? Math.min(...prices) : 0;
+    const maxPrice = categoryProducts.length > 0 ? Math.max(...prices) : 0;
+    
+    const categoryNames: { [key: string]: string } = {
+      'all': 'All Products',
+      'bracelet': 'Bracelet',
+      'rudraksh': 'Rudraksh',
+      'frames': 'Frames',
+      'anklet': 'Anklet',
+      'pyramid': 'Pyramid',
+      'tower-and-tumbles': 'Tower and Tumbles',
+      'raw-stones': 'Raw Stones',
+      'selenite-plates': 'Selenite Plates',
+      'geode': 'Geode',
+      'mala': 'Mala',
+      'hangers': 'Hangers',
+      'tumble-set': 'Tumble Set',
+      'trees': 'Trees'
     };
-    return categoryMap[collectionId] || 'healing';
+    
+    return {
+      name: categoryNames[categoryId] || 'Collection',
+      description: `Explore our ${categoryNames[categoryId]?.toLowerCase() || 'crystal'} collection`,
+      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      bannerImage: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&h=400&fit=crop&crop=center',
+      productCount: categoryProducts.length,
+      featured: true,
+      colors: ['Mixed'],
+      priceRange: `₹${minPrice} - ₹${maxPrice}`,
+      category: categoryNames[categoryId] || 'Collection',
+      benefits: ['Quality', 'Authentic', 'Healing']
+    };
   };
 
-  const collectionCategory = getCollectionCategory(id || '');
+  const collection = getCollectionData(id || 'bracelet');
+
+  // Filter products by collection category
+  // Since we're now using actual category IDs, we can use them directly
+  const collectionCategory = id || 'bracelet';
   const products = allProducts.filter(product => 
-    product.category === collectionCategory || 
-    (collectionCategory === 'healing' && product.category === 'bracelet') // Map healing crystals to bracelet category
+    product.category === collectionCategory
   );
 
   const filteredProducts = products.filter(product => {
@@ -95,8 +120,6 @@ const CollectionDetail = () => {
         return a.price - b.price;
       case 'price-high':
         return b.price - a.price;
-      case 'rating':
-        return b.rating - a.rating;
       case 'name':
       default:
         return a.name.localeCompare(b.name);
@@ -242,7 +265,6 @@ const CollectionDetail = () => {
                     <option value="name">Sort by Name</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
-                    <option value="rating">Highest Rated</option>
                   </select>
                   <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 </div>
@@ -322,13 +344,19 @@ const CollectionDetail = () => {
                 </div>
                 
                 <div className={`p-6 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300">
+                  <div className="mb-3">
+                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-[#b094b2] transition-colors duration-300 mb-2">
                       {product.name}
                     </h3>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
-                      {product.rating} ({product.reviewCount})
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <span className="font-medium">Sizes:</span>
+                      <div className="flex flex-wrap gap-1">
+                        {product.sizes.map((size, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {size}mm
+                          </Badge>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   

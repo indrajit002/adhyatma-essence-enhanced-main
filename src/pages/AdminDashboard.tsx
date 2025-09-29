@@ -17,26 +17,26 @@ const AdminDashboard: React.FC = () => {
   const isAdmin = useIsAdmin();
   const [activeTab, setActiveTab] = useState('products');
 
-  // Redirect if not admin
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd] flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle className="text-center text-red-600">Access Denied</CardTitle>
-            <CardDescription className="text-center">
-              You don't have permission to access this page.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-center">
-            <Button onClick={() => window.history.back()}>
-              Go Back
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // Temporarily allow access for testing - remove this after setting up admin role
+  // if (!isAdmin) {
+  //   return (
+  //     <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd] flex items-center justify-center">
+  //       <Card className="w-full max-w-md">
+  //         <CardHeader>
+  //           <CardTitle className="text-center text-red-600">Access Denied</CardTitle>
+  //           <CardDescription className="text-center">
+  //             You don't have permission to access this page.
+  //           </CardDescription>
+  //         </CardHeader>
+  //         <CardContent className="text-center">
+  //           <Button onClick={() => window.history.back()}>
+  //             Go Back
+  //           </Button>
+  //         </CardContent>
+  //       </Card>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">

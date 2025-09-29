@@ -7,7 +7,7 @@ export const uploadFile = async (file: File): Promise<string> => {
   }
 
   // Validate file type
-  if (!file.type.startsWith('image/')) {
+  if (!file.type?.startsWith('image/')) {
     throw new Error('Only image files are allowed.');
   }
 

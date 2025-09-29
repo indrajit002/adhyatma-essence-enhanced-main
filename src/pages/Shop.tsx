@@ -18,7 +18,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useCart } from '@/hooks/useCart';
 import { useProducts } from '@/hooks/useProducts';
-import { categories, type Product } from '@/data/products';
+import { type Product } from '@/data/products';
 
 const Shop = () => {
   const { addItem } = useCart();
@@ -30,6 +30,24 @@ const Shop = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [wishlist, setWishlist] = useState<string[]>([]);
+
+  // Calculate dynamic category counts
+  const categories = [
+    { id: 'all', name: 'All Products', count: products.length },
+    { id: 'bracelet', name: 'Bracelet', count: products.filter(p => p.category === 'bracelet').length },
+    { id: 'rudraksh', name: 'Rudraksh', count: products.filter(p => p.category === 'rudraksh').length },
+    { id: 'frames', name: 'Frames', count: products.filter(p => p.category === 'frames').length },
+    { id: 'anklet', name: 'Anklet', count: products.filter(p => p.category === 'anklet').length },
+    { id: 'pyramid', name: 'Pyramid', count: products.filter(p => p.category === 'pyramid').length },
+    { id: 'tower-and-tumbles', name: 'Tower and Tumbles', count: products.filter(p => p.category === 'tower-and-tumbles').length },
+    { id: 'raw-stones', name: 'Raw Stones', count: products.filter(p => p.category === 'raw-stones').length },
+    { id: 'selenite-plates', name: 'Selenite Plates', count: products.filter(p => p.category === 'selenite-plates').length },
+    { id: 'geode', name: 'Geode', count: products.filter(p => p.category === 'geode').length },
+    { id: 'mala', name: 'Mala', count: products.filter(p => p.category === 'mala').length },
+    { id: 'hangers', name: 'Hangers', count: products.filter(p => p.category === 'hangers').length },
+    { id: 'tumble-set', name: 'Tumble Set', count: products.filter(p => p.category === 'tumble-set').length },
+    { id: 'trees', name: 'Trees', count: products.filter(p => p.category === 'trees').length },
+  ];
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -48,8 +66,6 @@ const Shop = () => {
         return a.price - b.price;
       case 'price-high':
         return b.price - a.price;
-      case 'rating':
-        return b.rating - a.rating;
       case 'name':
       default:
         return a.name.localeCompare(b.name);
@@ -260,7 +276,6 @@ const Shop = () => {
                       <option value="name">Sort by Name</option>
                       <option value="price-low">Price: Low to High</option>
                       <option value="price-high">Price: High to Low</option>
-                      <option value="rating">Highest Rated</option>
                     </select>
                     <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                   </div>
@@ -327,13 +342,19 @@ const Shop = () => {
                     {/* Content Container - Flexible Height */}
                     <div className={`p-4 md:p-6 flex flex-col flex-grow ${viewMode === 'list' ? 'flex-1' : ''}`}>
                       {/* Header with Title and Rating */}
-                      <div className="flex items-start justify-between mb-3">
-                        <h3 className="text-lg md:text-xl font-bold text-gray-800 flex-1 pr-2">
+                      <div className="mb-3">
+                        <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-2">
                           {product.name}
                         </h3>
-                        <div className="flex items-center text-sm text-gray-500 flex-shrink-0">
-                          <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
-                          {product.rating} ({product.reviewCount})
+                        <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <span className="font-medium">Sizes:</span>
+                          <div className="flex flex-wrap gap-1">
+                            {product.sizes.map((size, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {size}mm
+                              </Badge>
+                            ))}
+                          </div>
                         </div>
                       </div>  
                       

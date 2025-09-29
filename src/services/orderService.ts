@@ -9,6 +9,13 @@ interface OrderItem {
   price_at_purchase: number;
 }
 
+interface OrderItemWithProduct extends OrderItem {
+  products?: {
+    name: string;
+    image_url: string;
+  };
+}
+
 export class OrderService {
   private static pendingRequests = new Map<string, Promise<Order[]>>();
 
@@ -122,7 +129,11 @@ export class OrderService {
             id,
             product_id,
             quantity,
-            price_at_purchase
+            price_at_purchase,
+            products (
+              name,
+              image_url
+            )
           )
         `)
         .eq('user_id', userId)
@@ -139,12 +150,12 @@ export class OrderService {
           id: order.id,
           orderNumber: order.order_number,
           userId: order.user_id,
-          items: order.order_items.map((item: OrderItem) => ({
+          items: order.order_items.map((item: OrderItemWithProduct) => ({
             id: item.product_id,
-            name: `Product ${item.product_id}`, // You might want to join with products table
+            name: item.products?.name || `Product ${item.product_id}`,
             price: item.price_at_purchase,
             quantity: item.quantity,
-            image: '' // You might want to join with products table for image
+            image: item.products?.image_url || ''
           })),
           totalAmount: order.total_amount,
           shippingAddress: order.shipping_address,
@@ -178,7 +189,11 @@ export class OrderService {
             id,
             product_id,
             quantity,
-            price_at_purchase
+            price_at_purchase,
+            products (
+              name,
+              image_url
+            )
           )
         `)
         .eq('id', orderId)
@@ -195,12 +210,12 @@ export class OrderService {
           id: orderData.id,
           orderNumber: orderData.order_number,
           userId: orderData.user_id,
-          items: orderData.order_items.map((item: OrderItem) => ({
+          items: orderData.order_items.map((item: OrderItemWithProduct) => ({
             id: item.product_id,
-            name: `Product ${item.product_id}`,
+            name: item.products?.name || `Product ${item.product_id}`,
             price: item.price_at_purchase,
             quantity: item.quantity,
-            image: ''
+            image: item.products?.image_url || ''
           })),
           totalAmount: orderData.total_amount,
           shippingAddress: orderData.shipping_address,
