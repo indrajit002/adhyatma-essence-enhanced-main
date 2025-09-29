@@ -9,6 +9,8 @@ import { Shield, Package, BarChart3, Users, Settings } from 'lucide-react';
 import ProductForm from '@/components/ProductForm';
 import ProductList from '@/components/ProductList';
 import ProductStats from '@/components/ProductStats';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 const AdminDashboard: React.FC = () => {
   const { user, signOut } = useAuth();
@@ -38,21 +40,25 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <Header />
+      
+      {/* Admin Header - with top padding to account for fixed header */}
+      <div className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] shadow-lg pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
-              <Shield className="h-8 w-8 text-[#b094b2]" />
+          <div className="flex justify-between items-center py-8">
+            <div className="flex items-center space-x-4">
+              <div className="p-3 bg-black/20 rounded-full">
+                <Shield className="h-8 w-8 text-black" />
+              </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-                <p className="text-sm text-gray-600">Welcome back, {user?.first_name}</p>
+                <h1 className="text-3xl font-bold text-black">Admin Dashboard</h1>
+                <p className="text-black text-lg">Welcome back, {user?.first_name}</p>
               </div>
             </div>
             <Button 
               variant="outline" 
               onClick={signOut}
-              className="text-gray-600 hover:text-gray-900"
+              className="bg-white/20 text-white border-white/30 hover:bg-white/30 hover:text-white"
             >
               Sign Out
             </Button>
@@ -166,6 +172,8 @@ const AdminDashboard: React.FC = () => {
           </TabsContent>
         </Tabs>
       </div>
+      
+      
     </div>
   );
 };

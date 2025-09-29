@@ -23,7 +23,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     price: '',
     originalPrice: '',
     category: 'bracelet',
-    size: '',
+    sizes: '',
     image: '',
     benefits: '',
   });
@@ -47,7 +47,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
         colors: [],
         rating: 0,
         reviewCount: 0,
-        size: formData.size,
+        sizes: formData.sizes.split(',').map(s => parseFloat(s.trim())).filter(s => !isNaN(s) && s > 0),
         benefits: formData.benefits.split(',').map(b => b.trim()).filter(b => b),
         is_featured: false,
         in_stock: true,
@@ -69,7 +69,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
         price: '',
         originalPrice: '',
         category: 'bracelet',
-        size: '',
+        sizes: '',
         image: '',
         benefits: '',
       });
@@ -206,14 +206,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
             </div>
 
             <div>
-              <Label htmlFor="size">Size *</Label>
+              <Label htmlFor="sizes">Sizes (mm) *</Label>
               <Input
-                id="size"
-                value={formData.size}
-                onChange={(e) => setFormData({...formData, size: e.target.value})}
-                placeholder="e.g., Small, Medium, Large"
+                id="sizes"
+                value={formData.sizes}
+                onChange={(e) => setFormData({...formData, sizes: e.target.value})}
+                placeholder="e.g., 8, 10, 12, 15 (comma-separated)"
                 required
               />
+              <p className="text-sm text-gray-600 mt-1">
+                Enter multiple sizes separated by commas (e.g., 8, 10, 12)
+              </p>
+              {formData.sizes && formData.sizes.split(',').some(s => isNaN(parseFloat(s.trim())) || parseFloat(s.trim()) <= 0) && (
+                <p className="text-sm text-red-600 mt-1">Please enter valid sizes in mm (positive numbers only)</p>
+              )}
             </div>
 
 

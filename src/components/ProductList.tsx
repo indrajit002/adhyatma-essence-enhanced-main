@@ -6,6 +6,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Edit, Trash2, Eye } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import ImagePreview from '@/components/ImagePreview';
+import SizeDisplay from '@/components/SizeDisplay';
 
 interface Product {
   id: string;
@@ -17,7 +18,7 @@ interface Product {
   category: string;
   rating: number;
   reviewCount: number;
-  size: string;
+  sizes: number[];
   benefits: string[];
   is_featured: boolean;
   in_stock: boolean;
@@ -153,7 +154,10 @@ const ProductList: React.FC = () => {
 
                 <div className="text-sm text-gray-600">
                   <p><strong>Category:</strong> {product.category}</p>
-                  <p><strong>Size:</strong> {product.size}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <strong>Sizes:</strong>
+                    <SizeDisplay sizes={product.sizes} />
+                  </div>
                   <p><strong>Rating:</strong> {product.rating}/5 ({product.reviewCount} reviews)</p>
                 </div>
 

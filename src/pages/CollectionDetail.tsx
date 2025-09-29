@@ -18,6 +18,7 @@ import {
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useCart } from '@/hooks/useCart';
+import SizeDisplay from '@/components/SizeDisplay';
 
 const CollectionDetail = () => {
   const { id } = useParams();
@@ -336,9 +337,9 @@ const CollectionDetail = () => {
                   </p>
                   
                   <div className="space-y-2 mb-4 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">Size:</span>
-                      <span className="font-semibold text-gray-800">{product.size}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-500">Sizes:</span>
+                      <SizeDisplay sizes={product.sizes} variant="secondary" />
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-500">Colors:</span>
