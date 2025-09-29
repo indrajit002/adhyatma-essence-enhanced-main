@@ -35,7 +35,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     setSubmitSuccess(false);
 
     try {
-      const id = 'product-' + Date.now();
+      // Generate a proper UUID for the product ID
+      const id = crypto.randomUUID();
       const productData = {
         id,
         name: formData.name,

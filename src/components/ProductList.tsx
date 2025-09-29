@@ -8,22 +8,7 @@ import { supabase } from '@/lib/supabaseClient';
 import ImagePreview from '@/components/ImagePreview';
 import SizeDisplay from '@/components/SizeDisplay';
 
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  original_price?: number;
-  image_url: string;
-  category: string;
-  rating: number;
-  reviewCount: number;
-  sizes: number[];
-  benefits: string[];
-  is_featured: boolean;
-  in_stock: boolean;
-  created_at: string;
-}
+import { Product } from '@/data/products';
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);

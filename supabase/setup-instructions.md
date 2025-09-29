@@ -71,7 +71,112 @@ After running the migration, the wishlist will automatically start using the dat
 2. Refreshing the page - items should persist
 3. Checking the browser console for "Using database for wishlist" messages
 
-## Step 3: Set Up Admin Role
+## Step 3: Update Product Schema
+
+1. Go to your Supabase Dashboard
+2. Navigate to **SQL Editor**
+3. Copy and paste the following SQL to update the products table:
+
+```sql
+-- Update products table schema to match new product structure
+-- First, ensure the products table exists with proper structure
+CREATE TABLE IF NOT EXISTS public.products (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  description TEXT,
+  price DECIMAL(10,2) NOT NULL,
+  original_price DECIMAL(10,2),
+  image_url TEXT,
+  category TEXT,
+  colors TEXT[] DEFAULT '{}',
+  rating DECIMAL(3,2) DEFAULT 0,
+  reviewCount INTEGER DEFAULT 0,
+  sizes INTEGER[] DEFAULT '{}',
+  benefits TEXT[] DEFAULT '{}',
+  is_featured BOOLEAN DEFAULT false,
+  in_stock BOOLEAN DEFAULT true,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Add missing columns to existing table
+ALTER TABLE public.products 
+ADD COLUMN IF NOT EXISTS in_stock BOOLEAN DEFAULT true,
+ADD COLUMN IF NOT EXISTS sizes INTEGER[] DEFAULT '{}',
+ADD COLUMN IF NOT EXISTS created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW();
+
+-- Update existing data
+UPDATE public.products 
+SET sizes = CASE 
+  WHEN size = 'Small' THEN ARRAY[8, 10, 12]
+  WHEN size = 'Medium' THEN ARRAY[12, 15, 18]
+  WHEN size = 'Large' THEN ARRAY[18, 20, 25]
+  WHEN size = 'One Size' THEN ARRAY[10]
+  WHEN size = 'Kit' THEN ARRAY[15]
+  WHEN size = 'Set' THEN ARRAY[8, 10, 12, 15]
+  WHEN size = '500ml' THEN ARRAY[500]
+  ELSE ARRAY[10]
+END;
+
+-- Drop old size column
+ALTER TABLE public.products DROP COLUMN IF EXISTS size;
+
+-- Update defaults
+ALTER TABLE public.products 
+ALTER COLUMN colors SET DEFAULT '{}',
+ALTER COLUMN sizes SET DEFAULT '{}',
+ALTER COLUMN in_stock SET DEFAULT true,
+ALTER COLUMN is_featured SET DEFAULT false;
+
+-- Update foreign key constraints to work with UUID
+ALTER TABLE public.wishlist_items DROP CONSTRAINT IF EXISTS fk_wishlist_product;
+ALTER TABLE public.wishlist_items ALTER COLUMN product_id TYPE UUID USING product_id::UUID;
+ALTER TABLE public.wishlist_items ADD CONSTRAINT fk_wishlist_product FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE CASCADE;
+
+ALTER TABLE public.order_items DROP CONSTRAINT IF EXISTS order_items_product_id_fkey;
+ALTER TABLE public.order_items ALTER COLUMN product_id TYPE UUID USING product_id::UUID;
+ALTER TABLE public.order_items ADD CONSTRAINT order_items_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.products(id) ON DELETE CASCADE;
+```
+
+4. Click **Run** to execute the SQL
+
+## Step 4: Set Up Storage for Images (Optional)
+
+**Note**: This step is optional. If you skip it, images will use base64 encoding as a fallback.
+
+1. Go to **Storage** in your Supabase Dashboard
+2. Click **"New bucket"**
+3. Configure:
+   - **Name**: `product-images`
+   - **Public**: ✅ **Yes**
+   - **File size limit**: `4 MB`
+   - **Allowed MIME types**: `image/*`
+4. Click **"Create bucket"**
+
+### Set Up Storage Policies
+
+Go to **Storage** > **Policies** and create these policies:
+
+```sql
+-- Allow public read access
+CREATE POLICY "Public read access for product images" ON storage.objects
+FOR SELECT USING (bucket_id = 'product-images');
+
+-- Allow authenticated users to upload
+CREATE POLICY "Authenticated users can upload product images" ON storage.objects
+FOR INSERT WITH CHECK (
+  bucket_id = 'product-images' 
+  AND auth.role() = 'authenticated'
+);
+
+-- Allow admins to manage images
+CREATE POLICY "Admins can manage product images" ON storage.objects
+FOR ALL USING (
+  bucket_id = 'product-images' 
+  AND is_admin(auth.uid())
+);
+```
+
+## Step 5: Set Up Admin Role
 
 1. Go to your Supabase Dashboard
 2. Navigate to **SQL Editor**
@@ -111,7 +216,7 @@ CREATE POLICY "Products are viewable by everyone" ON public.products
 
 4. Click **Run** to execute the SQL
 
-## Step 4: Set Up Admin User
+## Step 6: Set Up Admin User
 
 To make yourself an admin:
 
@@ -126,9 +231,11 @@ SET is_admin = true
 WHERE id = 'your-user-id-here';
 ```
 
-## Step 5: Verify Setup
+## Step 7: Verify Setup
 
 - ✅ Products table created with sample data
+- ✅ Product schema updated with new columns
+- ✅ Storage bucket created (optional)
 - ✅ Wishlist_items table created
 - ✅ RLS policies enabled
 - ✅ Admin role system set up

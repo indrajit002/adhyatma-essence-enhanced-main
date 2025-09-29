@@ -18,11 +18,13 @@ import {
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useCart } from '@/hooks/useCart';
+import { useProducts } from '@/hooks/useProducts';
 import SizeDisplay from '@/components/SizeDisplay';
 
 const CollectionDetail = () => {
   const { id } = useParams();
   const { addItem } = useCart();
+  const { products: allProducts, loading: productsLoading, error: productsError } = useProducts();
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('name');
@@ -59,65 +61,25 @@ const CollectionDetail = () => {
 
   const collection = collectionData[id as keyof typeof collectionData] || collectionData['healing-crystals'];
 
-  // Mock products data
-  const products = [
-    {
-      id: '1',
-      name: 'Amethyst Cluster',
-      price: 45,
-      originalPrice: 60,
-      image: '/src/assets/healing-crystals.jpg',
-      rating: 4.8,
-      reviewCount: 124,
-      colors: ['Purple'],
-      size: 'Medium',
-      inStock: true,
-      featured: true,
-      description: 'Beautiful amethyst cluster for meditation and healing'
-    },
-    {
-      id: '2',
-      name: 'Rose Quartz Heart',
-      price: 25,
-      originalPrice: 35,
-      image: '/src/assets/healing-crystals.jpg',
-      rating: 4.9,
-      reviewCount: 89,
-      colors: ['Pink'],
-      size: 'Small',
-      inStock: true,
-      featured: false,
-      description: 'Gentle rose quartz heart for love and compassion'
-    },
-    {
-      id: '3',
-      name: 'Clear Quartz Point',
-      price: 35,
-      originalPrice: 45,
-      image: '/src/assets/healing-crystals.jpg',
-      rating: 4.7,
-      reviewCount: 156,
-      colors: ['Clear'],
-      size: 'Large',
-      inStock: true,
-      featured: true,
-      description: 'Powerful clear quartz point for energy amplification'
-    },
-    {
-      id: '4',
-      name: 'Green Aventurine',
-      price: 20,
-      originalPrice: 30,
-      image: '/src/assets/healing-crystals.jpg',
-      rating: 4.6,
-      reviewCount: 67,
-      colors: ['Green'],
-      size: 'Medium',
-      inStock: false,
-      featured: false,
-      description: 'Lucky green aventurine for prosperity and growth'
-    }
-  ];
+  // Filter products by collection category
+  const getCollectionCategory = (collectionId: string) => {
+    const categoryMap: { [key: string]: string } = {
+      'healing-crystals': 'healing',
+      'natural-crystals': 'natural',
+      'tumbled-stones': 'tumbled',
+      'crystal-trees': 'decorative',
+      'crystal-bracelets': 'jewelry',
+      'crystal-kits': 'kits',
+      'crystal-bottles': 'accessories'
+    };
+    return categoryMap[collectionId] || 'healing';
+  };
+
+  const collectionCategory = getCollectionCategory(id || '');
+  const products = allProducts.filter(product => 
+    product.category === collectionCategory || 
+    (collectionCategory === 'healing' && product.category === 'bracelet') // Map healing crystals to bracelet category
+  );
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -140,6 +102,44 @@ const CollectionDetail = () => {
         return a.name.localeCompare(b.name);
     }
   });
+
+  // Loading state
+  if (productsLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
+        <Header />
+        <div className="pt-32 pb-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center py-20">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#b094b2] mx-auto mb-4"></div>
+              <h2 className="text-xl font-semibold text-gray-800 mb-2">Loading Collection</h2>
+              <p className="text-gray-600">Please wait while we fetch the products...</p>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Error state
+  if (productsError) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
+        <Header />
+        <div className="pt-32 pb-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center py-20">
+              <h2 className="text-xl font-semibold text-red-600 mb-2">Error Loading Collection</h2>
+              <p className="text-gray-600 mb-4">{productsError}</p>
+              <Button onClick={() => window.location.reload()}>Try Again</Button>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   const toggleWishlist = (productId: string) => {
     setWishlist(prev => 
