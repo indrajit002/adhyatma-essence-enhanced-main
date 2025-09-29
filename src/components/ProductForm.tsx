@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
+import ImageUpload from '@/components/ImageUpload';
 
 interface ProductFormProps {
   onSuccess?: () => void;
@@ -160,14 +161,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
             </div>
 
             <div>
-              <Label htmlFor="image">Image URL *</Label>
-              <Input
-                id="image"
-                value={formData.image}
-                onChange={(e) => setFormData({...formData, image: e.target.value})}
-                placeholder="https://example.com/image.jpg"
-                required
+              <Label>Product Image *</Label>
+              <ImageUpload
+                onImageSelect={(url) => setFormData({...formData, image: url})}
+                currentImage={formData.image}
+                className="mt-2"
               />
+              {!formData.image && (
+                <p className="text-sm text-red-600 mt-1">Please upload an image</p>
+              )}
             </div>
           </CardContent>
         </Card>

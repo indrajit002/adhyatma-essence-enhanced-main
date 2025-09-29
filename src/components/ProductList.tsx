@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Edit, Trash2, Eye } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
+import ImagePreview from '@/components/ImagePreview';
 
 interface Product {
   id: string;
@@ -113,19 +114,12 @@ const ProductList: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {products.map((product) => (
           <Card key={product.id} className="overflow-hidden">
-            <div className="aspect-square bg-gray-100">
-              {product.image_url ? (
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-400">
-                  No Image
-                </div>
-              )}
-            </div>
+            <ImagePreview
+              src={product.image_url}
+              alt={product.name}
+              size="lg"
+              className="w-full"
+            />
             
             <CardHeader className="pb-2">
               <div className="flex justify-between items-start">
