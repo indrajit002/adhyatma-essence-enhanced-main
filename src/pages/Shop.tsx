@@ -18,7 +18,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useCart } from '@/hooks/useCart';
 import { useProducts } from '@/hooks/useProducts';
-import { categories, colors, type Product } from '@/data/products';
+import { categories, type Product } from '@/data/products';
 
 const Shop = () => {
   const { addItem } = useCart();
@@ -26,9 +26,8 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('name');
-  const [priceRange, setPriceRange] = useState([0, 200]);
+  const [priceRange, setPriceRange] = useState([0, 5000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [wishlist, setWishlist] = useState<string[]>([]);
 
@@ -39,10 +38,8 @@ const Shop = () => {
     const matchesCategory = selectedCategories.length === 0 || 
                            selectedCategories.includes(product.category || '') ||
                            selectedCategories.includes('all');
-    const matchesColor = selectedColors.length === 0 || 
-                        (product.colors && product.colors.some(color => selectedColors.includes(color)));
     
-    return matchesSearch && matchesPrice && matchesCategory && matchesColor;
+    return matchesSearch && matchesPrice && matchesCategory;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -75,13 +72,6 @@ const Shop = () => {
     );
   };
 
-  const toggleColor = (color: string) => {
-    setSelectedColors(prev => 
-      prev.includes(color)
-        ? prev.filter(c => c !== color)
-        : [...prev, color]
-    );
-  };
 
   if (productsLoading) {
     return (
@@ -208,25 +198,6 @@ const Shop = () => {
                   </div>
                 </div>
 
-                {/* Colors */}
-                <div className="mb-8">
-                  <h4 className="font-semibold text-gray-800 mb-4">Colors</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {colors.map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => toggleColor(color)}
-                        className={`px-3 py-1 rounded-full text-sm transition-all duration-200 ${
-                          selectedColors.includes(color)
-                            ? 'bg-[#d1bccd] text-[#b094b2] border border-[#b094b2]'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }`}
-                      >
-                        {color}
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
                 {/* Price Range */}
                 <div className="mb-8">
@@ -250,7 +221,7 @@ const Shop = () => {
                       />
                     </div>
                     <div className="text-sm text-gray-600">
-                      ${priceRange[0]} - ${priceRange[1]}
+                      ₹{priceRange[0]} - ₹{priceRange[1]}
                     </div>
                   </div>
                 </div>
@@ -261,8 +232,7 @@ const Shop = () => {
                   className="w-full"
                   onClick={() => {
                     setSelectedCategories([]);
-                    setSelectedColors([]);
-                    setPriceRange([0, 200]);
+                    setPriceRange([0, 5000]);
                     setSearchTerm('');
                   }}
                 >

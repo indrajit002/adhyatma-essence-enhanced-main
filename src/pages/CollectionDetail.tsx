@@ -25,8 +25,7 @@ const CollectionDetail = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('name');
-  const [priceRange, setPriceRange] = useState([0, 500]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState([0, 10000]);
   const [wishlist, setWishlist] = useState<string[]>([]);
 
   // Mock collection data - in real app, this would come from API
@@ -123,10 +122,8 @@ const CollectionDetail = () => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          product.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-    const matchesColor = selectedColors.length === 0 || 
-                        product.colors.some(color => selectedColors.includes(color));
     
-    return matchesSearch && matchesPrice && matchesColor;
+    return matchesSearch && matchesPrice;
   });
 
   const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -271,26 +268,6 @@ const CollectionDetail = () => {
               </div>
             </div>
 
-            {/* Color Filters */}
-            <div className="flex flex-wrap gap-2">
-              {collection.colors.map((color) => (
-                <Button
-                  key={color}
-                  variant={selectedColors.includes(color) ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => {
-                    setSelectedColors(prev => 
-                      prev.includes(color)
-                        ? prev.filter(c => c !== color)
-                        : [...prev, color]
-                    );
-                  }}
-                  className="rounded-full"
-                >
-                  {color}
-                </Button>
-              ))}
-            </div>
           </div>
 
           {/* Products Grid/List */}

@@ -13,6 +13,7 @@ interface Profile {
   city?: string;
   state?: string;
   zip_code?: string;
+  is_admin?: boolean;
   updated_at?: string;
 }
 
@@ -28,6 +29,7 @@ interface AuthState {
 interface AuthContextType extends AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
+  isAdmin: boolean;
   signIn: (email: string, password: string) => Promise<{ user: SupabaseUser | null; session: Session | null }>;
   signUp: (userData: Omit<Profile, 'id' | 'updated_at'> & { password: string; email: string }) => Promise<{ user: SupabaseUser | null; session: Session | null }>;
   signOut: () => Promise<void>;
@@ -503,6 +505,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     status,
     isAuthenticated: status === 'authenticated',
     isLoading: status === 'loading',
+    isAdmin: user?.is_admin === true,
     error,
     signIn,
     signUp,

@@ -31,6 +31,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import CheckoutSimple from "./pages/CheckoutSimple";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ const App = () => (
                       <Route path="/confirm-email" element={<ConfirmEmail />} />
                       <Route path="/forgot-password" element={<ForgotPassword />} />
                       <Route path="/reset-password" element={<ResetPassword />} />
+                      <Route path="/admin" element={<AdminDashboard />} />
                     </Route>
 
                     {/* This is the catch-all route for pages that don't exist */}
