@@ -31,37 +31,27 @@ const CollectionDetail = () => {
   const [priceRange, setPriceRange] = useState([0, 10000]);
   const [wishlist, setWishlist] = useState<string[]>([]);
 
-  // Mock collection data - in real app, this would come from API
-  const collectionData = {
-    'healing-crystals': {
-      name: 'Healing Crystals',
-      description: 'Powerful stones for physical and emotional healing. Each crystal is carefully selected for its unique energy properties and healing benefits.',
-      image: '/src/assets/healing-crystals.jpg',
-      bannerImage: '/src/assets/healing-crystals.jpg',
-      productCount: 24,
-      featured: true,
-      colors: ['Purple', 'Pink', 'Clear', 'Green', 'Blue'],
-      priceRange: '₹15 - ₹120',
-      category: 'Healing',
-      benefits: ['Emotional Healing', 'Physical Wellness', 'Energy Balance', 'Stress Relief']
-    },
-    'natural-crystals': {
-      name: 'Natural Crystals',
-      description: 'Raw, unpolished crystals in their natural form. These stones maintain their original energy and connection to the earth.',
-      image: '/src/assets/natural-crystals.jpg',
-      bannerImage: '/src/assets/natural-crystals.jpg',
-      productCount: 18,
-      featured: false,
-      colors: ['Green', 'Blue', 'White', 'Brown', 'Gray'],
-      priceRange: '₹25 - ₹200',
-      category: 'Natural',
-      benefits: ['Grounding', 'Natural Energy', 'Earth Connection', 'Raw Power']
-    }
+  // Collection descriptions for different categories
+  const collectionDescriptions: { [key: string]: string } = {
+    'all': 'Complete collection of all our crystal products, carefully curated for their healing properties and beauty.',
+    'bracelet': 'Elegant crystal bracelets for daily energy and style. Each piece is designed to bring positive energy and healing to your everyday life.',
+    'rudraksh': 'Sacred Rudraksh beads for spiritual protection and meditation. These powerful beads have been used for centuries in spiritual practices.',
+    'frames': 'Beautiful crystal frames for displaying sacred images. Perfect for creating a sacred space in your home.',
+    'anklet': 'Delicate crystal anklets for grounding and protection. Wear these beautiful pieces to stay connected to the earth\'s energy.',
+    'pyramid': 'Powerful crystal pyramids for energy amplification. These sacred geometric shapes help focus and amplify crystal energy.',
+    'tower-and-tumbles': 'Crystal towers and tumbled stones for energy work. Perfect for beginners and experienced practitioners alike.',
+    'raw-stones': 'Natural, unpolished crystals in their pure form. These stones maintain their original energy and connection to the earth.',
+    'selenite-plates': 'Cleansing selenite plates for crystal charging. Essential tools for maintaining the energy of your crystal collection.',
+    'geode': 'Stunning crystal geodes for home decoration. These natural formations bring beauty and energy to any space.',
+    'mala': 'Sacred prayer beads for meditation and mindfulness. Each mala is carefully crafted for spiritual practice.',
+    'hangers': 'Crystal hangers for car and home protection. Keep positive energy flowing in your spaces.',
+    'tumble-set': 'Curated sets of tumbled crystals for beginners. Perfect for starting your crystal journey.',
+    'trees': 'Beautiful crystal trees for home decoration and energy. These decorative pieces bring positive energy to any room.'
   };
 
   // Dynamic collection data based on category
   const getCollectionData = (categoryId: string) => {
-    const categoryProducts = allProducts.filter(p => p.category === categoryId);
+    const categoryProducts = categoryId === 'all' ? allProducts : allProducts.filter(p => p.category === categoryId);
     const prices = categoryProducts.map(p => p.price);
     const minPrice = categoryProducts.length > 0 ? Math.min(...prices) : 0;
     const maxPrice = categoryProducts.length > 0 ? Math.max(...prices) : 0;
@@ -82,16 +72,19 @@ const CollectionDetail = () => {
       'tumble-set': 'Tumble Set',
       'trees': 'Trees'
     };
+
+    // Get unique colors from products in this category
+    const uniqueColors = [...new Set(categoryProducts.flatMap(p => Array.isArray(p.colors) ? p.colors : []))];
     
     return {
       name: categoryNames[categoryId] || 'Collection',
-      description: `Explore our ${categoryNames[categoryId]?.toLowerCase() || 'crystal'} collection`,
+      description: collectionDescriptions[categoryId] || `Explore our ${categoryNames[categoryId]?.toLowerCase() || 'crystal'} collection`,
       image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
       bannerImage: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&h=400&fit=crop&crop=center',
       productCount: categoryProducts.length,
       featured: true,
-      colors: ['Mixed'],
-      priceRange: `₹${minPrice} - ₹${maxPrice}`,
+      colors: uniqueColors.length > 0 ? uniqueColors : ['Mixed'],
+      priceRange: categoryProducts.length > 0 ? `₹${minPrice} - ₹${maxPrice}` : '₹0 - ₹0',
       category: categoryNames[categoryId] || 'Collection',
       benefits: ['Quality', 'Authentic', 'Healing']
     };
@@ -100,11 +93,10 @@ const CollectionDetail = () => {
   const collection = getCollectionData(id || 'bracelet');
 
   // Filter products by collection category
-  // Since we're now using actual category IDs, we can use them directly
   const collectionCategory = id || 'bracelet';
-  const products = allProducts.filter(product => 
-    product.category === collectionCategory
-  );
+  const products = collectionCategory === 'all' 
+    ? allProducts 
+    : allProducts.filter(product => product.category === collectionCategory);
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -433,7 +425,7 @@ const CollectionDetail = () => {
         </div>
       </section>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

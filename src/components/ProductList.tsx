@@ -18,6 +18,7 @@ interface DatabaseProduct {
   original_price?: number;
   image_url: string;
   category: string;
+  colors: string[];
   rating: number;
   reviewCount: number;
   sizes: number[];
@@ -38,6 +39,7 @@ const mapDatabaseProduct = (dbProduct: DatabaseProduct): Product => ({
   reviewCount: dbProduct.reviewCount,
   category: dbProduct.category as Product['category'],
   sizes: dbProduct.sizes,
+  colors: dbProduct.colors || [],
   inStock: dbProduct.in_stock,
   featured: dbProduct.is_featured,
   description: dbProduct.description,

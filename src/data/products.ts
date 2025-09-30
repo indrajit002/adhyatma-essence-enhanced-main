@@ -16,6 +16,7 @@ export interface Product {
   reviewCount: number;
   category: 'bracelet' | 'rudraksh' | 'frames' | 'anklet' | 'pyramid' | 'tower-and-tumbles' | 'raw-stones' | 'selenite-plates' | 'geode' | 'mala' | 'hangers' | 'tumble-set' | 'trees';
   sizes: number[];
+  colors: string[];
   inStock: boolean;
   featured: boolean;
   description: string;
