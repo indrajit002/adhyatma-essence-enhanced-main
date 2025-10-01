@@ -1,6 +1,4 @@
-import { createRouteHandler } from "uploadthing/next";
-import { ourFileRouter } from "./core";
-
-export const { GET, POST } = createRouteHandler({
-  router: ourFileRouter,
-});
+// This file is for Next.js API routes
+// For Vite/React, we'll use a different approach
+export const GET = () => new Response("UploadThing API", { status: 200 });
+export const POST = () => new Response("UploadThing API", { status: 200 });
