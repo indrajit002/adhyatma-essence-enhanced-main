@@ -65,9 +65,9 @@ const OurStory = () => {
                 <div className="relative top-[-150px] max-sm:top-0">
                   <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                     <img 
-                      src='https://img.freepik.com/premium-photo/portrait-positive-cheerful-brunette-girl-green-spring-park_81340-2331.jpg'
+                      src='/src/assets/profile/profile.png'
                       alt="Dipshikkha Baruahh - Founder & Spiritual Guide"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain object-center"
                     />
                   </div>
                   <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white px-6 py-2 rounded-full shadow-lg">
