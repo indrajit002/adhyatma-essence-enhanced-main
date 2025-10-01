@@ -160,7 +160,7 @@ export class OrderService {
           totalAmount: order.total_amount,
           shippingAddress: order.shipping_address,
           status: order.status.toLowerCase(),
-          paymentMethod: order.payment_method || 'card', // Default to 'card' for backward compatibility
+          paymentMethod: order.payment_method || 'cod', // Default to 'cod' for backward compatibility
           createdAt: order.created_at,
           updatedAt: order.created_at
         }));

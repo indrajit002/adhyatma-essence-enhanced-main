@@ -414,7 +414,7 @@ const CollectionDetail = () => {
                 onClick={() => {
                   setSearchTerm('');
                   setSelectedColors([]);
-                  setPriceRange([0, 500]);
+                  setPriceRange([0, 500]);r
                 }}
                 className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white px-8 py-3 rounded-full"
               >

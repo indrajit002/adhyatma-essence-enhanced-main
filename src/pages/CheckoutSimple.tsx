@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { useCart } from '@/hooks/useCart';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/components/ui/sonner';
@@ -30,7 +29,7 @@ export default function CheckoutSimple() {
     zipCode: '',
   });
 
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'cod'>('card');
+  const [paymentMethod, setPaymentMethod] = useState<'cod'>('cod');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isSubmittingRef = useRef(false);
 
@@ -234,26 +233,19 @@ export default function CheckoutSimple() {
 
                     <div className="pt-4">
                       <Label className="text-lg font-semibold">Payment Method</Label>
-                      <RadioGroup
-                        value={paymentMethod}
-                        onValueChange={(value: 'card' | 'cod') => setPaymentMethod(value)}
-                        className="mt-2 space-y-2"
-                      >
-                        <div className="flex items-center space-x-2 rounded-lg border p-4">
-                          <RadioGroupItem value="card" id="card" />
-                          <Label htmlFor="card" className="flex-1 cursor-pointer">
-                            Credit/Debit Card (Online Payment)
-                            <p className="text-sm text-muted-foreground">Secure payment via our gateway.</p>
-                          </Label>
+                      <div className="mt-2">
+                        <div className="flex items-center space-x-2 rounded-lg border p-4 bg-green-50 border-green-200">
+                          <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          </div>
+                          <div className="flex-1">
+                            <Label className="cursor-pointer text-green-800 font-medium">
+                              Cash on Delivery (COD)
+                            </Label>
+                            <p className="text-sm text-green-600">Pay with cash when your order arrives. No online payment required.</p>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2 rounded-lg border p-4">
-                          <RadioGroupItem value="cod" id="cod" />
-                          <Label htmlFor="cod" className="flex-1 cursor-pointer">
-                            Cash on Delivery (COD)
-                            <p className="text-sm text-muted-foreground">Pay with cash when your order arrives.</p>
-                          </Label>
-                        </div>
-                      </RadioGroup>
+                      </div>
                     </div>
 
                     <Button

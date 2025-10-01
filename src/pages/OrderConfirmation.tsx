@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/components/ui/sonner';
-import { CheckCircle, Package, CalendarDays, Home, ShoppingBag, MapPin, CreditCard, Truck } from 'lucide-react';
+import { CheckCircle, Package, CalendarDays, Home, ShoppingBag, MapPin, Truck } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { OrderService } from '@/services/orderService';
@@ -207,17 +207,8 @@ export default function OrderConfirmation() {
                    <div>
                     <h4 className="font-semibold mb-3 text-gray-800">Payment</h4>
                     <div className="flex items-center space-x-3 text-gray-600 text-sm">
-                       {order.paymentMethod === 'cod' ? (
-                          <>
-                            <Truck className="w-5 h-5 text-gray-400" />
-                            <p>Cash on Delivery (COD)</p>
-                          </>
-                        ) : (
-                          <>
-                            <CreditCard className="w-5 h-5 text-gray-400" />
-                            <p>Paid by Card</p>
-                          </>
-                        )}
+                      <Truck className="w-5 h-5 text-gray-400" />
+                      <p>Cash on Delivery (COD)</p>
                     </div>
                   </div>
                 </div>
