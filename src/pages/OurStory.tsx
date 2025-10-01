@@ -1,146 +1,14 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
-  Heart, 
-  Users, 
-  Globe, 
-  Award, 
-  Leaf, 
-  Sparkles,
-  ArrowRight,
-  Quote,
-  Star
+  ArrowRight
 } from 'lucide-react';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import healingCrystalsImg from '@/assets/healing-crystals.jpg';
-import naturalCrystalsImg from '@/assets/natural-crystals.jpg';
-import crystalKitsImg from '@/assets/crystal-kits.jpg';
-import crystalBraceletsImg from '@/assets/crystal-bracelets.jpg';
-import crystalTreesImg from '@/assets/crystal-trees.jpg';
-import crystalBottlesImg from '@/assets/crystal-bottles.jpg';
 
 const OurStory = () => {
   const heroRef = useScrollAnimation({ threshold: 0.1 });
-  const missionRef = useScrollAnimation({ threshold: 0.2 });
-  const valuesRef = useScrollAnimation({ threshold: 0.2 });
-  const timelineRef = useScrollAnimation({ threshold: 0.2 });
-  const teamRef = useScrollAnimation({ threshold: 0.2 });
-  const testimonialsRef = useScrollAnimation({ threshold: 0.2 });
-  const ctaRef = useScrollAnimation({ threshold: 0.2 });
-
-  const values = [
-    {
-      icon: Heart,
-      title: 'Ethical Sourcing',
-      description: 'We work directly with miners and suppliers who share our commitment to fair labor practices and environmental responsibility.',
-      color: 'from-red-500 to-[#d1bccd]'
-    },
-    {
-      icon: Leaf,
-      title: 'Environmental Care',
-      description: 'Every crystal is sourced with respect for the earth, ensuring minimal environmental impact and sustainable practices.',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      icon: Users,
-      title: 'Community Impact',
-      description: 'We support local communities where our crystals are sourced, contributing to education and economic development.',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      icon: Award,
-      title: 'Quality Assurance',
-      description: 'Each crystal undergoes careful inspection and energetic cleansing before reaching our customers.',
-      color: 'from-[#b094b2] to-violet-500'
-    }
-  ];
-
-  const milestones = [
-    {
-      year: '2018',
-      title: 'The Beginning',
-      description: 'Founded with a vision to make healing crystals accessible while maintaining the highest ethical standards.',
-      image: healingCrystalsImg
-    },
-    {
-      year: '2019',
-      title: 'First Partnership',
-      description: 'Established our first direct partnership with ethical crystal miners in Brazil and Madagascar.',
-      image: naturalCrystalsImg
-    },
-    {
-      year: '2020',
-      title: 'Digital Transformation',
-      description: 'Launched our online platform, making healing crystals accessible to customers worldwide.',
-      image: crystalKitsImg
-    },
-    {
-      year: '2021',
-      title: 'Community Growth',
-      description: 'Reached 10,000 customers and launched our educational crystal care program.',
-      image: crystalBraceletsImg
-    },
-    {
-      year: '2022',
-      title: 'Sustainability Initiative',
-      description: 'Introduced our carbon-neutral shipping program and sustainable packaging solutions.',
-      image: crystalTreesImg
-    },
-    {
-      year: '2023',
-      title: 'Global Expansion',
-      description: 'Expanded to serve customers in 25 countries with localized crystal collections.',
-      image: crystalBottlesImg
-    }
-  ];
-
-  const team = [
-    {
-      name: 'Sarah Chen',
-      role: 'Founder & CEO',
-      image: healingCrystalsImg,
-      bio: 'A certified crystal therapist with 15 years of experience in energy healing and crystal therapy.',
-      specialties: ['Crystal Therapy', 'Energy Healing', 'Ethical Sourcing']
-    },
-    {
-      name: 'Marcus Rodriguez',
-      role: 'Head of Sourcing',
-      image: naturalCrystalsImg,
-      bio: 'Geologist and ethical sourcing expert who ensures every crystal meets our high standards.',
-      specialties: ['Geology', 'Ethical Sourcing', 'Quality Control']
-    },
-    {
-      name: 'Priya Sharma',
-      role: 'Customer Experience Director',
-      image: crystalKitsImg,
-      bio: 'Dedicated to creating meaningful connections between customers and their healing journey.',
-      specialties: ['Customer Care', 'Crystal Education', 'Community Building']
-    }
-  ];
-
-  const testimonials = [
-    {
-      text: "Adhyatma has transformed my spiritual practice. The quality and energy of their crystals is unmatched.",
-      author: "Emma Thompson",
-      location: "Melbourne, Australia",
-      rating: 5
-    },
-    {
-      text: "I love knowing that my crystals are ethically sourced. It makes my practice feel more authentic.",
-      author: "David Kim",
-      location: "Seoul, South Korea",
-      rating: 5
-    },
-    {
-      text: "The educational resources and customer service are exceptional. I've learned so much about crystal care.",
-      author: "Maria Santos",
-      location: "Barcelona, Spain",
-      rating: 5
-    }
-  ];
+  const profileRef = useScrollAnimation({ threshold: 0.2 });
 
   return (
     <div className="min-h-screen bg-white">
@@ -186,238 +54,89 @@ const OurStory = () => {
           </div>
         </div>
       </section>
-
-      {/* Our Mission */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
+      
+      {/* Profile Section */}
+      <section className="py-16 bg-gradient-to-br from-white to-[#f8f5f9]" ref={profileRef}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <div className="scroll-animate" ref={missionRef}>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-6 md:mb-8 text-gray-900 leading-tight">
-                  Our Mission
-                </h2>
-                <div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-600 leading-relaxed font-lato-light">
-                  <p>
-                    At <span className="font-semibold text-[#b094b2]">Adhyatma</span>, we believe that crystals are more than beautiful objects – 
-                    they are powerful tools for healing, growth, and transformation. Our mission is to make these 
-                    ancient gifts accessible to everyone while maintaining the highest standards of ethical sourcing 
-                    and environmental responsibility.
-                  </p>
-                  <p>
-                    We work directly with miners and suppliers who share our values, ensuring that every crystal 
-                    in our collection is sourced with respect for both the earth and the communities that call 
-                    these places home.
-                  </p>
-                  <p>
-                    Through education, intention, and authentic connection, we empower individuals to align with 
-                    their highest selves and walk the path of inner peace and purpose.
-                  </p>
-                </div>
-              </div>
-              <div className="scroll-animate" ref={missionRef}>
-                <div className="relative">
-                  <img 
-                    src={healingCrystalsImg} 
-                    alt="Our crystal collection" 
-                    className="rounded-2xl shadow-2xl w-full h-96 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <h3 className="text-2xl font-bold mb-2">Ethically Sourced</h3>
-                    <p className="text-lg">Every crystal tells a story</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Values */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-[#d1bccd]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={valuesRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
-                Our Values
-              </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
-                These core principles guide everything we do, from sourcing crystals to serving our customers.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-              {values.map((value, index) => (
-                <div key={index} className="scroll-animate" ref={valuesRef}>
-                  <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 text-center group h-full">
-                    <div className={`w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r ${value.color} rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                      <value.icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-gray-900 font-cormorant-light">{value.title}</h3>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed font-lato-light">{value.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={timelineRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
-                Our Journey
-              </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
-                From humble beginnings to a global community of crystal lovers.
-              </p>
-            </div>
-            <div className="space-y-8 sm:space-y-12">
-              {milestones.map((milestone, index) => (
-                <div key={index} className={`flex flex-col lg:flex-row gap-6 sm:gap-8 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                  <div className="lg:w-1/2 scroll-animate" ref={timelineRef}>
-                    <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 h-full">
-                      <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2 sm:gap-4">
-                        <Badge className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white px-3 sm:px-4 py-1 text-sm sm:text-lg w-fit">
-                          {milestone.year}
-                        </Badge>
-                        <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-cormorant-light">{milestone.title}</h3>
-                      </div>
-                      <p className="text-gray-600 leading-relaxed text-base sm:text-lg font-lato-light">{milestone.description}</p>
-                    </div>
-                  </div>
-                  <div className="lg:w-1/2 scroll-animate" ref={timelineRef}>
+            <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+              {/* Round Image on Left */}
+              <div className="w-full lg:w-2/5 flex justify-center">
+                <div className="relative top-[-150px] max-sm:top-0">
+                  <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                     <img 
-                      src={milestone.image} 
-                      alt={milestone.title} 
-                      className="rounded-2xl shadow-lg w-full h-48 sm:h-56 lg:h-64 object-cover hover:shadow-2xl transition-all duration-500"
+                      src='https://img.freepik.com/premium-photo/portrait-positive-cheerful-brunette-girl-green-spring-park_81340-2331.jpg'
+                      alt="Dipshikkha Baruahh - Founder & Spiritual Guide"
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#d1bccd] via-white to-[#d1bccd]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={teamRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
-                Meet Our Team
-              </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
-                The passionate individuals behind Adhyatma's mission.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {team.map((member, index) => (
-                <div key={index} className="scroll-animate" ref={teamRef}>
-                  <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 text-center group h-full">
-                    <div className="relative mb-4 sm:mb-6">
-                      <img 
-                        src={member.image} 
-                        alt={member.name} 
-                        className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full object-cover mx-auto shadow-lg group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 rounded-full bg-gradient-to-r from-[#b094b2]/30 to-[#d1bccd]/30 mx-auto blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-900 font-cormorant-light">{member.name}</h3>
-                    <p className="text-[#b094b2] font-semibold mb-3 sm:mb-4 text-sm sm:text-base font-madefor-medium">{member.role}</p>
-                    <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base font-lato-light">{member.bio}</p>
-                    <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
-                      {member.specialties.map((specialty, specIndex) => (
-                        <Badge key={specIndex} variant="outline" className="text-xs px-2 py-1">
-                          {specialty}
-                        </Badge>
-                      ))}
-                    </div>
+                  <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white px-6 py-2 rounded-full shadow-lg">
+                    <span className="font-arial font-medium">Founder</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 sm:mb-16 scroll-animate" ref={testimonialsRef}>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-4 sm:mb-6 text-gray-900 leading-tight">
-                What Our Community Says
-              </h2>
-              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4 font-lato-light">
-                Hear from the amazing people who have joined us on this journey.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className="scroll-animate" ref={testimonialsRef}>
-                  <div className="bg-gradient-to-br from-[#d1bccd] to-[#d1bccd] rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 relative h-full">
-                    <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-[#d1bccd] absolute top-4 right-4 sm:top-6 sm:right-6" />
-                    <div className="flex items-center mb-3 sm:mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-gray-700 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base font-lato-light">
-                      "{testimonial.text}"
-                    </p>
-                    <div>
-                      <h4 className="font-bold text-gray-900 text-base sm:text-lg font-cormorant-light">{testimonial.author}</h4>
-                      <p className="text-gray-600 text-sm sm:text-base font-lato-light">{testimonial.location}</p>
-                    </div>
-                  </div>
+              </div>
+              
+              {/* Information on Right */}
+              <div className="w-full lg:w-3/5 text-center lg:text-left">
+                <Badge className="bg-gradient-to-r from-[#b094b2] to-[#d1bccd] text-white px-4 py-1 text-sm mb-4 inline-block">
+                  Meet Our Founder
+                </Badge>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-cormorant-light text-gray-900 mb-6">
+                  Dipshikkha Baruahh
+                </h2>
+                <h3 className="text-xl sm:text-2xl text-[#8a6b8d] font-lato-light mb-6 italic">
+                  Spiritual Guide • Numerologist • Tarot Reader • Energy Healer
+                </h3>
+                
+                <div className="space-y-6 text-gray-700 font-lato-light leading-relaxed">
+                  <p className="text-lg sm:text-xl">
+                    I'm <span className="font-semibold text-[#8a6b8d]">Dipshikkha Baruahh</span>, a dedicated spiritual practitioner 
+                    with a profound passion for helping individuals discover their true path and achieve inner harmony.
+                  </p>
+                  
+                  <p className="text-lg sm:text-xl">
+                    With extensive training and intuitive gifts in <span className="font-semibold">numerology</span>, I guide people 
+                    to understand their life's purpose, personal cycles, and hidden potentials through the sacred science of numbers. 
+                    Each number carries unique vibrations that can reveal profound insights about your journey.
+                  </p>
+                  
+                  <p className="text-lg sm:text-xl">
+                    As a <span className="font-semibold">tarot reader</span>, I use the ancient wisdom of the cards to provide clarity 
+                    and guidance during times of uncertainty. The tarot serves as a mirror to the soul, helping you see situations 
+                    from new perspectives and make empowered decisions.
+                  </p>
+                  
+                  <p className="text-lg sm:text-xl">
+                    My work as an <span className="font-semibold">energy healer</span> focuses on restoring balance to your mind, 
+                    body, and spirit. Through various energy work techniques, I help release blockages, heal emotional wounds, 
+                    and align your energy with your highest good.
+                  </p>
+                  
+                  <p className="text-lg sm:text-xl font-medium text-[#8a6b8d]">
+                    My mission is to empower you with the tools and insights needed for spiritual growth, 
+                    helping you find clarity, balance, and transformation on your unique life journey.
+                  </p>
                 </div>
-              ))}
+                
+                <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                  <Button 
+                    className="px-8 py-3 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white rounded-full font-arial transition-all duration-300"
+                  >
+                    Book a Session
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    className="px-8 py-3 border-2 border-[#b094b2] text-[#b094b2] hover:bg-[#b094b2] hover:text-white rounded-full font-arial transition-all duration-300"
+                  >
+                    Learn About My Services
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center scroll-animate" ref={ctaRef}>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-cormorant-light mb-6 sm:mb-8 leading-tight">
-              Join Our Community
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 sm:mb-12 leading-relaxed px-4 font-lato-light">
-              Be part of a global community dedicated to healing, growth, and positive change. 
-              Discover the perfect crystals for your journey.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center px-4">
-              <Button 
-                className="px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl bg-gradient-to-r from-white to-gray-100 text-gray-900 hover:from-gray-100 hover:to-gray-200 rounded-full font-arial tracking-wide transition-all duration-500 hover:shadow-2xl hover:scale-105 transform w-full sm:w-auto"
-                onClick={() => {
-                  const shopSection = document.getElementById('shop');
-                  if (shopSection) {
-                    shopSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
-                Start Your Journey
-              </Button>
-              <Button 
-                variant="outline"
-                className="px-8 sm:px-12 py-4 sm:py-6 text-lg sm:text-xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 rounded-full font-arial tracking-wide backdrop-blur-sm w-full sm:w-auto"
-                onClick={() => window.location.href = '/shop'}
-              >
-                Learn About Crystals
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* <Footer /> */}
     </div>
   );
 };
