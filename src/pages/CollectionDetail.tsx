@@ -21,6 +21,22 @@ import { useCart } from '@/hooks/useCart';
 import { useProducts } from '@/hooks/useProducts';
 import SizeDisplay from '@/components/SizeDisplay';
 
+// Import category images
+import allProductsImage from '@/assets/all_products_category_image.png';
+import braceletImage from '@/assets/bracelet_category_image.png';
+import rudrakshImage from '@/assets/rudraksh_category_image.png';
+import framesImage from '@/assets/frames_category_image.png';
+import ankletImage from '@/assets/anklet_category_image.png';
+import pyramidImage from '@/assets/pyramid_category_image.png';
+import towerTumbleImage from '@/assets/tower_tuble_category_image.png';
+import rawStoneImage from '@/assets/raw_stone_category.png';
+import selenitePlateImage from '@/assets/selenite_plate_category_image.png';
+import geodeImage from '@/assets/geode_category_image.png';
+import malaImage from '@/assets/mala_category_image.png';
+import hangersImage from '@/assets/hangers_category_image.png';
+import tumbleSetImage from '@/assets/tumble_set_category_image.png';
+import treesImage from '@/assets/trees_category_image.png';
+
 const CollectionDetail = () => {
   const { id } = useParams();
   const { addItem } = useCart();
@@ -47,6 +63,24 @@ const CollectionDetail = () => {
     'hangers': 'Crystal hangers for car and home protection. Keep positive energy flowing in your spaces.',
     'tumble-set': 'Curated sets of tumbled crystals for beginners. Perfect for starting your crystal journey.',
     'trees': 'Beautiful crystal trees for home decoration and energy. These decorative pieces bring positive energy to any room.'
+  };
+
+  // Category image mapping
+  const categoryImages: { [key: string]: string } = {
+    'all': allProductsImage,
+    'bracelet': braceletImage,
+    'rudraksh': rudrakshImage,
+    'frames': framesImage,
+    'anklet': ankletImage,
+    'pyramid': pyramidImage,
+    'tower-and-tumbles': towerTumbleImage,
+    'raw-stones': rawStoneImage,
+    'selenite-plates': selenitePlateImage,
+    'geode': geodeImage,
+    'mala': malaImage,
+    'hangers': hangersImage,
+    'tumble-set': tumbleSetImage,
+    'trees': treesImage
   };
 
   // Dynamic collection data based on category
@@ -79,8 +113,8 @@ const CollectionDetail = () => {
     return {
       name: categoryNames[categoryId] || 'Collection',
       description: collectionDescriptions[categoryId] || `Explore our ${categoryNames[categoryId]?.toLowerCase() || 'crystal'} collection`,
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
-      bannerImage: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&h=400&fit=crop&crop=center',
+      image: categoryImages[categoryId] || allProductsImage,
+      bannerImage: categoryImages[categoryId] || allProductsImage,
       productCount: categoryProducts.length,
       featured: true,
       colors: uniqueColors.length > 0 ? uniqueColors : ['Mixed'],
