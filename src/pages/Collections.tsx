@@ -6,6 +6,20 @@ import { Search, Filter, Grid, List } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useProducts } from '@/hooks/useProducts';
+import allProductsImage from '@/assets/all_products_category_image.png';
+import braceletImage from '@/assets/bracelet_category_image.png';
+import rudrakshImage from '@/assets/rudraksh_category_image.png';
+import framesImage from '@/assets/frames_category_image.png';
+import ankletImage from '@/assets/anklet_category_image.png';
+import pyramidImage from '@/assets/pyramid_category_image.png';
+import towerTumbleImage from '@/assets/tower_tuble_category_image.png';
+import rawStoneImage from '@/assets/raw_stone_category.png';
+import selenitePlateImage from '@/assets/selenite_plate_category_image.png';
+import geodeImage from '@/assets/geode_category_image.png';
+import malaImage from '@/assets/mala_category_image.png';
+import hangersImage from '@/assets/hangers_category_image.png';
+import tumbleSetImage from '@/assets/tumble_set_category_image.png';
+import treesImage from '@/assets/trees_category_image.png';
 
 const Collections = () => {
   const navigate = useNavigate();
@@ -39,13 +53,13 @@ const Collections = () => {
     return `₹${minPrice} - ₹${maxPrice}`;
   };
 
-  // Collections based on actual categories with internet images
+  // Collections based on actual categories with custom images
   const collections = [
     {
       id: 'all',
       name: 'All Products',
       description: 'Complete collection of all our crystal products',
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      image: allProductsImage,
       productCount: getCategoryProductCount('all'),
       featured: true,
       colors: ['Mixed'],
@@ -55,7 +69,7 @@ const Collections = () => {
       id: 'bracelet',
       name: 'Bracelet',
       description: 'Elegant crystal bracelets for daily energy and style',
-      image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=500&h=300&fit=crop&crop=center',
+      image: braceletImage,
       productCount: getCategoryProductCount('bracelet'),
       featured: true,
       colors: ['Purple', 'Pink', 'Clear', 'Green'],
@@ -65,7 +79,7 @@ const Collections = () => {
       id: 'rudraksh',
       name: 'Rudraksh',
       description: 'Sacred Rudraksh beads for spiritual protection and meditation',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      image: rudrakshImage,
       productCount: getCategoryProductCount('rudraksh'),
       featured: false,
       colors: ['Brown', 'Dark Brown'],
@@ -75,7 +89,7 @@ const Collections = () => {
       id: 'frames',
       name: 'Frames',
       description: 'Beautiful crystal frames for displaying sacred images',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop&crop=center',
+      image: framesImage,
       productCount: getCategoryProductCount('frames'),
       featured: false,
       colors: ['Gold', 'Silver', 'Wood'],
@@ -85,7 +99,7 @@ const Collections = () => {
       id: 'anklet',
       name: 'Anklet',
       description: 'Delicate crystal anklets for grounding and protection',
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      image: ankletImage,
       productCount: getCategoryProductCount('anklet'),
       featured: false,
       colors: ['Silver', 'Gold', 'Mixed'],
@@ -95,7 +109,7 @@ const Collections = () => {
       id: 'pyramid',
       name: 'Pyramid',
       description: 'Powerful crystal pyramids for energy amplification',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      image: pyramidImage,
       productCount: getCategoryProductCount('pyramid'),
       featured: true,
       colors: ['Clear', 'Amethyst', 'Rose Quartz'],
@@ -105,7 +119,7 @@ const Collections = () => {
       id: 'tower-and-tumbles',
       name: 'Tower and Tumbles',
       description: 'Crystal towers and tumbled stones for energy work',
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      image: towerTumbleImage,
       productCount: getCategoryProductCount('tower-and-tumbles'),
       featured: false,
       colors: ['Mixed', 'Rainbow'],
@@ -115,7 +129,7 @@ const Collections = () => {
       id: 'raw-stones',
       name: 'Raw Stones',
       description: 'Natural, unpolished crystals in their pure form',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      image: rawStoneImage,
       productCount: getCategoryProductCount('raw-stones'),
       featured: true,
       colors: ['Green', 'Blue', 'Purple', 'Clear'],
@@ -125,7 +139,7 @@ const Collections = () => {
       id: 'selenite-plates',
       name: 'Selenite Plates',
       description: 'Cleansing selenite plates for crystal charging',
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      image: selenitePlateImage,
       productCount: getCategoryProductCount('selenite-plates'),
       featured: false,
       colors: ['White', 'Clear'],
@@ -135,7 +149,7 @@ const Collections = () => {
       id: 'geode',
       name: 'Geode',
       description: 'Stunning crystal geodes for home decoration',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      image: geodeImage,
       productCount: getCategoryProductCount('geode'),
       featured: true,
       colors: ['Purple', 'Pink', 'Clear', 'Mixed'],
@@ -145,7 +159,7 @@ const Collections = () => {
       id: 'mala',
       name: 'Mala',
       description: 'Sacred prayer beads for meditation and mindfulness',
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      image: malaImage,
       productCount: getCategoryProductCount('mala'),
       featured: false,
       colors: ['Brown', 'Mixed', 'Wood'],
@@ -155,7 +169,7 @@ const Collections = () => {
       id: 'hangers',
       name: 'Hangers',
       description: 'Crystal hangers for car and home protection',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop&crop=center',
+      image: hangersImage,
       productCount: getCategoryProductCount('hangers'),
       featured: false,
       colors: ['Mixed', 'Clear'],
@@ -165,7 +179,7 @@ const Collections = () => {
       id: 'tumble-set',
       name: 'Tumble Set',
       description: 'Curated sets of tumbled crystals for beginners',
-      image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=500&h=300&fit=crop&crop=center',
+      image: tumbleSetImage,
       productCount: getCategoryProductCount('tumble-set'),
       featured: true,
       colors: ['Mixed', 'Rainbow'],
@@ -175,7 +189,7 @@ const Collections = () => {
       id: 'trees',
       name: 'Trees',
       description: 'Beautiful crystal trees for home decoration and energy',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=300&fit=crop&crop=center',
+      image: treesImage,
       productCount: getCategoryProductCount('trees'),
       featured: false,
       colors: ['Green', 'Pink', 'Clear', 'Mixed'],

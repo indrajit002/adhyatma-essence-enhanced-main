@@ -119,19 +119,24 @@ const OurStory = () => {
                   </p>
                 </div>
                 
-                <div className="mt-8 flex flex-col sm:flex-row gap-4">
-                  <Button 
-                    className="px-8 py-3 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white rounded-full font-arial transition-all duration-300"
-                  >
-                    Book a Session
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    className="px-8 py-3 border-2 border-[#b094b2] text-[#b094b2] hover:bg-[#b094b2] hover:text-white rounded-full font-arial transition-all duration-300"
-                  >
-                    Learn About My Services
-                  </Button>
-                </div>
+                {/* ******************************************************************* */}
+                {/* commented out  */}
+                {/* {button section } */}
+                {/* <div className="mt-8 flex flex-col sm:flex-row gap-4"> */}
+                  {/* <Button  */}
+                    {/* className="px-8 py-3 bg-gradient-to-r from-[#b094b2] to-[#d1bccd] hover:from-[#b094b2]/80 hover:to-[#d1bccd]/80 text-white rounded-full font-arial transition-all duration-300" */}
+                  {/* > */}
+                    {/* Book a Session */}
+                  {/* </Button> */}
+                  {/* <Button  */}
+                    {/* variant="outline" */}
+                    {/* className="px-8 py-3 border-2 border-[#b094b2] text-[#b094b2] hover:bg-[#b094b2] hover:text-white rounded-full font-arial transition-all duration-300" */}
+                  {/* > */}
+                    {/* Learn About My Services */}
+                  {/* </Button> */}
+                {/* </div> */}
+                {/* {commented out } */}
+                {/* ************************************************************************* */}
               </div>
             </div>
           </div>

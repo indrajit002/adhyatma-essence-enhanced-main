@@ -1,12 +1,19 @@
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import naturalCrystals from '@/assets/natural-crystals.jpg';
-import healingCrystals from '@/assets/healing-crystals.jpg';
-import crystalBottles from '@/assets/crystal-bottles.jpg';
-import crystalKits from '@/assets/crystal-kits.jpg';
-import crystalBracelets from '@/assets/crystal-bracelets.jpg';
-import tumbledStones from '@/assets/tumbled-stones.jpg';
-import crystalTrees from '@/assets/crystal-trees.jpg';
+import allProductsImage from '@/assets/all_products_category_image.png';
+import braceletImage from '@/assets/bracelet_category_image.png';
+import rudrakshImage from '@/assets/rudraksh_category_image.png';
+import framesImage from '@/assets/frames_category_image.png';
+import ankletImage from '@/assets/anklet_category_image.png';
+import pyramidImage from '@/assets/pyramid_category_image.png';
+import towerTumbleImage from '@/assets/tower_tuble_category_image.png';
+import rawStoneImage from '@/assets/raw_stone_category.png';
+import selenitePlateImage from '@/assets/selenite_plate_category_image.png';
+import geodeImage from '@/assets/geode_category_image.png';
+import malaImage from '@/assets/mala_category_image.png';
+import hangersImage from '@/assets/hangers_category_image.png';
+import tumbleSetImage from '@/assets/tumble_set_category_image.png';
+import treesImage from '@/assets/trees_category_image.png';
 
 const ProductCategories = () => {
   const navigate = useNavigate();
@@ -15,79 +22,79 @@ const ProductCategories = () => {
     {
       id: 'bracelet',
       name: 'Bracelet',
-      image: crystalBracelets,
+      image: braceletImage,
       description: 'Beautiful crystal bracelets for daily wear',
     },
     {
       id: 'rudraksh',
       name: 'Rudraksh',
-      image: naturalCrystals,
+      image: rudrakshImage,
       description: 'Sacred Rudraksh beads for spiritual practice',
     },
     {
       id: 'frames',
       name: 'Frames',
-      image: crystalBottles,
+      image: framesImage,
       description: 'Elegant crystal frames for sacred spaces',
     },
     {
       id: 'anklet',
       name: 'Anklet',
-      image: crystalBracelets,
+      image: ankletImage,
       description: 'Delicate crystal anklets for grounding energy',
     },
     {
       id: 'pyramid',
       name: 'Pyramid',
-      image: crystalTrees,
+      image: pyramidImage,
       description: 'Powerful crystal pyramids for energy work',
     },
     {
       id: 'tower-and-tumbles',
       name: 'Tower and Tumbles',
-      image: tumbledStones,
+      image: towerTumbleImage,
       description: 'Crystal towers and tumbled stones for healing',
     },
     {
       id: 'raw-stones',
       name: 'Raw Stones',
-      image: naturalCrystals,
+      image: rawStoneImage,
       description: 'Natural, unpolished crystals in their pure form',
     },
     {
       id: 'selenite-plates',
       name: 'Selenite Plates',
-      image: crystalBottles,
+      image: selenitePlateImage,
       description: 'Cleansing selenite plates for energy purification',
     },
     {
       id: 'geode',
       name: 'Geode',
-      image: naturalCrystals,
+      image: geodeImage,
       description: 'Stunning crystal geodes for home decor',
     },
     {
       id: 'mala',
       name: 'Mala',
-      image: crystalBracelets,
+      image: malaImage,
       description: 'Sacred crystal malas for meditation and prayer',
     },
     {
       id: 'hangers',
       name: 'Hangers',
-      image: crystalTrees,
+      image: hangersImage,
       description: 'Crystal hangers for car and home protection',
     },
     {
       id: 'tumble-set',
       name: 'Tumble Set',
-      image: crystalKits,
+      image: tumbleSetImage,
       description: 'Curated sets of tumbled crystals',
     },
     {
       id: 'trees',
       name: 'Trees',
-      image: crystalTrees,
+      image: treesImage,
       description: 'Decorative crystal trees for positive energy',
     },
   ];
