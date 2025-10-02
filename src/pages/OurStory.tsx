@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import Header from '@/components/Header';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import profileImage from '@/assets/profile/profile_1.png';
 
 const OurStory = () => {
   const heroRef = useScrollAnimation({ threshold: 0.1 });
@@ -65,7 +66,7 @@ const OurStory = () => {
                 <div className="relative top-[-150px] max-sm:top-0">
                   <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                     <img 
-                      src='https://9wnk8w1egr.ufs.sh/f/OkpWHPa4pbnarX9ZNkONgjFZknLI5rwT0CXWPJB1OybUYQ23'
+                      src={profileImage}
                       alt="Dipshikkha Baruahh - Founder & Spiritual Guide"
                       className="w-full h-full object-contain object-center"
                     />
