@@ -65,7 +65,7 @@ const OurStory = () => {
                 <div className="relative top-[-150px] max-sm:top-0">
                   <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                     <img 
-                      src='/src/assets/profile/profile.png'
+                      src='/src/assets/profile/profile_1.png'
                       alt="Dipshikkha Baruahh - Founder & Spiritual Guide"
                       className="w-full h-full object-contain object-center"
                     />
