@@ -57,9 +57,9 @@ const HeroSection = () => {
               Sacred Stones for Modern Soul
             </p>
             
-            <h2 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-muted-foreground font-madefor-medium tracking-wider">
-              Crystal Store
-            </h2>
+            {/* <h2 className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-muted-foreground font-madefor-medium tracking-wider"> */}
+              {/* Crystal Store */}
+            {/* </h2> */}
           </div>
           
           <div className="mt-8 sm:mt-12 md:mt-16 space-y-4 sm:space-y-6">
