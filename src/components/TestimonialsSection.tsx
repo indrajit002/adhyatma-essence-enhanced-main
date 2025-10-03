@@ -4,51 +4,51 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       id: 1,
-      name: 'Sarah Johnson',
-      location: 'California, USA',
+      name: 'Sarah Bhushan',
+      location: 'Meerut, Uttar Pradesh',
       rating: 5,
       text: 'The amethyst cluster I purchased has completely transformed my meditation practice. The energy is so pure and calming. Adhyatma\'s crystals are truly special.',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face'
+      image: 'https://img.freepik.com/premium-photo/indian-girl-cheerful-studio-portrait_53876-55599.jpg'
     },
     {
       id: 2,
-      name: 'Michael Chen',
-      location: 'New York, USA',
+      name: 'Ananya Sharma',
+      location: 'Ahmedabad, Gujarat',
       rating: 5,
       text: 'I\'ve been collecting crystals for years, and Adhyatma has the highest quality stones I\'ve found. Their customer service is exceptional too.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
+      image: 'https://preview.redd.it/something-i-have-noticed-about-indian-women-is-that-a-lot-v0-4y07qs8caowd1.jpg?width=640&crop=smart&auto=webp&s=eb1dcafab5a04aafeb8ce3a8b7c75287b29e2e00'
     },
     {
       id: 3,
-      name: 'Emma Rodriguez',
-      location: 'Texas, USA',
+      name: 'Ritika Singh',
+      location: 'Ludhiana, Punjab',
       rating: 5,
       text: 'The crystal water bottle set is amazing! I can feel the difference in my water\'s energy. My whole family loves it. Highly recommended!',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face'
+      image: 'https://preview.redd.it/something-i-have-noticed-about-indian-women-is-that-a-lot-v0-a2e1c13caowd1.jpg?width=640&crop=smart&auto=webp&s=31e68b49d79c838ffad91555990c0ccb38ded4eb'
     },
     {
       id: 4,
-      name: 'David Thompson',
-      location: 'Florida, USA',
+      name: 'Saanvi Choudhary',
+      location: 'Gurugram, Haryana',
       rating: 5,
       text: 'The chakra healing kit has been a game-changer for my spiritual journey. Each crystal is perfectly selected and the energy is incredible.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'
+      image: 'https://qph.cf2.quoracdn.net/main-qimg-f4b67fa2a8154aff42b633195b028e1a-lq'
     },
     {
       id: 5,
-      name: 'Lisa Wang',
-      location: 'Washington, USA',
+      name: 'Aarohi Deshmukh',
+      location: 'Pune, Maharashtra',
       rating: 5,
       text: 'I love how ethically sourced these crystals are. It makes me feel good knowing I\'m supporting responsible mining practices.',
-      image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face'
+      image: 'https://i.pinimg.com/736x/09/ee/97/09ee9790e4a873be73302693a56a9bf6.jpg'
     },
     {
       id: 6,
-      name: 'James Wilson',
-      location: 'Oregon, USA',
+      name: 'Tanya Dubey',
+      location: 'Bhopal, Madhya Pradesh',
       rating: 5,
       text: 'The packaging was beautiful and the crystals arrived perfectly protected. The care they put into every detail shows their dedication to quality.',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face'
+      image: 'https://i.pinimg.com/736x/0b/c7/e5/0bc7e5e8fa72ee88268fe4f049a0dedc.jpg'
     }
   ];
 

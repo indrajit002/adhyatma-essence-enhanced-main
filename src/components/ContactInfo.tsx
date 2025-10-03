@@ -5,19 +5,19 @@ const ContactInfo = () => {
     {
       icon: Phone,
       title: 'Phone',
-      details: '+91 9395913538',
+      details: '+91 93959-13538',
       description: 'Mon-Fri 9AM-6PM'
     },
     {
       icon: Mail,
       title: 'Email',
-      details: 'Info@mysite.com',
+      details: 'adhyatmastore1@gmail.com',
       description: 'We respond within 24 hours'
     },
     {
       icon: MapPin,
       title: 'Address',
-      details: '123 Crystal Street, Melbourne VIC 3000',
+      details: 'Bongaigaon, Assam, India',
       description: 'Visit our showroom'
     },
     {
@@ -77,7 +77,7 @@ const ContactInfo = () => {
                 {/* Call Now */}
               {/* </a> */}
               <a 
-                href="mailto:Info@mysite.com" 
+                href="mailto:adhyatmastore1@gmail.com" 
                 className="inline-flex items-center justify-center px-4 md:px-6 py-2 md:py-3 border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors duration-300 rounded-none font-arial text-sm md:text-base"
               >
                 <Mail className="w-4 h-4 mr-2" />
