@@ -63,7 +63,7 @@ const OurStory = () => {
             <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
               {/* Round Image on Left */}
               <div className="w-full lg:w-2/5 flex justify-center">
-                <div className="relative top-[-150px] max-sm:top-0">
+                <div className="relative">
                   <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                     <img 
                       src={profileImage}
@@ -91,11 +91,10 @@ const OurStory = () => {
                 
                 <div className="space-y-6 text-gray-700 font-lato-light leading-relaxed">
                   <p className="text-lg sm:text-xl">
-                    I'm <span className="font-semibold text-[#8a6b8d]">Dipshikkha Baruahh</span>, a dedicated spiritual practitioner 
-                    with a profound passion for helping individuals discover their true path and achieve inner harmony.
+                    I'm <span className="font-semibold text-[#8a6b8d]">Dipshikkha Baruahh</span>, a dedicated spiritual practitioner with a deep passion for guiding individuals toward self discovery and inner harmony. With extensive training and intuitive expertise in <span className="font-medium">Numerology, Tarot, Energy and Crystal Healing</span>, I offer transformative insights and practices to support spiritual growth. 
                   </p>
                   
-                  <p className="text-lg sm:text-xl">
+                  {/* <p className="text-lg sm:text-xl">
                     With extensive training and intuitive gifts in <span className="font-semibold">numerology</span>, I guide people 
                     to understand their life's purpose, personal cycles, and hidden potentials through the sacred science of numbers. 
                     Each number carries unique vibrations that can reveal profound insights about your journey.
@@ -111,11 +110,10 @@ const OurStory = () => {
                     My work as an <span className="font-semibold">energy healer</span> focuses on restoring balance to your mind, 
                     body, and spirit. Through various energy work techniques, I help release blockages, heal emotional wounds, 
                     and align your energy with your highest good.
-                  </p>
+                  </p> */}
                   
                   <p className="text-lg sm:text-xl font-medium text-[#8a6b8d]">
-                    My mission is to empower you with the tools and insights needed for spiritual growth, 
-                    helping you find clarity, balance, and transformation on your unique life journey.
+                    My mission is to empower people with the wisdom and tools they need to find clarity, balance, and meaningful transformation on their unique life journey.
                   </p>
                 </div>
                 
