@@ -6,10 +6,13 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Trash2, UploadCloud, Eye, CheckCircle, AlertCircle } from 'lucide-react';
+import { Loader2, Trash2, UploadCloud, Eye, CheckCircle, AlertCircle, Download, Copy } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
 import { UploadDropzone } from "@uploadthing/react";
+import type { OurFileRouter } from "../../api/uploadthing/core";
 import ImagePreview from '@/components/ImagePreview';
+import ImagePreviewModal from '@/components/ImagePreviewModal';
+import ImagePreviewCard from '@/components/ImagePreviewCard';
 
 interface ProductFormProps {
   onSuccess?: () => void;
@@ -21,6 +24,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [showImagePreview, setShowImagePreview] = useState(false);
+  const [imageZoomed, setImageZoomed] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -80,11 +85,34 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     }
   };
 
+  const copyImageUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(formData.image);
+      setCopySuccess(true);
+      setSubmitError(null);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (error) {
+      setSubmitError('Failed to copy URL to clipboard');
+    }
+  };
+
+  const downloadImage = () => {
+    const link = document.createElement('a');
+    link.href = formData.image;
+    link.download = `product-image-${Date.now()}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  console.log("🔍 ProductForm render - formData.image:", formData.image);
+  console.log("🔍 ProductForm render - isUploading:", isUploading);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {submitError && <Alert variant="destructive"><AlertDescription>{submitError}</AlertDescription></Alert>}
       {submitSuccess && <Alert className="border-green-200 bg-green-50"><AlertDescription className="text-green-800">Product created successfully!</AlertDescription></Alert>}
+      {copySuccess && <Alert className="border-blue-200 bg-blue-50"><AlertDescription className="text-blue-800">Image URL copied to clipboard!</AlertDescription></Alert>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
@@ -125,20 +153,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
               
               {formData.image ? (
                 <div className="space-y-3">
-                  <div className="relative w-fit">
-                    <ImagePreview src={formData.image} alt="Product preview" size="lg" />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="icon"
-                      className="absolute top-2 right-2 h-7 w-7 rounded-full"
-                      onClick={() => setFormData({ ...formData, image: '' })}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
+                  <ImagePreviewCard
+                    imageUrl={formData.image}
+                    alt="Product preview"
+                    size="lg"
+                    onRemove={() => setFormData({ ...formData, image: '' })}
+                    showActions={true}
+                  />
                   
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <Button
                       type="button"
                       variant="outline"
@@ -147,7 +170,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
                       className="flex items-center gap-2"
                     >
                       <Eye className="h-4 w-4" />
-                      Preview Image
+                      Preview
                     </Button>
                     <Button
                       type="button"
@@ -157,7 +180,27 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
                       className="flex items-center gap-2"
                     >
                       <UploadCloud className="h-4 w-4" />
-                      Open in New Tab
+                      Open Tab
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={copyImageUrl}
+                      className="flex items-center gap-2"
+                    >
+                      <Copy className="h-4 w-4" />
+                      Copy URL
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={downloadImage}
+                      className="flex items-center gap-2"
+                    >
+                      <Download className="h-4 w-4" />
+                      Download
                     </Button>
                   </div>
                   
@@ -176,16 +219,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
                   <UploadDropzone
                     endpoint="imageUploader"
                     onUploadBegin={() => {
+                      console.log("🚀 Upload started");
                       setIsUploading(true);
                       setSubmitError(null);
                     }}
                     onClientUploadComplete={(res) => {
+                      console.log("✅ Upload completed:", res);
                       setIsUploading(false);
                       if (res && res.length > 0) {
+                        console.log("📸 Image URL:", res[0].url);
                         setFormData(prev => ({ ...prev, image: res[0].url }));
                       }
                     }}
                     onUploadError={(error: Error) => {
+                      console.error("❌ Upload failed:", error);
                       setIsUploading(false);
                       setSubmitError(`Image upload failed: ${error.message}`);
                     }}
@@ -246,33 +293,16 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
       </div>
 
       {/* Image Preview Modal */}
-      {showImagePreview && formData.image && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-hidden">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h3 className="text-lg font-semibold">Image Preview</h3>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowImagePreview(false)}
-              >
-                Close
-              </Button>
-            </div>
-            <div className="p-4">
-              <img
-                src={formData.image}
-                alt="Product preview"
-                className="max-w-full max-h-[70vh] object-contain mx-auto"
-              />
-              <div className="mt-4 text-sm text-gray-600">
-                <p><strong>Image URL:</strong> {formData.image}</p>
-                <p><strong>Status:</strong> <span className="text-green-600">✓ Successfully uploaded</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <ImagePreviewModal
+        isOpen={showImagePreview}
+        onClose={() => setShowImagePreview(false)}
+        imageUrl={formData.image}
+        onCopyUrl={copyImageUrl}
+        onDownload={downloadImage}
+        onOpenInNewTab={() => window.open(formData.image, '_blank')}
+        isZoomed={imageZoomed}
+        onToggleZoom={() => setImageZoomed(!imageZoomed)}
+      />
     </form>
   );
 };

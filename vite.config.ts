@@ -7,9 +7,8 @@ export default defineConfig({
   server: {
     host: "::",
     port: 8080,
-    // Proxy for UploadThing API routes
     proxy: {
-      '/api/uploadthing': {
+      '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
       },
