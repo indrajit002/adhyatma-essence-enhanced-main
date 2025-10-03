@@ -9,9 +9,9 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { icon: Facebook, href: '#' },
-    { icon: Instagram, href: '#' },
-    { icon: Twitter, href: '#' },
+    { icon: Facebook, href: 'https://www.facebook.com/share/1BTcaxDHRT/' },
+    { icon: Instagram, href: 'https://www.instagram.com/adhyatmagems?igsh=MTM0NDM3OTZvODE2OA==' },
+    // { icon: Twitter, href: '#' },
   ];
 
   return (
@@ -69,7 +69,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-200 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-600">
-            <p className="text-center md:text-left">© 2035 by Vesii. Build on Wix Studio</p>
+            <p className="text-center md:text-left">© 2025. Build by Apparotech Innovation</p>
             <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 md:gap-4">
               <a href="#" className="hover:text-gray-800 transition-colors duration-200">Terms & Conditions</a>
               <a href="#" className="hover:text-gray-800 transition-colors duration-200">Privacy Policy</a>
