@@ -1,3 +1,4 @@
+// src/components/ProductForm.tsx
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -51,7 +52,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
         description: formData.description,
         price: parseFloat(formData.price),
         original_price: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
-        image_url: formData.image, // This correctly maps to your 'image_url' Supabase column
+        image_url: formData.image,
         category: formData.category,
         colors: [],
         rating: 0,
@@ -129,17 +130,20 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
                 <UploadDropzone
                   endpoint="imageUploader"
                   onUploadBegin={() => {
+                    console.log("Upload has begun.");
                     setIsUploading(true);
                     setSubmitError(null);
                   }}
                   onClientUploadComplete={(res) => {
                     setIsUploading(false);
                     if (res && res.length > 0) {
+                      console.log("✅ Upload successful! URL:", res[0].url);
                       setFormData(prev => ({ ...prev, image: res[0].url }));
                     }
                   }}
                   onUploadError={(error: Error) => {
                     setIsUploading(false);
+                    console.error("❌ Upload failed!", error);
                     setSubmitError(`Image upload failed: ${error.message}`);
                   }}
                   className="p-4 ut-label:text-lg ut-label:text-mystic ut-upload-icon:text-mystic/70 ut-button:bg-mystic ut-button:ut-readying:bg-mystic/80"
