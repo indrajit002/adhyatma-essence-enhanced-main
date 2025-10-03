@@ -5,9 +5,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Trash2, UploadCloud } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
-import ImageUpload from '@/components/ImageUpload';
+import { UploadDropzone } from "@uploadthing/react";
+import type { OurFileRouter } from "../../api/uploadthing/core";
+import ImagePreview from '@/components/ImagePreview';
 
 interface ProductFormProps {
   onSuccess?: () => void;
@@ -17,6 +19,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -30,55 +33,43 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.image) {
+      setSubmitError("Please upload a product image before submitting.");
+      return;
+    }
+    if (isUploading) {
+      setSubmitError("Please wait for the image upload to complete.");
+      return;
+    }
     setIsSubmitting(true);
     setSubmitError(null);
     setSubmitSuccess(false);
 
     try {
-      // Generate a proper UUID for the product ID
-      const id = crypto.randomUUID();
       const productData = {
-        id,
         name: formData.name,
         description: formData.description,
         price: parseFloat(formData.price),
         original_price: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
-        image_url: formData.image,
+        image_url: formData.image, // This correctly maps to your 'image_url' Supabase column
         category: formData.category,
         colors: [],
         rating: 0,
         reviewCount: 0,
-        sizes: formData.sizes.split(',').map(s => parseFloat(s.trim())).filter(s => !isNaN(s) && s > 0),
+        sizes: formData.sizes.split(',').map(s => parseInt(s.trim())).filter(s => !isNaN(s) && s > 0),
         benefits: formData.benefits.split(',').map(b => b.trim()).filter(b => b),
         is_featured: false,
         in_stock: true,
         created_at: new Date().toISOString(),
       };
 
-      const { error } = await supabase
-        .from('products')
-        .insert([productData]);
-
-      if (error) {
-        throw error;
-      }
+      const { error } = await supabase.from('products').insert([productData]);
+      if (error) throw error;
 
       setSubmitSuccess(true);
-      setFormData({
-        name: '',
-        description: '',
-        price: '',
-        originalPrice: '',
-        category: 'bracelet',
-        sizes: '',
-        image: '',
-        benefits: '',
-      });
+      setFormData({ name: '', description: '', price: '', originalPrice: '', category: 'bracelet', sizes: '', image: '', benefits: '' });
       
-      if (onSuccess) {
-        onSuccess();
-      }
-
+      if (onSuccess) onSuccess();
       setTimeout(() => setSubmitSuccess(false), 3000);
     } catch (error) {
       console.error('Error creating product:', error);
@@ -90,19 +81,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {submitError && (
-        <Alert variant="destructive">
-          <AlertDescription>{submitError}</AlertDescription>
-        </Alert>
-      )}
-
-      {submitSuccess && (
-        <Alert className="border-green-200 bg-green-50">
-          <AlertDescription className="text-green-800">
-            Product created successfully!
-          </AlertDescription>
-        </Alert>
-      )}
+      {submitError && <Alert variant="destructive"><AlertDescription>{submitError}</AlertDescription></Alert>}
+      {submitSuccess && <Alert className="border-green-200 bg-green-50"><AlertDescription className="text-green-800">Product created successfully!</AlertDescription></Alert>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
@@ -113,63 +93,62 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="name">Product Name *</Label>
-              <Input
-                id="name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                placeholder="e.g., Rose Quartz Bracelet"
-                required
-              />
+              <Input id="name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} placeholder="e.g., Rose Quartz Bracelet" required />
             </div>
-
             <div>
               <Label htmlFor="description">Description *</Label>
-              <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
-                placeholder="Describe the product and its properties..."
-                rows={4}
-                required
-              />
+              <Textarea id="description" value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} placeholder="Describe the product..." rows={4} required />
             </div>
-
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="price">Price (₹) *</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  step="0.01"
-                  value={formData.price}
-                  onChange={(e) => setFormData({...formData, price: e.target.value})}
-                  placeholder="0.00"
-                  required
-                />
+                <Input id="price" type="number" step="0.01" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} placeholder="0.00" required />
               </div>
-
               <div>
                 <Label htmlFor="originalPrice">Original Price (₹)</Label>
-                <Input
-                  id="originalPrice"
-                  type="number"
-                  step="0.01"
-                  value={formData.originalPrice}
-                  onChange={(e) => setFormData({...formData, originalPrice: e.target.value})}
-                  placeholder="0.00"
-                />
+                <Input id="originalPrice" type="number" step="0.01" value={formData.originalPrice} onChange={(e) => setFormData({...formData, originalPrice: e.target.value})} placeholder="0.00" />
               </div>
             </div>
-
-            <div>
+            
+            <div className="space-y-2">
               <Label>Product Image *</Label>
-              <ImageUpload
-                onImageSelect={(url) => setFormData({...formData, image: url})}
-                currentImage={formData.image}
-                className="mt-2"
-              />
-              {!formData.image && (
-                <p className="text-sm text-red-600 mt-1">Please upload an image</p>
+              {formData.image ? (
+                <div className="relative w-fit">
+                  <ImagePreview src={formData.image} alt="Product preview" size="lg" />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-2 right-2 h-7 w-7 rounded-full"
+                    onClick={() => setFormData({ ...formData, image: '' })}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <UploadDropzone
+                  endpoint="imageUploader"
+                  onUploadBegin={() => {
+                    setIsUploading(true);
+                    setSubmitError(null);
+                  }}
+                  onClientUploadComplete={(res) => {
+                    setIsUploading(false);
+                    if (res && res.length > 0) {
+                      setFormData(prev => ({ ...prev, image: res[0].url }));
+                    }
+                  }}
+                  onUploadError={(error: Error) => {
+                    setIsUploading(false);
+                    setSubmitError(`Image upload failed: ${error.message}`);
+                  }}
+                  className="p-4 ut-label:text-lg ut-label:text-mystic ut-upload-icon:text-mystic/70 ut-button:bg-mystic ut-button:ut-readying:bg-mystic/80"
+                  content={{
+                     uploadIcon: <UploadCloud className="w-12 h-12 text-gray-400" />,
+                     label: "Drag 'n' drop or click to upload",
+                     allowedContent: "4MB max file size",
+                  }}
+                />
               )}
             </div>
           </CardContent>
@@ -183,13 +162,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
           <CardContent className="space-y-4">
             <div>
               <Label htmlFor="category">Category *</Label>
-              <select
-                id="category"
-                value={formData.category}
-                onChange={(e) => setFormData({...formData, category: e.target.value})}
-                className="w-full p-2 border border-gray-300 rounded-md"
-                required
-              >
+              <select id="category" value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full mt-1 p-2 border border-input rounded-md" required>
                 <option value="bracelet">Bracelet</option>
                 <option value="rudraksh">Rudraksh</option>
                 <option value="frames">Frames</option>
@@ -205,43 +178,22 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
                 <option value="trees">Trees</option>
               </select>
             </div>
-
             <div>
               <Label htmlFor="sizes">Sizes (mm) *</Label>
-              <Input
-                id="sizes"
-                value={formData.sizes}
-                onChange={(e) => setFormData({...formData, sizes: e.target.value})}
-                placeholder="e.g., 8, 10, 12, 15 (comma-separated)"
-                required
-              />
-              <p className="text-sm text-gray-600 mt-1">
-                Enter multiple sizes separated by commas (e.g., 8, 10, 12)
-              </p>
-              {formData.sizes && formData.sizes.split(',').some(s => isNaN(parseFloat(s.trim())) || parseFloat(s.trim()) <= 0) && (
-                <p className="text-sm text-red-600 mt-1">Please enter valid sizes in mm (positive numbers only)</p>
-              )}
+              <Input id="sizes" value={formData.sizes} onChange={(e) => setFormData({...formData, sizes: e.target.value})} placeholder="e.g., 8, 10, 12 (comma-separated)" required />
             </div>
-
-
             <div>
               <Label htmlFor="benefits">Benefits (comma-separated) *</Label>
-              <Input
-                id="benefits"
-                value={formData.benefits}
-                onChange={(e) => setFormData({...formData, benefits: e.target.value})}
-                placeholder="e.g., Love, Emotional Healing, Self-Care"
-                required
-              />
+              <Input id="benefits" value={formData.benefits} onChange={(e) => setFormData({...formData, benefits: e.target.value})} placeholder="e.g., Love, Healing, Self-Care" required />
             </div>
           </CardContent>
         </Card>
       </div>
 
       <div className="flex justify-end">
-        <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Create Product
+        <Button type="submit" disabled={isSubmitting || isUploading}>
+          {(isSubmitting || isUploading) && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          {isUploading ? "Uploading..." : isSubmitting ? "Creating..." : "Create Product"}
         </Button>
       </div>
     </form>

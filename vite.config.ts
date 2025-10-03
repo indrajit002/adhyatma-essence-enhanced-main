@@ -7,6 +7,13 @@ export default defineConfig({
   server: {
     host: "::",
     port: 8080,
+    // ADD THIS PROXY CONFIGURATION
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000', // Default port for Vercel dev server
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [react()],
   resolve: {

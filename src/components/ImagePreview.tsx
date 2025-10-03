@@ -1,62 +1,35 @@
+// src/components/ImagePreview.tsx
 import React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { ImageIcon } from 'lucide-react';
 
 interface ImagePreviewProps {
   src: string;
   alt: string;
-  className?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
-const ImagePreview: React.FC<ImagePreviewProps> = ({ 
-  src, 
-  alt, 
-  className = '', 
-  size = 'md' 
-}) => {
-  const sizeClasses = {
-    sm: 'h-16 w-16',
-    md: 'h-24 w-24',
-    lg: 'h-32 w-32'
-  };
+const sizeClasses = {
+  sm: 'w-16 h-16',
+  md: 'w-24 h-24',
+  lg: 'w-32 h-32',
+};
 
-  const isDataUrl = src?.startsWith('data:') || false;
-  const isExternalUrl = src?.startsWith('http') || false;
-
+const ImagePreview: React.FC<ImagePreviewProps> = ({ src, alt, size = 'md' }) => {
+  if (!src) {
+    return (
+      <div className={`${sizeClasses[size]} border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400 text-sm bg-gray-50`}>
+        <svg className="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span>No Image</span>
+      </div>
+    );
+  }
   return (
-    <Card className={`overflow-hidden ${className}`}>
-      <CardContent className="p-0">
-        <div className={`${sizeClasses[size]} relative bg-gray-100 flex items-center justify-center`}>
-          {src ? (
-            <img
-              src={src}
-              alt={alt}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                // Fallback to placeholder if image fails to load
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextElementSibling?.classList.remove('hidden');
-              }}
-            />
-          ) : null}
-          
-          <div className={`${src ? 'hidden' : ''} flex flex-col items-center justify-center text-gray-400`}>
-            <ImageIcon className="h-8 w-8 mb-2" />
-            <span className="text-xs">No Image</span>
-          </div>
-          
-          {src && (
-            <div className="absolute top-1 right-1">
-              <Badge variant="secondary" className="text-xs">
-                {isDataUrl ? 'Base64' : isExternalUrl ? 'External' : 'Local'}
-              </Badge>
-            </div>
-          )}
-        </div>
-      </CardContent>
-    </Card>
+    <img
+      src={src}
+      alt={alt}
+      className={`${sizeClasses[size]} object-cover rounded-lg border-2 border-gray-200 shadow-sm`}
+    />
   );
 };
 
