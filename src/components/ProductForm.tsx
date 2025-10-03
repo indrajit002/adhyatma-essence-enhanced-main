@@ -105,9 +105,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     document.body.removeChild(link);
   };
 
-  console.log("🔍 ProductForm render - formData.image:", formData.image);
-  console.log("🔍 ProductForm render - isUploading:", isUploading);
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {submitError && <Alert variant="destructive"><AlertDescription>{submitError}</AlertDescription></Alert>}
@@ -219,20 +216,16 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
                   <UploadDropzone
                     endpoint="imageUploader"
                     onUploadBegin={() => {
-                      console.log("🚀 Upload started");
                       setIsUploading(true);
                       setSubmitError(null);
                     }}
                     onClientUploadComplete={(res) => {
-                      console.log("✅ Upload completed:", res);
                       setIsUploading(false);
                       if (res && res.length > 0) {
-                        console.log("📸 Image URL:", res[0].url);
                         setFormData(prev => ({ ...prev, image: res[0].url }));
                       }
                     }}
                     onUploadError={(error: Error) => {
-                      console.error("❌ Upload failed:", error);
                       setIsUploading(false);
                       setSubmitError(`Image upload failed: ${error.message}`);
                     }}
