@@ -6,10 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Trash2, UploadCloud } from 'lucide-react';
+import { Loader2, Trash2, UploadCloud, Eye, CheckCircle, AlertCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
-import { UploadDropzone } from "@uploadthing/react";
-import type { OurFileRouter } from "../../api/uploadthing/core";
 import ImagePreview from '@/components/ImagePreview';
 
 interface ProductFormProps {
@@ -21,6 +19,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
+  const [showImagePreview, setShowImagePreview] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -80,6 +79,52 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file size (4MB limit)
+    if (file.size > 4 * 1024 * 1024) {
+      setSubmitError("File size must be less than 4MB");
+      return;
+    }
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setSubmitError("Please select a valid image file");
+      return;
+    }
+
+    setIsUploading(true);
+    setSubmitError(null);
+
+    try {
+      // Create a unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `products/${fileName}`;
+
+      // Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('product-images')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get the public URL
+      const { data } = supabase.storage
+        .from('product-images')
+        .getPublicUrl(filePath);
+
+      setFormData(prev => ({ ...prev, image: data.publicUrl }));
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to upload image');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {submitError && <Alert variant="destructive"><AlertDescription>{submitError}</AlertDescription></Alert>}
@@ -111,48 +156,88 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
               </div>
             </div>
             
-            <div className="space-y-2">
-              <Label>Product Image *</Label>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label>Product Image *</Label>
+                {formData.image && (
+                  <div className="flex items-center gap-2 text-sm text-green-600">
+                    <CheckCircle className="h-4 w-4" />
+                    <span>Image uploaded successfully</span>
+                  </div>
+                )}
+              </div>
+              
               {formData.image ? (
-                <div className="relative w-fit">
-                  <ImagePreview src={formData.image} alt="Product preview" size="lg" />
-                  <Button
-                    type="button"
-                    variant="destructive"
-                    size="icon"
-                    className="absolute top-2 right-2 h-7 w-7 rounded-full"
-                    onClick={() => setFormData({ ...formData, image: '' })}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                <div className="space-y-3">
+                  <div className="relative w-fit">
+                    <ImagePreview src={formData.image} alt="Product preview" size="lg" />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      className="absolute top-2 right-2 h-7 w-7 rounded-full"
+                      onClick={() => setFormData({ ...formData, image: '' })}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowImagePreview(true)}
+                      className="flex items-center gap-2"
+                    >
+                      <Eye className="h-4 w-4" />
+                      Preview Image
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(formData.image, '_blank')}
+                      className="flex items-center gap-2"
+                    >
+                      <UploadCloud className="h-4 w-4" />
+                      Open in New Tab
+                    </Button>
+                  </div>
+                  
+                  <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
+                    <strong>Image URL:</strong> {formData.image}
+                  </div>
                 </div>
               ) : (
-                <UploadDropzone
-                  endpoint="imageUploader"
-                  onUploadBegin={() => {
-                    console.log("Upload has begun.");
-                    setIsUploading(true);
-                    setSubmitError(null);
-                  }}
-                  onClientUploadComplete={(res) => {
-                    setIsUploading(false);
-                    if (res && res.length > 0) {
-                      console.log("✅ Upload successful! URL:", res[0].url);
-                      setFormData(prev => ({ ...prev, image: res[0].url }));
-                    }
-                  }}
-                  onUploadError={(error: Error) => {
-                    setIsUploading(false);
-                    console.error("❌ Upload failed!", error);
-                    setSubmitError(`Image upload failed: ${error.message}`);
-                  }}
-                  className="p-4 ut-label:text-lg ut-label:text-mystic ut-upload-icon:text-mystic/70 ut-button:bg-mystic ut-button:ut-readying:bg-mystic/80"
-                  content={{
-                     uploadIcon: <UploadCloud className="w-12 h-12 text-gray-400" />,
-                     label: "Drag 'n' drop or click to upload",
-                     allowedContent: "4MB max file size",
-                  }}
-                />
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 p-3 rounded-lg border border-amber-200">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>No image uploaded yet. Please upload an image to continue.</span>
+                  </div>
+                  
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                    <input
+                      type="file"
+                      id="image-upload"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="image-upload"
+                      className="cursor-pointer flex flex-col items-center space-y-2"
+                    >
+                      <UploadCloud className="w-12 h-12 text-gray-400" />
+                      <div className="text-lg font-medium text-gray-700">
+                        Click to upload or drag and drop
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        PNG, JPG, GIF up to 4MB
+                      </div>
+                    </label>
+                  </div>
+                </div>
               )}
             </div>
           </CardContent>
@@ -200,6 +285,35 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
           {isUploading ? "Uploading..." : isSubmitting ? "Creating..." : "Create Product"}
         </Button>
       </div>
+
+      {/* Image Preview Modal */}
+      {showImagePreview && formData.image && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-hidden">
+            <div className="flex items-center justify-between p-4 border-b">
+              <h3 className="text-lg font-semibold">Image Preview</h3>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowImagePreview(false)}
+              >
+                Close
+              </Button>
+            </div>
+            <div className="p-4">
+              <img
+                src={formData.image}
+                alt="Product preview"
+                className="max-w-full max-h-[70vh] object-contain mx-auto"
+              />
+              <div className="mt-4 text-sm text-gray-600">
+                <p><strong>Image URL:</strong> {formData.image}</p>
+                <p><strong>Status:</strong> <span className="text-green-600">✓ Successfully uploaded</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 };
