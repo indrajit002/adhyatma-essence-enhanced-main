@@ -6,13 +6,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, Trash2, UploadCloud, Eye, CheckCircle, AlertCircle, Download, Copy } from 'lucide-react';
+import { Loader2, Trash2, UploadCloud } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
-import { UploadDropzone } from "@uploadthing/react";
-import type { OurFileRouter } from "../../api/uploadthing/core";
+import { UploadDropzone } from "@uploadthing/react"; // Correct import from package
+import type { OurFileRouter } from "../../api/uploadthing/core"; // Correct type import
 import ImagePreview from '@/components/ImagePreview';
-import ImagePreviewModal from '@/components/ImagePreviewModal';
-import ImagePreviewCard from '@/components/ImagePreviewCard';
 
 interface ProductFormProps {
   onSuccess?: () => void;
@@ -23,9 +21,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [showImagePreview, setShowImagePreview] = useState(false);
-  const [imageZoomed, setImageZoomed] = useState(false);
-  const [copySuccess, setCopySuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -41,10 +36,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     e.preventDefault();
     if (!formData.image) {
       setSubmitError("Please upload a product image before submitting.");
-      return;
-    }
-    if (isUploading) {
-      setSubmitError("Please wait for the image upload to complete.");
       return;
     }
     setIsSubmitting(true);
@@ -85,31 +76,10 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     }
   };
 
-  const copyImageUrl = async () => {
-    try {
-      await navigator.clipboard.writeText(formData.image);
-      setCopySuccess(true);
-      setSubmitError(null);
-      setTimeout(() => setCopySuccess(false), 2000);
-    } catch (error) {
-      setSubmitError('Failed to copy URL to clipboard');
-    }
-  };
-
-  const downloadImage = () => {
-    const link = document.createElement('a');
-    link.href = formData.image;
-    link.download = `product-image-${Date.now()}.jpg`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {submitError && <Alert variant="destructive"><AlertDescription>{submitError}</AlertDescription></Alert>}
       {submitSuccess && <Alert className="border-green-200 bg-green-50"><AlertDescription className="text-green-800">Product created successfully!</AlertDescription></Alert>}
-      {copySuccess && <Alert className="border-blue-200 bg-blue-50"><AlertDescription className="text-blue-800">Image URL copied to clipboard!</AlertDescription></Alert>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
@@ -137,106 +107,48 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
               </div>
             </div>
             
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <Label>Product Image *</Label>
-                {formData.image && (
-                  <div className="flex items-center gap-2 text-sm text-green-600">
-                    <CheckCircle className="h-4 w-4" />
-                    <span>Image uploaded successfully</span>
-                  </div>
-                )}
-              </div>
-              
+            <div className="space-y-2">
+              <Label>Product Image *</Label>
               {formData.image ? (
-                <div className="space-y-3">
-                  <ImagePreviewCard
-                    imageUrl={formData.image}
-                    alt="Product preview"
-                    size="lg"
-                    onRemove={() => setFormData({ ...formData, image: '' })}
-                    showActions={true}
-                  />
-                  
-                  <div className="flex flex-wrap gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setShowImagePreview(true)}
-                      className="flex items-center gap-2"
-                    >
-                      <Eye className="h-4 w-4" />
-                      Preview
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => window.open(formData.image, '_blank')}
-                      className="flex items-center gap-2"
-                    >
-                      <UploadCloud className="h-4 w-4" />
-                      Open Tab
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={copyImageUrl}
-                      className="flex items-center gap-2"
-                    >
-                      <Copy className="h-4 w-4" />
-                      Copy URL
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={downloadImage}
-                      className="flex items-center gap-2"
-                    >
-                      <Download className="h-4 w-4" />
-                      Download
-                    </Button>
-                  </div>
-                  
-                  <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
-                    <strong>Image URL:</strong> {formData.image}
-                  </div>
+                <div className="relative w-fit">
+                  <ImagePreview src={formData.image} alt="Product preview" size="lg" />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-2 right-2 h-7 w-7 rounded-full"
+                    onClick={() => setFormData({ ...formData, image: '' })}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm text-amber-600 bg-amber-50 p-3 rounded-lg border border-amber-200">
-                    <AlertCircle className="h-4 w-4" />
-                    <span>No image uploaded yet. Please upload an image to continue.</span>
-                  </div>
-                  
+                <>
                   {/* @ts-expect-error UploadThing type issue - will be resolved with proper setup */}
                   <UploadDropzone
-                    endpoint="imageUploader"
-                    onUploadBegin={() => {
-                      setIsUploading(true);
-                      setSubmitError(null);
-                    }}
-                    onClientUploadComplete={(res) => {
-                      setIsUploading(false);
-                      if (res && res.length > 0) {
-                        setFormData(prev => ({ ...prev, image: res[0].url }));
-                      }
-                    }}
-                    onUploadError={(error: Error) => {
-                      setIsUploading(false);
-                      setSubmitError(`Image upload failed: ${error.message}`);
-                    }}
-                    className="p-4 ut-label:text-lg ut-label:text-mystic ut-upload-icon:text-mystic/70 ut-button:bg-mystic ut-button:ut-readying:bg-mystic/80"
-                    content={{
-                       uploadIcon: <UploadCloud className="w-12 h-12 text-gray-400" />,
-                       label: "Drag 'n' drop or click to upload",
-                       allowedContent: "4MB max file size",
-                    }}
-                  />
-                </div>
+                  endpoint="imageUploader"
+                  onUploadBegin={() => {
+                    setIsUploading(true);
+                    setSubmitError(null);
+                  }}
+                  onClientUploadComplete={(res) => {
+                    setIsUploading(false);
+                    if (res && res.length > 0) {
+                      setFormData(prev => ({ ...prev, image: res[0].url }));
+                    }
+                  }}
+                  onUploadError={(error: Error) => {
+                    setIsUploading(false);
+                    setSubmitError(`Image upload failed: ${error.message}`);
+                  }}
+                  className="p-4 ut-label:text-lg ut-label:text-mystic ut-upload-icon:text-mystic/70 ut-button:bg-mystic ut-button:ut-readying:bg-mystic/80"
+                  content={{
+                     uploadIcon: <UploadCloud className="w-12 h-12 text-gray-400" />,
+                     label: "Drag 'n' drop or click to upload",
+                     allowedContent: "4MB max file size",
+                  }}
+                />
+                </>
               )}
             </div>
           </CardContent>
@@ -284,18 +196,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
           {isUploading ? "Uploading..." : isSubmitting ? "Creating..." : "Create Product"}
         </Button>
       </div>
-
-      {/* Image Preview Modal */}
-      <ImagePreviewModal
-        isOpen={showImagePreview}
-        onClose={() => setShowImagePreview(false)}
-        imageUrl={formData.image}
-        onCopyUrl={copyImageUrl}
-        onDownload={downloadImage}
-        onOpenInNewTab={() => window.open(formData.image, '_blank')}
-        isZoomed={imageZoomed}
-        onToggleZoom={() => setImageZoomed(!imageZoomed)}
-      />
     </form>
   );
 };

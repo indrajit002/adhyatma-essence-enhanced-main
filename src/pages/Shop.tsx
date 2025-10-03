@@ -46,16 +46,19 @@ const Shop = () => {
     { id: 'mala', name: 'Mala', count: products.filter(p => p.category === 'mala').length },
     { id: 'hangers', name: 'Hangers', count: products.filter(p => p.category === 'hangers').length },
     { id: 'tumble-set', name: 'Tumble Set', count: products.filter(p => p.category === 'tumble-set').length },
-    { id: 'trees', name: 'Trees', count: products.filter(p => p.category === 'trees').length },
+    { id: 'trees', name: 'Trees', count: products.filter(p => p.category === 'tree' || p.category === 'trees').length },
   ];
 
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+    
+    // Handle category matching with special case for trees/tree
     const matchesCategory = selectedCategories.length === 0 || 
                            selectedCategories.includes(product.category || '') ||
-                           selectedCategories.includes('all');
+                           selectedCategories.includes('all') ||
+                           (selectedCategories.includes('trees') && product.category === 'tree');
     
     return matchesSearch && matchesPrice && matchesCategory;
   });
