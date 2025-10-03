@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Trash2, UploadCloud, Eye, CheckCircle, AlertCircle } from 'lucide-react';
 import { supabase } from '@/lib/supabaseClient';
+import { UploadDropzone } from "@uploadthing/react";
 import ImagePreview from '@/components/ImagePreview';
 
 interface ProductFormProps {
@@ -79,51 +80,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate file size (4MB limit)
-    if (file.size > 4 * 1024 * 1024) {
-      setSubmitError("File size must be less than 4MB");
-      return;
-    }
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      setSubmitError("Please select a valid image file");
-      return;
-    }
-
-    setIsUploading(true);
-    setSubmitError(null);
-
-    try {
-      // Create a unique filename
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `products/${fileName}`;
-
-      // Upload to Supabase Storage
-      const { error: uploadError } = await supabase.storage
-        .from('product-images')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      // Get the public URL
-      const { data } = supabase.storage
-        .from('product-images')
-        .getPublicUrl(filePath);
-
-      setFormData(prev => ({ ...prev, image: data.publicUrl }));
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      setSubmitError(error instanceof Error ? error.message : 'Failed to upload image');
-    } finally {
-      setIsUploading(false);
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -216,27 +172,30 @@ const ProductForm: React.FC<ProductFormProps> = ({ onSuccess }) => {
                     <span>No image uploaded yet. Please upload an image to continue.</span>
                   </div>
                   
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-                    <input
-                      type="file"
-                      id="image-upload"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                    />
-                    <label
-                      htmlFor="image-upload"
-                      className="cursor-pointer flex flex-col items-center space-y-2"
-                    >
-                      <UploadCloud className="w-12 h-12 text-gray-400" />
-                      <div className="text-lg font-medium text-gray-700">
-                        Click to upload or drag and drop
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        PNG, JPG, GIF up to 4MB
-                      </div>
-                    </label>
-                  </div>
+                  {/* @ts-expect-error UploadThing type issue - will be resolved with proper setup */}
+                  <UploadDropzone
+                    endpoint="imageUploader"
+                    onUploadBegin={() => {
+                      setIsUploading(true);
+                      setSubmitError(null);
+                    }}
+                    onClientUploadComplete={(res) => {
+                      setIsUploading(false);
+                      if (res && res.length > 0) {
+                        setFormData(prev => ({ ...prev, image: res[0].url }));
+                      }
+                    }}
+                    onUploadError={(error: Error) => {
+                      setIsUploading(false);
+                      setSubmitError(`Image upload failed: ${error.message}`);
+                    }}
+                    className="p-4 ut-label:text-lg ut-label:text-mystic ut-upload-icon:text-mystic/70 ut-button:bg-mystic ut-button:ut-readying:bg-mystic/80"
+                    content={{
+                       uploadIcon: <UploadCloud className="w-12 h-12 text-gray-400" />,
+                       label: "Drag 'n' drop or click to upload",
+                       allowedContent: "4MB max file size",
+                    }}
+                  />
                 </div>
               )}
             </div>

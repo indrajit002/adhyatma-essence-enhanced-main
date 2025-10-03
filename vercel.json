@@ -1,7 +1,15 @@
 {
+  "functions": {
+    "api/uploadthing/route.ts": {
+      "runtime": "nodejs18.x"
+    },
+    "pages/api/uploadthing/[...uploadthing].ts": {
+      "runtime": "nodejs18.x"
+    }
+  },
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]

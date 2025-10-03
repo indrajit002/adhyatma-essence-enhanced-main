@@ -7,10 +7,10 @@ export default defineConfig({
   server: {
     host: "::",
     port: 8080,
-    // THIS PROXY IS CRUCIAL FOR THE UPLOAD TO WORK IN DEVELOPMENT
+    // Proxy for UploadThing API routes
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000', // Default for Vercel dev environment
+      '/api/uploadthing': {
+        target: 'http://localhost:3000',
         changeOrigin: true,
       },
     },
