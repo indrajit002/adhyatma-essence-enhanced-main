@@ -3,7 +3,7 @@ import ShippingBanner from '@/components/ShippingBanner';
 import MissionSection from '@/components/MissionSection';
 import ProductCategories from '@/components/ProductCategories';
 import FeaturedProducts from '@/components/FeaturedProducts';
-import AboutPreview from '@/components/AboutPreview';
+// import AboutPreview from '@/components/AboutPreview';
 import CoreValues from '@/components/CoreValues';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import CallToAction from '@/components/CallToAction';
@@ -19,7 +19,7 @@ const Index = () => {
         <MissionSection />
         <ProductCategories />
         <FeaturedProducts />
-        <AboutPreview />
+        {/* <AboutPreview /> */}
         <CoreValues />
         <ShippingBanner />
         <TestimonialsSection />
